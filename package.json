@@ -1,0 +1,25 @@
+{
+  "name": "hasio",
+  "version": "0.1.0",
+  "description": "Web developement Tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taekku/hasio.git"
+  },
+  "keywords": [
+    "hasio",
+    "web",
+    "dev",
+    "tool"
+  ],
+  "author": "Taekgu Lim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taekku/hasio/issues"
+  },
+  "homepage": "https://github.com/taekku/hasio#readme"
+}

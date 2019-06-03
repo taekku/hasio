@@ -4,10 +4,11 @@
   "description": "Web developement Tool",
   "main": "hasio.js",
   "scripts": {
-    "build-w": "babel ./src -w --out-dir ./lib",
-    "build": "babel ./src --out-dir ./lib",
+    "build-w": "babel ./src ./test -w --out-dir ./lib",
+    "build": "babel ./src ./test --out-dir ./lib",
     "start": "node ./lib/hasio.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine",
+    "karma": "karma start karma.conf.js"
   },
   "repository": {
     "type": "git",
@@ -28,7 +29,13 @@
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5"
+    "@babel/preset-env": "^7.4.5",
+    "eslint": "^5.16.0",
+    "jasmine-core": "^3.4.0",
+    "karma": "^4.1.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.2"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4"

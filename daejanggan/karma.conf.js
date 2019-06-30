@@ -6,7 +6,8 @@ module.exports = function(config) {
     exclude: [],
     //files/patterns to load in the browser
     files: [
-      {pattern: 'tests/*.js',watched:true,served:true,included:true}
+      {pattern: 'tests/*.js',watched:true,served:true,included:true},
+      {pattern: 'tests/**/*.spec.js', watched:true, served:true, included: true}
       /*parameters:
           watched: if autoWatch is true all files that have watched set to true will be watched for changes
           served: should the files be served by Karma's webserver?
@@ -32,7 +33,7 @@ module.exports = function(config) {
     //list of browsers to launch and capture
     browsers: ['Chrome'/*,'PhantomJS','Firefox','Edge','ChromeCanary','Opera','IE','Safari'*/],
     //list of reporters to use
-    reporters: ['mocha','kjhtml'/*,'dots','progress','spec'*/],
+    reporters: ['kjhtml','mocha'/*,'dots','progress','spec'*/],
     
     //address that the server will listen on, '0.0.0.0' is default
     listenAddress: '0.0.0.0',
@@ -84,7 +85,7 @@ module.exports = function(config) {
     },
     preprocessors: {
       //add webpack as preprocessor to support require() in test-suites .js files
-      './tests/*.js': ['webpack']
+      './tests/**/*.js': ['webpack']
     },
     webpackMiddleware: {
       //turn off webpack bash output when running the tests

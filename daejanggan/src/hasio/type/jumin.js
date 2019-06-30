@@ -1,11 +1,12 @@
 "use strict";
 export default class Jumin{
   constructor(ssn){
+    this._date = void 0
+    this._validation = false
     this.ssn = (() => { return () => { return ssn }; })();
+    this.setValidation(this.ssn());
   }
-  getSSN(){
-    return this.ssn();
-  }
+  getSSN(){ return this.ssn() }
 
   setValidation(jumin_no) {
     let check = false;
@@ -36,7 +37,14 @@ export default class Jumin{
     this._validation = true;
   }
   gender() {
-    return this._gender;
+    const g = this.ssn().substring(6,7);
+    switch(g){
+      case '1': case '3': case '9': case '5': case '7':
+        return '1'
+      case '2': case '4': case '0': case '6': case '8':
+        return '2'
+      default: return void 0
+    }
   }
   birth() {
     return this._date;

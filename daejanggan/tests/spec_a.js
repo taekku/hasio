@@ -3,7 +3,4 @@ describe("Module should return", function () {
   it("some number", function () {
     expect(myModule()).toEqual(10);
   });
-  it("some number2", function () {
-    expect(myModule()).toEqual(11);
-  });
 });

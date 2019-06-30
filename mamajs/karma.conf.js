@@ -1,16 +1,45 @@
 // Karma configuration
 // Generated on Mon Jun 03 2019 23:19:22 GMT+0900 (대한민국 표준시)
+const path = require('path');
 
 module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: 'lib',
+    basePath: '',
 
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
+
+    // 여기부터 기본 init에서 수정 사항
+    // 웹팩 설정 가져오기?? 아까 설치한 모듈('karma-webpack')
+    webpack: {
+      mode: 'development',
+      module: {
+        rules: [
+          {
+            test: /\.js$/i,
+            include: [
+              path.resolve(__dirname, 'src')
+            ],
+            exclude: /node_modules/,
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-env'],
+               // plugins: ['@babel/plugin-proposal-class-properties']
+              }
+            }
+          },
+          {
+            test: /\.css$/i,
+            use: ['style-loader','css-loader'],
+          }
+        ]
+      }
+  },
 
 
     // list of files / patterns to load in the browser
@@ -27,13 +56,14 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      '**/*.spec.js': ['webpack'], // test/*spec.js을 실행하기 전에 'webpack'을 선행
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['kjhtml'/*,'mocha','dots','progress','spec'*/],
 
 
     // web server port

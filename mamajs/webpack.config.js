@@ -25,7 +25,10 @@ module.exports = {
 			{
 				test: /\.tsx?$/i,
 				loader: 'ts-loader',
-				include: [path.resolve(__dirname, 'src')],
+        include: [
+          path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'test')
+        ],
 				exclude: [/node_modules/]
 			},
       {
@@ -54,5 +57,9 @@ module.exports = {
       }
     ]
   },
-  devtool: 'source-map'
+  // 이것을 빼먹으면 테스트를 못한다.
+  resolve: {
+    extensions: ['.ts', '.js', '.json']
+  },
+  devtool: 'inline-source-map'
 };

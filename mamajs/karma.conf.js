@@ -1,6 +1,7 @@
 // Karma configuration
 // Generated on Mon Jun 03 2019 23:19:22 GMT+0900 (대한민국 표준시)
 const path = require('path');
+var webpackConfig = require('./webpack.config')
 
 module.exports = function(config) {
   config.set({
@@ -13,10 +14,27 @@ module.exports = function(config) {
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
 
+
+    client: {
+      //capture all console output and pipe it to the terminal, true is default
+      captureConsole:false,
+      //if true, Karma clears the context window upon the completion of running the tests, true is default
+      clearContext:false,
+      //run the tests on the same window as the client, without using iframe or a new window, false is default
+      runInParent: false,
+      //true: runs the tests inside an iFrame; false: runs the tests in a new window, true is default
+      useIframe:true,
+      jasmine:{
+        //tells jasmine to run specs in semi random order, false is default
+        random: false
+      }
+    },
     // 여기부터 기본 init에서 수정 사항
     // 웹팩 설정 가져오기?? 아까 설치한 모듈('karma-webpack')
     webpack: {
       mode: 'development',
+      //module: webpackConfig.module,
+      resolve: webpackConfig.resolve,
       module: {
         rules: [
           {
@@ -34,7 +52,7 @@ module.exports = function(config) {
             }
           },
           {
-            test: /\.tsx$/i,
+            test: /\.tsx?$/i,
             include: [
               path.resolve(__dirname, 'src')
             ],
@@ -54,10 +72,17 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '**/*.spec.js',
-      // 'src/**/*.spec.ts',
-      // 'test/**/*.spec.js',
-      // 'test/**/*.spec.ts'
+      {pattern: 'src/**/*.spec.js', watched:true, served:true, included: true},
+      {pattern: 'src/**/*.spec.ts', watched:true, served:true, included: true},
+      {pattern: 'test/**/*.js', watched:true, served:true, included: true}
+      /*parameters:
+          watched: if autoWatch is true all files that have watched set to true will be watched for changes
+          served: should the files be served by Karma's webserver?
+          included: should the files be included in the browser using <script> tag?
+          nocache: should the files be served from disk on each request by Karma's webserver? */
+      /*assets:
+          {pattern: '*.html', watched:true, served:true, included:false}
+          {pattern: 'images/*', watched:false, served:true, included:false} */    
     ],
 
 
@@ -70,15 +95,15 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/**/*.spec.js': ['webpack'], // test/*spec.js을 실행하기 전에 'webpack'을 선행
-      'src/**/*.spec.ts': ['webpack'],
+      'src/**/*.js': ['webpack'], // test/*spec.js을 실행하기 전에 'webpack'을 선행
+      'src/**/*.ts': ['webpack'],
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha','kjhtml'/*,'mocha','dots','progress','spec'*/],
+    reporters: ['kjhtml','mocha'/*,'mocha','dots','progress','spec'*/],
 
 
     // web server port
@@ -91,7 +116,8 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    //logLevel: config.LOG_INFO,
+    logLevel: config.LOG_ERROR,
 
 
     // enable / disable watching file and executing tests whenever any file changes

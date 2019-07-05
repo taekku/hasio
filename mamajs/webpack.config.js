@@ -4,6 +4,7 @@ module.exports = {
   mode: 'development', // 'production', 'development', 'none'
   // enntry file
   entry: {
+    "tshasio": './src/ts/tsmain.ts',
     "hasio" : './src/hasio.js',
     "monaco" : './src/monaco.js',
 		"editor.worker": 'monaco-editor/esm/vs/editor/editor.worker.js',
@@ -21,8 +22,14 @@ module.exports = {
   },
   module: {
     rules: [
+			{
+				test: /\.tsx?$/i,
+				loader: 'ts-loader',
+				include: [path.resolve(__dirname, 'src')],
+				exclude: [/node_modules/]
+			},
       {
-        test: /\.js$/i,
+        test: /\.jsx?$/i,
         include: [
           path.resolve(__dirname, 'src')
         ],
@@ -35,13 +42,17 @@ module.exports = {
           }
         }
       },
+			{
+				test: /\.html$/i,
+				loader: 'html-loader',
+				include: [path.resolve(__dirname, 'src')],
+				exclude: [/node_modules/]
+			},
       {
         test: /\.css$/i,
         use: ['style-loader','css-loader'],
       }
     ]
   },
-  devtool: 'source-map',
-  // https://webpack.js.org/concepts/mode/#mode-development
-  mode: 'development'
+  devtool: 'source-map'
 };

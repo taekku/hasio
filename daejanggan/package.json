@@ -35,7 +35,7 @@
     "monaco-editor": "^0.17.1",
     "nodemon": "^1.19.1",
     "style-loader": "^0.23.1",
-    "webpack": "^4.35.0",
+    "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5",
     "webpack-dev-server": "^3.7.2"
   }

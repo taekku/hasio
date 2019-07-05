@@ -20,17 +20,27 @@ module.exports = function(config) {
       module: {
         rules: [
           {
-            test: /\.js$/i,
+            test: /\.jsx$/i,
             include: [
               path.resolve(__dirname, 'src')
             ],
-            exclude: /node_modules/,
+            exclude: [/node_modules/],
             use: {
               loader: 'babel-loader',
               options: {
                 presets: ['@babel/preset-env'],
                // plugins: ['@babel/plugin-proposal-class-properties']
               }
+            }
+          },
+          {
+            test: /\.tsx$/i,
+            include: [
+              path.resolve(__dirname, 'src')
+            ],
+            exclude: [/node_modules/],
+            use: {
+              loader: 'ts-loader'
             }
           },
           {
@@ -44,26 +54,31 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '**/*.spec.js'
+      '**/*.spec.js',
+      // 'src/**/*.spec.ts',
+      // 'test/**/*.spec.js',
+      // 'test/**/*.spec.ts'
     ],
 
 
     // list of files / patterns to exclude
     exclude: [
+      
     ],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '**/*.spec.js': ['webpack'], // test/*spec.js을 실행하기 전에 'webpack'을 선행
+      'src/**/*.spec.js': ['webpack'], // test/*spec.js을 실행하기 전에 'webpack'을 선행
+      'src/**/*.spec.ts': ['webpack'],
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['kjhtml'/*,'mocha','dots','progress','spec'*/],
+    reporters: ['mocha','kjhtml'/*,'mocha','dots','progress','spec'*/],
 
 
     // web server port

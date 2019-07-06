@@ -14,6 +14,30 @@ module.exports = function(config) {
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
 
+    // list of files / patterns to load in the browser
+    files: [
+      {pattern: 'src/**/*.spec.js', watched:true, served:true, included: true},
+      {pattern: 'src/**/*.spec.ts', watched:true, served:true, included: true},
+      {pattern: 'test/**/*.js', watched:true, served:true, included: true}
+      /*parameters:
+          watched: if autoWatch is true all files that have watched set to true will be watched for changes
+          served: should the files be served by Karma's webserver?
+          included: should the files be included in the browser using <script> tag?
+          nocache: should the files be served from disk on each request by Karma's webserver? */
+      /*assets:
+          {pattern: '*.html', watched:true, served:true, included:false}
+          {pattern: 'images/*', watched:false, served:true, included:false} */    
+    ],
+
+    // list of files / patterns to exclude
+    exclude: [ ],
+
+    // start these browsers
+    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    browsers: ['Chrome'],
+
+    // enable / disable watching file and executing tests whenever any file changes
+    autoWatch: true,
 
     client: {
       //capture all console output and pipe it to the terminal, true is default
@@ -67,30 +91,7 @@ module.exports = function(config) {
           }
         ]
       }
-  },
-
-
-    // list of files / patterns to load in the browser
-    files: [
-      {pattern: 'src/**/*.spec.js', watched:true, served:true, included: true},
-      {pattern: 'src/**/*.spec.ts', watched:true, served:true, included: true},
-      {pattern: 'test/**/*.js', watched:true, served:true, included: true}
-      /*parameters:
-          watched: if autoWatch is true all files that have watched set to true will be watched for changes
-          served: should the files be served by Karma's webserver?
-          included: should the files be included in the browser using <script> tag?
-          nocache: should the files be served from disk on each request by Karma's webserver? */
-      /*assets:
-          {pattern: '*.html', watched:true, served:true, included:false}
-          {pattern: 'images/*', watched:false, served:true, included:false} */    
-    ],
-
-
-    // list of files / patterns to exclude
-    exclude: [
-      
-    ],
-
+    },
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
@@ -99,34 +100,24 @@ module.exports = function(config) {
       'src/**/*.ts': ['webpack'],
     },
 
-
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: ['kjhtml','mocha'/*,'mocha','dots','progress','spec'*/],
 
+    mochaReporter: {
+      output: 'noFailures' // full, autowatch, minimal
+    },
 
     // web server port
     port: 9876,
 
-
     // enable / disable colors in the output (reporters and logs)
     colors: true,
 
-
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    //logLevel: config.LOG_INFO,
-    logLevel: config.LOG_ERROR,
-
-
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
-
-
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    logLevel: config.LOG_INFO,
 
 
     // Continuous Integration mode

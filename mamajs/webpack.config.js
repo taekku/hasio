@@ -36,7 +36,7 @@ module.exports = {
         include: [
           path.resolve(__dirname, 'src')
         ],
-        exclude: /node_modules/,
+        exclude: [/(node_modules|bower_components)/],
         use: {
           loader: 'babel-loader',
           options: {

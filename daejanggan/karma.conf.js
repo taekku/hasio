@@ -62,7 +62,7 @@ module.exports = function(config) {
     webpack: {
       mode: 'development',
       //module: webpackConfig.module,
-      resolve: webpackConfig.resolve,
+      //resolve: webpackConfig.resolve,
       module: {
         rules: [
           {
@@ -94,7 +94,10 @@ module.exports = function(config) {
             use: ['style-loader','css-loader'],
           }
         ]
-      }
+      },
+      resolve: {
+        extensions: ['.ts', '.js', '.json']
+      },
     },
 
     // preprocess matching files before serving them to the browser

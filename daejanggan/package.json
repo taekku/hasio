@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "dev-server": "nodemon ./src/server/dev-server.js",
-    "dev-client": "webpack-dev-server --inline",
-    "serve": "webpack-dev-server",
+    "server": "nodemon ./src/server/dev-server.js",
+    "client": "webpack-dev-server --inline",
+    "serve": "webpack-dev-server --inline",
     "test": "karma start"
   },
   "author": "Taekgu Lim",
@@ -28,7 +28,7 @@
     "karma-jasmine-html-reporter": "^1.4.2",
     "karma-mocha-reporter": "^2.2.5",
     "karma-webpack": "^4.0.2",
-    "monaco-editor": "^0.17.1",
+    "monaco-editor": "^0.14.3",
     "nodemon": "^1.19.1",
     "style-loader": "^0.23.1",
     "ts-loader": "^6.0.4",
@@ -37,5 +37,8 @@
     "webpack-cli": "^3.3.5",
     "webpack-dev-server": "^3.7.2",
     "webpack-karma-jasmine": "^3.0.6"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4"
   }
 }

@@ -1,5 +1,7 @@
+// 현재는 monaco-editor 0.14.3으로 설치하였다.
+//      상위버젼에서는 monaco.Promise부분이 에러가 나온다.
 import * as monaco from 'monaco-editor';
- 
+
 self.MonacoEnvironment = {
 	getWorkerUrl: function (moduleId, label) {
 		if (label === 'json') {
@@ -17,7 +19,7 @@ self.MonacoEnvironment = {
 		return '/dist/editor.worker.bundle.js';
 	}
 }
- 
+console.log('Loading monaco.js')
 // monaco.editor.create(document.getElementById('container'), {
 // 	value: [
 // 		'function x() {',

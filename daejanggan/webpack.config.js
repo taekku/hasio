@@ -1,12 +1,13 @@
+// const MonacoWebPackPlugin = require('monaco-editor-webpack-plugin');
 const path = require('path');
 
 module.exports = {
   mode: 'development', // 'production', 'development', 'none'
   // enntry file
   entry: {
-    "tshasio": './src/ts/tsmain.ts',
-    "hasio" : './src/hasio.js',
-    "monaco" : './src/monaco.js',
+    "tshasio": './src/tshasio.ts',
+    "jshasio" : './src/jshasio.js',
+    "hasio-monaco" : './src/monaco.js',
 		"editor.worker": 'monaco-editor/esm/vs/editor/editor.worker.js',
 		"json.worker": 'monaco-editor/esm/vs/language/json/json.worker',
 		"css.worker": 'monaco-editor/esm/vs/language/css/css.worker',
@@ -16,8 +17,8 @@ module.exports = {
   // 컴파일 + 번들링된 js 파일이 저장될 경로와 이름 지정
   output: {
 		globalObject: 'self',
-    path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
     publicPath: '/dist'
   },
   module: {
@@ -62,5 +63,8 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js', '.json']
   },
+  // plugins: [
+  //   new MonacoWebPackPlugin()
+  // ],
   devtool: 'inline-source-map'
 };

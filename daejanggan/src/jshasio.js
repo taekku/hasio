@@ -1,10 +1,10 @@
 "use strict";
 import "@babel/polyfill";
-import { Jumin } from './hasio/common/type/jumin.js';
+// import { JuminNo } from './hasio/common/type/JuminNo';
 import blog from './hasio/main';
 import {log, getTime, getCurrentHour} from './hasio/myLogger';
 
-let jumin = new Jumin('asdf');
+// let jumin = new JuminNo('7205131382414');
 
 
 const previousObj = {

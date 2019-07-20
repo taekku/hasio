@@ -3,17 +3,17 @@ export enum Gender {
   F=2,
   None=0
 }
-interface IJuminNo{
+interface ISsn{
   birth(): Date|undefined;
   gender(): Gender;
 }
-interface JuminNoConstructor {
-  new(sno:string): IJuminNo;
+interface SsnConstructor {
+  new(sno:string): ISsn;
 }
-declare var IJuminNo: JuminNoConstructor;
-export { IJuminNo };
+declare var IJuminNo: SsnConstructor;
+export { ISsn as IJuminNo };
 
-export class JuminNo implements IJuminNo {
+export class Ssn implements ISsn {
   public jumin_no: () => string;
   private _gender: Gender;
   private _validation: boolean = false;

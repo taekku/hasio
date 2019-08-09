@@ -39,15 +39,16 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
-
+    
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
 
     client: {
       //capture all console output and pipe it to the terminal, true is default
-      captureConsole:false,
+      captureConsole: true,
+
       //if true, Karma clears the context window upon the completion of running the tests, true is default
-      clearContext:false,
+      clearContext: false,
       //run the tests on the same window as the client, without using iframe or a new window, false is default
       runInParent: false,
       //true: runs the tests inside an iFrame; false: runs the tests in a new window, true is default
@@ -111,10 +112,14 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['kjhtml','mocha'/*,'mocha','dots','progress','spec'*/],
+    reporters: ['mocha','kjhtml',/*'mocha','dots','progress','spec'*/],
 
     mochaReporter: {
-      output: 'noFailures' // full, autowatch, minimal
+      //output: 'noFailures' // full, autowatch, minimal
+      output: 'minimal'
+    },
+    htmlRepoter: {
+      groupSuites: true,
     },
 
     // web server port

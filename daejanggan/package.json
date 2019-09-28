@@ -36,7 +36,7 @@
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5",
     "webpack-dev-server": "^3.7.2",
-    "webpack-karma-jasmine": "^3.0.6"
+    "webpack-karma-jasmine": "^3.0.8"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4"

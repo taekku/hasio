@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataSource } from 'src/taekgu/DataSource';
+import { DataSource } from 'src/taekgu/directive/DataSource';
 
 @Component({
   selector: 'app-root',

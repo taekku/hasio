@@ -8,5 +8,5 @@ import { DataSource } from 'src/taekgu/directive/DataSource';
 })
 // @DataSource
 export class AppComponent {
-  title = 'Carpenter';
+  title = 'Carpenter'; // My Application Title
 }

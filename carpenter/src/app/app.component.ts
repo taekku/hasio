@@ -6,7 +6,7 @@ import { DataSource } from 'src/taekgu/directive/DataSource';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-@DataSource
+// @DataSource
 export class AppComponent {
   title = 'Carpenter';
 }

@@ -1,3 +1,6 @@
+export interface IData {
+  newProperty: string
+}
 
 export function DataSource<T extends {new(...args: any[]): {}}>(construnctor: T) {
   return class extends construnctor {

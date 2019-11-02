@@ -1,7 +1,8 @@
-import { DataSource, Lim } from './DataSource';
+import { DataSource, Lim, IData } from './DataSource';
 
 @DataSource
-class MyClass {
+class MyClass implements IData {
+    newProperty: string;
     constructor(my: string = 'Good') {
         console.log('MyClass construnctor called!', my)
     }
@@ -17,11 +18,13 @@ describe('DataSource', () => {
     beforeEach(() => {});
     it('My DataSource', () => {
         const ds: MyClass = new MyClass('oh no');
-        console.log('myPros', ds.myPros);
-        // tslint:disable-next-line: no-string-literal
-        console.log('newProperty', ds['newProperty']);
-        console.log(ds.myMethod());
-        console.log('myClass', ds);
+        const ms: IData = ds;
+        // console.log('myPros', ds.myPros);
+        // // tslint:disable-next-line: no-string-literal
+        // console.log('newProperty', ds['newProperty']);
+        // console.log(ds.myMethod());
+        // console.log('myClass', ds);
+        // console.log('ms', ms);
         expect(ds.myPros).toEqual('My DataSource');
     });
 });

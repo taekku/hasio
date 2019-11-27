@@ -1,4 +1,4 @@
-import { DataSource, Lim, IData } from './DataSource';
+import { DataSource, Lim, IData, LTG, LTGDecorator } from './DataSource';
 
 @DataSource
 class MyClass implements IData {
@@ -27,4 +27,31 @@ describe('DataSource', () => {
         // console.log('ms', ms);
         expect(ds.myPros).toEqual('My DataSource');
     });
+});
+
+@LTG({
+  serviceId: 'df'
+})
+class HiLtg {
+  myPros: string;
+  serviceId: string;
+  constructor() {
+    this.myPros = 'My DataSource';
+  }
+};
+
+describe('LTG', () => {
+  beforeEach(() => {});
+  it('My LTG', () => {
+      const ltg: HiLtg = new HiLtg();
+      // console.log('myPros', ds.myPros);
+      // // tslint:disable-next-line: no-string-literal
+      // console.log('newProperty', ds['newProperty']);
+      // console.log(ds.myMethod());
+      // console.log('myClass', ds);
+      // console.log('ms', ms);
+      console.log('ltg', ltg);
+      console.log('LTG', LTG)
+      expect(ltg.myPros).toEqual('My DataSource');
+  });
 });

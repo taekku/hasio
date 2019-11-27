@@ -1,4 +1,3 @@
-import "reflect-metadata";
 
 export function DataSource<T extends {new(...args: any[]):{}}>(constructor:T) {
   return class extends constructor {

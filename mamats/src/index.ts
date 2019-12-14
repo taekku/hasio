@@ -1,29 +1,57 @@
-import {myDecorator} from './util/decorators';
-
-console.log("Hello World from your main file!");
-
-console.log('this typescript file')
+import {Pingpong, myDecorator, myDecoratorP, PingDecorator, Ping, Pong, instanceOfPing} from './util/decorators';
+import {mago} from './util/logs';
 
 
-let a: Function;
+// @Pingpong({})
+//@myDecorator({ping: ['a', '1'], a: 'a'})
+//Pingpong({ping: ['a', '1'], a: 'l'})
+// @myDecoratorP
+// class AA {
+//   //service!: PingDecorator;
+//   pa?: string;
 
-a = function(): void{
-  console.log('It works');
+//   localVal!: string;
+//   constructor(){
+//     this.pa = 'Good';
+//   }
+//   @myDecoratorP
+//   myFunction = (s:string):string => {
+//     return s;
+//   }
+//   myCalc(@myDecoratorP a: number = 100, c: number, @myDecoratorP b: string): string{
+//     return String(a + 1)
+//   }
+// }
+
+// class BB {
+//   good: string;
+//   constructor(){
+//     this.good = 'Goods';
+//   }
+// }
+
+// let myAA: AA = new AA();
+// let myBB: BB = new BB();
+// // console.log('myAA', myAA, myAA.pa);
+
+// // console.log('as', myAA as Ping)
+
+// function myFn(ping: any) {
+//   if(instanceOfPing(ping)){
+//     console.log('myFn:Ping.service', ping.service, ping);
+//   } else {
+//     console.log('myFn:Nobody', ping);
+//   }
+  
+// }
+// myFn(myAA);
+// myFn(myBB);
+@Pong({
+  name: 'Good Pong'
+})
+//@Pingpong({a:'a'})
+class KK {
+  name: string = 'KK';
 }
-
-let b: (param: string) => string;
-b = function(param: string): string { return param; };
-
-console.log('param:', b('param'));
-
-@myDecorator({ping: ['a', '1']})
-class AA {
-  pa?: string;
-  constructor(){
-    this.pa = 'Good';
-  }
-}
-
-var myAA = new AA();
-
-console.log('myAA', myAA);
+let kk: KK = new KK();
+console.log('KK', kk);

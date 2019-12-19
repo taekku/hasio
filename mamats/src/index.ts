@@ -1,5 +1,7 @@
-import {Pingpong, myDecorator, myDecoratorP, PingDecorator, Ping, Pong, instanceOfPing} from './util/decorators';
-import {mago} from './util/logs';
+// import {Pingpong, myDecorator, myDecoratorP, PingDecorator, Pong, instanceOfPing} from './util/decorators';
+// import {mago} from './util/logs';
+// import { Ping } from './util/record';
+import { DefaultAction } from './util/control';
 
 
 // @Pingpong({})
@@ -46,12 +48,35 @@ import {mago} from './util/logs';
 // }
 // myFn(myAA);
 // myFn(myBB);
-@Pong({
-  name: 'Good Pong'
-})
-//@Pingpong({a:'a'})
-class KK {
-  name: string = 'KK';
-}
-let kk: KK = new KK();
-console.log('KK', kk);
+// @Pong({
+//   name: 'Good Pong'
+// })
+// //@Pingpong({a:'a'})
+// class KK {
+//   name: string = 'KK';
+// }
+// let kk: KK = new KK();
+// console.log('KK', kk);
+
+// interface User {
+//   user_id: number;
+//   login_id: string;
+//   name: string;
+//   roles: string[];
+// }
+// let userList: Ping<User> = new Ping<User>([]);
+
+// userList.addRecord({user_id: 0, login_id: 'kk', name: 'tglim', roles: []});
+
+// let uList = Array<User>();
+// uList.push({user_id: 0, login_id: 'kkk', name: 'tglim', roles: []});
+
+// console.log('userList', userList);
+// console.log('uList', uList);
+
+let control = new DefaultAction();
+let control2 = new DefaultAction()
+
+console.log('control', control);
+console.log('control', control2);
+console.log('control.retrieve', control.retrieve());

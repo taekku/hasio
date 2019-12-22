@@ -2,6 +2,7 @@
 // import {mago} from './util/logs';
 // import { Ping } from './util/record';
 import { DefaultAction } from './util/control';
+import { ServerInfo } from './common/ServerInfo';
 
 
 // @Pingpong({})
@@ -74,9 +75,14 @@ import { DefaultAction } from './util/control';
 // console.log('userList', userList);
 // console.log('uList', uList);
 
-let control = new DefaultAction();
-let control2 = new DefaultAction()
+// let control = new DefaultAction();
+// let control2 = new DefaultAction()
 
-console.log('control', control);
-console.log('control', control2);
-console.log('control.retrieve', control.retrieve());
+// console.log('control', control);
+// console.log('control', control2);
+// console.log('control.retrieve', control.retrieve());
+
+const info = new ServerInfo();
+
+info.getInfo();
+

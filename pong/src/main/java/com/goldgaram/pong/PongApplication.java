@@ -13,6 +13,7 @@ public class PongApplication extends SpringBootServletInitializer {
 }
 
 	public static void main(String[] args) {
+    System.out.println("Hello Spring Boot");
 		SpringApplication.run(PongApplication.class, args);
 	}
 

@@ -105,7 +105,7 @@ DECLARE @MSEQ INT;
     SET @v_program_nm    = '퇴직금 분개처리'        -- 현재 프로시져의 한글문명   
     SET @av_ret_code     = 'SUCCESS!'   
     SET @av_ret_message  = dbo.F_FRM_ERRMSG('프로시져 실행 시작..', @v_program_id,  0000,  null,  @an_mod_user_id)   
-PRINT('시작 ===> ')   
+--PRINT('시작 ===> ')
 
 	--//***************************************************************************
 	--//*****************		 퇴직금적립내역 분개 처리				 **************
@@ -143,8 +143,6 @@ PRINT('시작 ===> ')
 
         SET @v_seq_h = @av_company_cd + @v_dt_dian + dbo.XF_LPAD(@v_seq, 4, '0')
     END
-	PRINT '@v_seq ' + @v_seq + ' ' + @av_company_cd + @v_dt_dian
-
 
 	BEGIN
 		-- SAP I/F 테이블 삭제
@@ -199,7 +197,7 @@ PRINT('시작 ===> ')
                     ROLLBACK
                 RETURN
 			END
-		 print '퇴직금전표커서 전'
+		 --print '퇴직금전표커서 전'
 		----------------------------------
 		-- 퇴직금적립내역전표
 		----------------------------------
@@ -233,9 +231,8 @@ PRINT('시작 ===> ')
 										@v_dbcr_cd, @v_stax_acnt_cd, @v_jtax_acnt_cd, @v_tmp_acnt_cd
 			IF @@FETCH_STATUS <> 0 BREAK
 			SET @n_seqno_s = @n_seqno_s + 1
-			print 'n_seqno_s:' + convert(varchar(10), @n_seqno_s) + ':' + @v_cost_cd
+			--print 'n_seqno_s:' + convert(varchar(10), @n_seqno_s) + ':' + @v_cost_cd
             BEGIN TRY
-				print @v_dt_gian + ':' + @v_acct_type + ':' + @v_acnt_cd + ':' + @v_cost_cd
 				-- 퇴직금금액(DC적립)
                 INSERT INTO H_IF_SAPINTERFACE ( CD_COMPANY        -- 회사코드
                                               , MANDT_S           -- 서버정보
@@ -423,7 +420,7 @@ PRINT('시작 ===> ')
   -- END Message Setting Block 
   ----------------------------------------------------------------------------------------------------------------------- 
 
-PRINT('<<===== P_REP_CALC_ACDC_SAP_CREATE END')   
+--PRINT('<<===== P_REP_CALC_ACDC_SAP_CREATE END')   
    -- ***********************************************************   
    -- 작업 완료   
    -- ***********************************************************   

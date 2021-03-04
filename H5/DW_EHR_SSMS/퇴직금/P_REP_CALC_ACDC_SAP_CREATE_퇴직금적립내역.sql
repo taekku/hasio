@@ -97,7 +97,6 @@ DECLARE
 	@v_error_code				VARCHAR(1000),										-- 에러코드
 	@v_error_note				VARCHAR(3000)										-- 에러노트 (exec : '문자열A|문자열B')
 
-
 DECLARE @MSEQ INT;
 
       /* 기본변수 초기값 셋팅*/   

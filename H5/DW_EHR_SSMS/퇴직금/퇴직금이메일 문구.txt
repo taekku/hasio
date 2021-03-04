@@ -1,0 +1,57 @@
+
+            strBody.AppendLine(string.Format(@"{0}님의 퇴직금은 총 {1}원 입니다. <p>", dt.Rows[0]["NM_PERSON"], dt.Rows[0]["AMT_RETR_PAY"]));
+            strBody.AppendLine(@"자세한 내역은 아래 링크를 통해 확인 해 주세요.<br/>");
+            strBody.AppendLine(string.Format(@"
+<a href='https://ehr.dongwon.com/EssGate/RetPrint.aspx?C={0}&N={1}&D={2}&R={3}&F={4}' target='_blank'>
+    <img src='https://ehr.dongwon.com/images/btn/btn_link.png' alt='자세히보기' style='border:none'>
+</a> <p>", 
+     HttpUtility.UrlEncode(strParams[0]), HttpUtility.UrlEncode(strParams[1]), HttpUtility.UrlEncode(strParams[2]), HttpUtility.UrlEncode(strParams[3]), HttpUtility.UrlEncode(strParams[4])));
+            strBody.AppendLine(@"<span style='font-weight:bold; color:red'>* 14일 이후 열람 불가</span>");
+
+            strResult = strBody.ToString();
+            
+"{0}님의 퇴직금은 총 {1}원 입니다. <p>"
+"자세한 내역은 아래 링크를 통해 확인 해 주세요.<br/>"
+<a href='https://ehr.dongwon.com/EssGate/RetPrint.aspx?C={0}&N={1}&D={2}&R={3}&F={4}' target='_blank'>
+    <img src='https://ehr.dongwon.com/images/btn/btn_link.png' alt='자세히보기' style='border:none'>
+</a> <p>
+
+
+C:회사코드
+N:사번
+D:0,1(재직,퇴직)
+R:emailAddr
+F:reason
+
+AESEncrypt256로 파라메터 암호화(암호화키 별도)
+        private String AESEncrypt256(String Input)
+        {
+            if (string.IsNullOrEmpty(Input))
+                return Input;
+
+            string defaultKeyASE256 = "DONGWONEHRABC5893434!@#P@SSW0RD!";
+
+            RijndaelManaged aes = new RijndaelManaged();
+            aes.KeySize = 256;
+            aes.BlockSize = 128;
+            aes.Mode = CipherMode.CBC;
+            aes.Padding = PaddingMode.PKCS7;
+            aes.Key = Encoding.UTF8.GetBytes(defaultKeyASE256);
+            aes.IV = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+            var encrypt = aes.CreateEncryptor(aes.Key, aes.IV);
+            byte[] xBuff = null;
+            using (var ms = new MemoryStream())
+            {
+                using (var cs = new CryptoStream(ms, encrypt, CryptoStreamMode.Write))
+                {
+                    byte[] xXml = Encoding.UTF8.GetBytes(Input);
+                    cs.Write(xXml, 0, xXml.Length);
+                }
+
+                xBuff = ms.ToArray();
+            }
+
+            String Output = Convert.ToBase64String(xBuff);
+            return Output;
+        }

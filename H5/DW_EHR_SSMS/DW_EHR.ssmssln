@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# SQL Server Management Studio Solution File, Format Version 18.00
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "퇴직금", "퇴직금\퇴직금.ssmssqlproj", "{F097EAAD-23E2-4AE1-ADFD-8DD99C315879}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Common", "Common\Common.ssmssqlproj", "{BB9B3BAE-57C3-4503-96D8-85C894D83C9C}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "PAYROLL", "PAYROLL\PAYROLL.ssmssqlproj", "{6426C433-1C3E-4648-A5D2-A93E2F744165}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "인건비", "인건비\인건비.ssmssqlproj", "{5304F9AE-A0A5-4C30-9D8D-22DF119FEC5B}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Migration", "Migration\Migration.ssmssqlproj", "{A03DD35F-6B92-4950-B2DB-156E70E99DD0}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "전표처리", "전표처리\전표처리.ssmssqlproj", "{76277C65-37DC-45A7-9490-F85A47F4396C}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "일용직", "일용직\일용직.ssmssqlproj", "{1CF2A7A8-2AF5-43C2-88B7-E9246E5C0EDC}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "전표처리-퇴직금", "전표처리-퇴직금\전표처리-퇴직금.ssmssqlproj", "{46AC8DF2-5BF1-40A3-B506-C9E5AA3AF878}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0770273-7BB6-491E-B1AE-753AFCE13BBE}.Default|Default.ActiveCfg = Default
+		{F097EAAD-23E2-4AE1-ADFD-8DD99C315879}.Default|Default.ActiveCfg = Default
+		{BB9B3BAE-57C3-4503-96D8-85C894D83C9C}.Default|Default.ActiveCfg = Default
+		{6426C433-1C3E-4648-A5D2-A93E2F744165}.Default|Default.ActiveCfg = Default
+		{5304F9AE-A0A5-4C30-9D8D-22DF119FEC5B}.Default|Default.ActiveCfg = Default
+		{A03DD35F-6B92-4950-B2DB-156E70E99DD0}.Default|Default.ActiveCfg = Default
+		{76277C65-37DC-45A7-9490-F85A47F4396C}.Default|Default.ActiveCfg = Default
+		{1CF2A7A8-2AF5-43C2-88B7-E9246E5C0EDC}.Default|Default.ActiveCfg = Default
+		{46AC8DF2-5BF1-40A3-B506-C9E5AA3AF878}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6430E160-D77E-4069-AED9-F3594452EA35}
+	EndGlobalSection
+EndGlobal

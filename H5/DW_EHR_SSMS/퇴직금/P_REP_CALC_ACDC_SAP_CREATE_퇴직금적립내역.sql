@@ -146,9 +146,9 @@ DECLARE @MSEQ INT;
 	BEGIN
 		-- SAP I/F 테이블 삭제
 		DELETE FROM H_IF_SAPINTERFACE
-		WHERE CD_COMPANY = @av_company_cd
+		WHERE COMPANY_CD = @av_company_cd
 			AND DRAW_DATE = @v_filldt					-- 이관일자
-			AND SEQ = @n_fillno
+			--AND SEQ = @n_fillno
 			AND ACCT_TYPE = @v_acct_type
 			AND ISNULL(FLAG,'N') = 'N'
 		--------------------------------------------------------------------------------------------------------------------

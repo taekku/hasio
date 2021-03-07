@@ -37,7 +37,7 @@
     "eslint": "^5.16.0",
     "html-loader": "^0.5.5",
     "jasmine-core": "^3.5.0",
-    "karma": "^4.1.0",
+    "karma": "^6.1.1",
     "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-html-reporter": "^1.5.3",
@@ -51,7 +51,7 @@
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3",
-    "webpack-karma-jasmine": "^3.0.8"
+    "webpack-karma-jasmine": "^4.0.0"
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.7"

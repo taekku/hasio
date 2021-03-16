@@ -2,7 +2,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE OR ALTER   PROCEDURE [dbo].[P_PEB_PHM_MST_CREATE]
+ALTER     PROCEDURE [dbo].[P_PEB_PHM_MST_CREATE]
 		@an_peb_base_id			NUMERIC,
 		@av_company_cd      NVARCHAR(10),
 		@ad_base_ymd				DATE,
@@ -103,6 +103,7 @@ BEGIN
 						PAY_ORG_ID, --	급여부서ID
 						PHM_BIZ_CD, --	소속사업장
 						PAY_BIZ_CD, --	급여사업장
+						PAY_GROUP_CD, -- 급여그룹코드
 						POS_CD, --	직위코드 [PHM_POS_CD]
 						POS_YMD, --	직위임용일자
 						DUTY_CD, --	직책코드 [PHM_DUTY_CD]
@@ -130,6 +131,7 @@ BEGIN
 						CAM.ORG_ID PAY_ORG_ID, --	급여부서ID
 						dbo.F_ORM_ORG_BIZ(CAM.ORG_ID, GETDATE(), 'PAY') PHM_BIZ_CD, --	소속사업장
 						dbo.F_ORM_ORG_BIZ(CAM.ORG_ID, GETDATE(), 'PAY') PAY_BIZ_CD, --	급여사업장
+						dbo.F_PAY_GROUP_CD(EMP.EMP_ID), -- 급여그룹코드
 						CAM.POS_CD	POS_CD, --	직위코드 [PHM_POS_CD]
 						--EMP.POS_YMD	POS_YMD, --	직위임용일자
 						(SELECT BASE_YMD FROM PHM_BASE_DAY WHERE EMP_ID=EMP.EMP_ID AND BASE_TYPE_CD='POS_YMD' AND @ad_base_ymd BETWEEN STA_YMD AND END_YMD) AS POS_YMD,
@@ -172,6 +174,3 @@ BEGIN
     SET @av_ret_code = 'SUCCESS!'
     SET @av_ret_message = '프로시져 실행 완료'
 END
-GO
-
-

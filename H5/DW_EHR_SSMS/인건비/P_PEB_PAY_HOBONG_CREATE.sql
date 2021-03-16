@@ -67,6 +67,11 @@ BEGIN
                       AND B.PEB_TYPE_CD = '120' -- 110:연봉인상율, 120:호봉인상율
          WHERE A.PEB_BASE_ID = @an_peb_base_id
 
+        IF @@ROWCOUNT < 1
+            BEGIN
+                SET @v_peb_ym = NULL
+            END
+
         IF @@ERROR <> 0
             BEGIN
                 SET @av_ret_code = 'FAILUERE!'
@@ -80,11 +85,6 @@ BEGIN
                 SET @av_ret_code = 'FAILUERE!'
                 SET @av_ret_message = DBO.F_FRM_ERRMSG('인건비 반영월로 [매월]을 지정할 수 없습니다.[ERR]', @v_program_id, 0000, NULL, @an_mod_user_id)
                 RETURN
-            END
-
-        IF @@ROWCOUNT < 1
-            BEGIN
-                SET @v_peb_ym = NULL
             END
     END
 

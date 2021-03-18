@@ -1,8 +1,8 @@
  BEGIN
 	 
-	 DECLARE @v_source_company_cd NVARCHAR(100) = 'T'
+	 DECLARE @v_source_company_cd NVARCHAR(100) = 'E'
 	       , @v_target_company_cds NVARCHAR(100) = 'A,B,C,E,F,H,I,M,R,S,T,U,W,X,Y'
-		   , @v_start_option_key nvarchar(100) = 'PAY_YEAR_MIN_PAY'--,PAY_YEAR_MIN_PAY' --'REP_STD'
+		   , @v_start_option_key nvarchar(100) = 'PEB_BASE'--,PAY_YEAR_MIN_PAY' --'REP_STD'
 
 	DECLARE @TARGET_COMPANY TABLE(
 		COMPANY_CD	NVARCHAR(10)

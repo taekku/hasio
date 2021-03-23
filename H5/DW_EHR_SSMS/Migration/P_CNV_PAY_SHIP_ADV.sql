@@ -6,7 +6,7 @@ GO
 -- Description:	Conversion 선원가불금기준관리
 -- 
 -- =============================================
-CREATE OR ALTER PROCEDURE P_CNV_PAY_SHIP_ADV
+CREATE OR ALTER PROCEDURE [dbo].[P_CNV_PAY_SHIP_ADV]
       @an_try_no         NUMERIC(4)       -- 시도회차
     , @av_company_cd     NVARCHAR(10)     -- 회사코드
 AS
@@ -93,7 +93,7 @@ BEGIN
 				-- =======================================================
 				--  To-Be Table Insert Start
 				-- =======================================================
-				INSERT INTO dwehrdev_H5.dbo.PAY_SHIP_ADV(
+				INSERT INTO PAY_SHIP_ADV(
 							PAY_SHIP_ADV_ID, --	선원가불금기준관리ID
 							COMPANY_CD, --	인사영역
 							SHIP_CD, --	선박분류
@@ -178,4 +178,3 @@ BEGIN
 	PRINT 'CNT_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

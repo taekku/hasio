@@ -6,7 +6,7 @@ GO
 -- Description:	Conversion 급여가족수당
 -- 
 -- =============================================
-CREATE OR ALTER PROCEDURE P_CNV_PAY_PHM_FAMILY
+CREATE OR ALTER PROCEDURE [dbo].[P_CNV_PAY_PHM_FAMILY]
       @an_try_no         NUMERIC(4)       -- 시도회차
     , @av_company_cd     NVARCHAR(10)     -- 회사코드
 AS
@@ -63,8 +63,8 @@ BEGIN
 	--   As-Is Key Column Select
 	--   Source Table Key
 	-- =============================================
-    DECLARE CNV_CUR CURSOR READ_ONLY FOR
-		SELECT CD_COMPANY
+    DECLARE CNV_CUR CURSOR READ_ONLY
+	    FOR SELECT CD_COMPANY
 				 , NO_PERSON
 				 , NO_REPRE
 				 , NM_FAMILY
@@ -113,7 +113,7 @@ BEGIN
 				-- =======================================================
 				--  To-Be Table Insert Start
 				-- =======================================================
-				INSERT INTO dwehrdev_H5.dbo.PAY_PHM_FAMILY (
+				INSERT INTO PAY_PHM_FAMILY (
 							 PAY_PHM_FAMILY_ID, --	가족수당ID
 								EMP_ID, --	사원ID
 								PERSON_ID, --	개인ID
@@ -202,4 +202,3 @@ BEGIN
 	PRINT 'CNT_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

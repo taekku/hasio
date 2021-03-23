@@ -99,6 +99,7 @@ BEGIN
 						WK_TYPE_CD, --	근무형태코드
 						MGR_TYPE_CD, --	관리구분
 						JOB_POSITION_CD, -- 직종코드
+						EMP_KIND_CD, -- 근로형태코드
 						SALARY_TYPE_CD, --	급여형태코드
 						PAY_ORG_ID, --	급여부서ID
 						PHM_BIZ_CD, --	소속사업장
@@ -124,9 +125,10 @@ BEGIN
 						EMP.HIRE_YMD, --	입사일자
 						(SELECT BASE_YMD FROM PHM_BASE_DAY WHERE EMP_ID=EMP.EMP_ID AND @ad_base_ymd BETWEEN STA_YMD AND END_YMD AND BASE_TYPE_CD='ANNUAL_CAL_YMD'), -- 연차기산일
 						EMP.BIRTH_YMD, -- 생년월일
-						CAM.EMP_KIND_CD WK_TYPE_CD, --	근무형태코드
+						CAM.EMP_KIND_CD WK_TYPE_CD, --	근로형태코드
 						CAM.MGR_TYPE_CD, --	관리구분
 						CAM.JOB_POSITION_CD, -- 직종코드
+						CAM.EMP_KIND_CD, -- 직원구분코드
 						(select salary_type_cd from CNM_CNT where EMP_ID=EMP.EMP_ID and @ad_base_ymd between STA_YMD AND END_YMD) SALARY_TYPE_CD, --	급여형태코드
 						CAM.ORG_ID PAY_ORG_ID, --	급여부서ID
 						dbo.F_ORM_ORG_BIZ(CAM.ORG_ID, GETDATE(), 'PAY') PHM_BIZ_CD, --	소속사업장

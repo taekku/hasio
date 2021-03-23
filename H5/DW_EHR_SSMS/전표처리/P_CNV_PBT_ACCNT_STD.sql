@@ -93,7 +93,7 @@ BEGIN
 				--  To-Be Table Insert Start
 				-- =======================================================
 				SET @PBT_ACCNT_STD_ID = NEXT VALUE FOR S_PBT_SEQUENCE
-				INSERT INTO dwehrdev_H5.dbo.PBT_ACCNT_STD (
+				INSERT INTO PBT_ACCNT_STD (
 						PBT_ACCNT_STD_ID, --	계정마스터ID
 						COMPANY_CD, --	인사영역
 						HRTYPE_GBN, --	직원유형
@@ -290,4 +290,3 @@ BEGIN
 	PRINT 'CNT_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

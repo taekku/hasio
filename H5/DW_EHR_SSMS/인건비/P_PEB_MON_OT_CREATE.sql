@@ -3,14 +3,14 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE OR ALTER PROCEDURE [dbo].[P_PEB_MON_OT_CREATE]
-		@an_peb_base_id			NUMERIC,
+		@an_peb_base_id		NUMERIC,
 		@av_company_cd      NVARCHAR(10),
-		@ad_base_ymd				DATE,
-    @av_locale_cd       NVARCHAR(10),
-    @av_tz_cd           NVARCHAR(10),    -- 타임존코드
-    @an_mod_user_id     NUMERIC(18,0)  ,    -- 변경자 ID
-    @av_ret_code        nvarchar(100)    OUTPUT,
-    @av_ret_message     nvarchar(500)    OUTPUT
+		@ad_base_ymd		DATE,
+		@av_locale_cd       NVARCHAR(10),
+		@av_tz_cd           NVARCHAR(10),    -- 타임존코드
+		@an_mod_user_id     NUMERIC(18,0)  ,    -- 변경자 ID
+		@av_ret_code        nvarchar(100)    OUTPUT,
+		@av_ret_message     nvarchar(500)    OUTPUT
 AS
     --<DOCLINE> ***************************************************************************
     --<DOCLINE>   TITLE       : 인건비계획 월별OT생성
@@ -83,14 +83,14 @@ BEGIN
 						@av_tz_cd	TZ_CD, --	타임존코드
 						SYSDATETIME()	TZ_DATE --	타임존일시
 				  FROM (SELECT *
-									FROM (SELECT MST.PEB_BASE_ID, T.*
-													FROM PEB_PHM_MST MST
-													JOIN PEB_MON_OT_UPLOAD T
-								  					ON MST.PEB_PHM_MST_ID = T.PEB_PHM_MST_ID
-												 WHERE T.PEB_MON_OT_UPLOAD_ID = @PEB_MON_OT_UPLOAD_ID
-											 ) A
-											 UNPIVOT ( OT_TIME FOR MON_COL IN (MON_01, MON_02, MON_03, MON_04, MON_05, MON_06, MON_07, MON_08, MON_09, MON_10, MON_11, MON_12) )  UNPVT1
-										) OT
+							FROM (SELECT MST.PEB_BASE_ID, T.*
+											FROM PEB_PHM_MST MST
+											JOIN PEB_MON_OT_UPLOAD T
+								  			ON MST.PEB_PHM_MST_ID = T.PEB_PHM_MST_ID
+											WHERE T.PEB_MON_OT_UPLOAD_ID = @PEB_MON_OT_UPLOAD_ID
+										) A
+										UNPIVOT ( OT_TIME FOR MON_COL IN (MON_01, MON_02, MON_03, MON_04, MON_05, MON_06, MON_07, MON_08, MON_09, MON_10, MON_11, MON_12) )  UNPVT1
+								) OT
 					JOIN PEB_PAYROLL A
 						ON A.PEB_PHM_MST_ID = OT.PEB_PHM_MST_ID
 					 AND RIGHT(A.PEB_YM,2) = RIGHT(MON_COL,2)

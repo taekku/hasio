@@ -6,7 +6,7 @@ GO
 -- Description:	Conversion 개인별코스트센터
 -- 
 -- =============================================
-CREATE OR ALTER PROCEDURE P_CNV_ORM_EMP_COST
+CREATE OR ALTER PROCEDURE [dbo].[P_CNV_ORM_EMP_COST]
       @an_try_no         NUMERIC(4)       -- 시도회차
     , @av_company_cd     NVARCHAR(10)     -- 회사코드
 AS
@@ -107,7 +107,7 @@ BEGIN
 				-- =======================================================
 				--  To-Be Table Insert Start
 				-- =======================================================
-				INSERT INTO dwehrdev_H5.dbo.ORM_EMP_COST(
+				INSERT INTO ORM_EMP_COST(
 							  ORM_EMP_COST_ID, --	사원별코CC관리ID
 								EMP_ID, --	사원ID
 								COMPANY_CD, --	회사코드
@@ -182,4 +182,3 @@ BEGIN
 	PRINT 'CNT_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

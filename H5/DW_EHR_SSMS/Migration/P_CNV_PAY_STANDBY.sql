@@ -6,7 +6,7 @@ GO
 -- Description:	Conversion 선원대기비관리
 -- 
 -- =============================================
-CREATE OR ALTER PROCEDURE P_CNV_PAY_STANDBY
+CREATE OR ALTER PROCEDURE [dbo].[P_CNV_PAY_STANDBY]
       @an_try_no         NUMERIC(4)       -- 시도회차
     , @av_company_cd     NVARCHAR(10)     -- 회사코드
 AS
@@ -62,8 +62,8 @@ BEGIN
 	--   As-Is Key Column Select
 	--   Source Table Key
 	-- =============================================
-    DECLARE CNV_CUR CURSOR READ_ONLY FOR
-		SELECT CD_COMPANY
+    DECLARE CNV_CUR CURSOR READ_ONLY
+	    FOR SELECT CD_COMPANY
 				 , FG_SUPP
 				 , DT_PROV
 				 , NO_PERSON
@@ -111,7 +111,7 @@ BEGIN
 				-- =======================================================
 				--  To-Be Table Insert Start
 				-- =======================================================
-				INSERT INTO dwehrdev_H5.dbo.PAY_STANDBY(
+				INSERT INTO PAY_STANDBY(
 							 PAY_STANDBY_ID --	대기비관리ID
 							,PAY_YMD --	지급일자
 							,EMP_ID --	사원ID
@@ -200,4 +200,3 @@ BEGIN
 	PRINT 'CNT_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

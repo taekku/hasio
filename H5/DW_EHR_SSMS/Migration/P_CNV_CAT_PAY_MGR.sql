@@ -4,9 +4,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Description:	Conversion 복지포인트
--- 
+-- 이관하지않음
 -- =============================================
-CREATE OR ALTER PROCEDURE P_CNV_CAT_PAY_MGR
+--CREATE OR ALTER PROCEDURE P_CNV_CAT_PAY_MGR
+CREATE PROCEDURE P_CNV_CAT_PAY_MGR
       @an_try_no         NUMERIC(4)       -- 시도회차
     , @av_company_cd     NVARCHAR(10)     -- 회사코드
 AS
@@ -120,14 +121,14 @@ BEGIN
 				-- =======================================================
 				--  To-Be Table Insert Start
 				-- =======================================================
-				INSERT INTO dwehrdev_H5.dbo.CAT_PAY_MGR(
+				INSERT INTO CAT_PAY_MGR(
 						CAT_PAY_MGR_ID, --	복지포인트ID
 						PAY_YEAR, --	지급년도
 						CAT_POINT_TIME_CD, --	지급시기[CAT_POINT_TIME_CD]
 						CAT_POINT_TYPE, --	지급구분[CAT_POINT_TYPE]
 						GIVE_YMD, --	지급일자
 						COMPANY_CD, --	인사영역
-						PAY_GROUP_CD, --	급여그룹CD
+						PAY_GROUP_ID, --	급여그룹CD
 						EMP_ID, --	사원ID
 						PERSON_ID, --	개인ID
 						POINT, --	지급Point

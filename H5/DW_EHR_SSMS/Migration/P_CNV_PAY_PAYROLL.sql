@@ -6,7 +6,7 @@ GO
 -- Description:	Conversion 급여내역(대상자)
 -- 
 -- =============================================
-CREATE OR ALTER PROCEDURE P_CNV_PAY_PAYROLL
+CREATE OR ALTER PROCEDURE [dbo].[P_CNV_PAY_PAYROLL]
       @an_try_no		NUMERIC(4)      -- 시도회차
     , @av_company_cd	NVARCHAR(10)    -- 회사코드
 	, @av_fr_month		NVARCHAR(6)		-- 시작년월
@@ -167,8 +167,7 @@ BEGIN
 				--  To-Be Table Insert Start
 				-- =======================================================
 				select @pay_payroll_id = NEXT VALUE FOR S_PAY_SEQUENCE
-				BEGIN TRY
-				INSERT INTO dwehrdev_H5.dbo.PAY_PAYROLL(
+				INSERT INTO PAY_PAYROLL(
 							PAY_PAYROLL_ID,--	급여내역ID
 							PAY_YMD_ID,--	급여일자ID
 							EMP_ID,--	사원ID
@@ -289,7 +288,7 @@ BEGIN
 							'N'		PEAK_YN, --	임금피크대상여부
 							NULL	PEAK_DATE, --	임금피크적용일자
 							A.TP_CALC_PAY	PAY_METH_CD, --	급여지급방식코드[PAY_METH_CD]
-							A.TP_CALC_INS	PAY_EMP_CLS_CD,--	고용유형코드[PAY_EMP_CLS_CD]
+							NULL	PAY_EMP_CLS_CD,--	고용유형코드[PAY_EMP_CLS_CD]
 							NULL	CONT_TIME,--	소정근로시간
 							A.YN_LABOR_OBJ	UNION_YN,--	노조회비공제대상여부
 							NULL	UNION_FULL_YN,--	노조전임여부
@@ -320,60 +319,11 @@ BEGIN
 				   AND FG_SUPP = @fg_supp
 				   AND DT_PROV = @dt_prov
 				   AND NO_PERSON = @no_person
-				END TRY
-				BEGIN CATCH
-					set @n_err_cod = ERROR_NUMBER()
-					IF @n_err_cod = 2627 -- 중복키
-						BEGIN
-						PRINT '중복키:'
-							UPDATE A
-							   SET 
-								PSUM = PSUM + B.AMT_SUPPLY_TOTAL,--	지급집계(모든기지급포함)
-								PSUM1 = PSUM1 + B.AMT_SUPPLY_TOTAL,--	지급집계(PSUM에서 급여성기지급 포함 안함, 연말정산에서 사용)
-								PSUM2 = PSUM2 + B.AMT_SUPPLY_TOTAL,--	지급집계(모든기지급포함안함)
-								DSUM = DSUM + B.AMT_DEDUCT_TOTAL,--	공제집계
-								--TSUM,--	세금집계
-								REAL_AMT = REAL_AMT + B.AMT_REAL_SUPPLY--	실지급액
-							  FROM PAY_PAYROLL A
-							  JOIN (SELECT AMT_SUPPLY_TOTAL, AMT_DEDUCT_TOTAL, AMT_REAL_SUPPLY
-									  FROM dwehrdev.dbo.H_MONTH_PAY_BONUS A (NOLOCK)
-									 WHERE CD_COMPANY = @s_company_cd
-									   AND YM_PAY = @ym_pay
-									   AND FG_SUPP = @fg_supp
-									   AND DT_PROV = @dt_prov
-									   AND NO_PERSON = @no_person) B
-								ON 1=1
-							 WHERE @pay_ymd_id = PAY_YMD_ID --	급여일자ID
-								AND @emp_id	= EMP_ID --	사원ID
-								--AND '002' = SALARY_TYPE_CD
-							IF @@ROWCOUNT < 1
-							begin
-								-- *** 로그에 실패 메시지 저장 ***
-								set @v_keys = '@cd_company=' + ISNULL(CONVERT(nvarchar(100), @cd_company),'NULL')
-									  + ',@ym_pay=' + ISNULL(CONVERT(nvarchar(100), @ym_pay),'NULL')
-									  + ',@fg_supp=' + ISNULL(CONVERT(nvarchar(100), @fg_supp),'NULL')
-									  + ',@dt_prov=' + ISNULL(CONVERT(nvarchar(100), @dt_prov),'NULL')
-									  + ',@no_person=' + ISNULL(CONVERT(nvarchar(100), @no_person),'NULL')
-								set @v_err_msg = '선택된 Record가 없습니다.!!!' -- ERROR_MESSAGE()
-								EXEC [dbo].[P_CNV_PAY_LOG_D] @n_log_h_id, @v_keys, @@ERROR, @v_err_msg
-								-- *** 로그에 실패 메시지 저장 ***
-								set @n_cnt_failure = @n_cnt_failure + 1 -- 실패건수
-							end
-							set @v_keys = '@cd_company=' + ISNULL(CONVERT(nvarchar(100), @cd_company),'NULL')
-								  + ',@ym_pay=' + ISNULL(CONVERT(nvarchar(100), @ym_pay),'NULL')
-								  + ',@fg_supp=' + ISNULL(CONVERT(nvarchar(100), @fg_supp),'NULL')
-								  + ',@dt_prov=' + ISNULL(CONVERT(nvarchar(100), @dt_prov),'NULL')
-								  + ',@no_person=' + ISNULL(CONVERT(nvarchar(100), @no_person),'NULL')
-							print @v_keys
-						END
-					ELSE
-						THROW;
-				END CATCH
 				-- =======================================================
 				--  To-Be Table Insert End
 				-- =======================================================
 
-				--if @@ROWCOUNT > 0 
+				if @@ROWCOUNT > 0 
 					begin
 						-- *** 성공메시지 로그에 저장 ***
 						--set @v_keys = ISNULL(CONVERT(nvarchar(100), @cd_company),'NULL')
@@ -383,19 +333,19 @@ BEGIN
 						-- *** 성공메시지 로그에 저장 ***
 						set @n_cnt_success = @n_cnt_success + 1 -- 성공건수
 					end
-				--else
-				--	begin
-				--		-- *** 로그에 실패 메시지 저장 ***
-				--		set @v_keys = '@cd_company=' + ISNULL(CONVERT(nvarchar(100), @cd_company),'NULL')
-				--			  + ',@ym_pay=' + ISNULL(CONVERT(nvarchar(100), @ym_pay),'NULL')
-				--			  + ',@fg_supp=' + ISNULL(CONVERT(nvarchar(100), @fg_supp),'NULL')
-				--			  + ',@dt_prov=' + ISNULL(CONVERT(nvarchar(100), @dt_prov),'NULL')
-				--			  + ',@no_person=' + ISNULL(CONVERT(nvarchar(100), @no_person),'NULL')
-				--		set @v_err_msg = '선택된 Record가 없습니다.!!!' -- ERROR_MESSAGE()
-				--		EXEC [dbo].[P_CNV_PAY_LOG_D] @n_log_h_id, @v_keys, @@ERROR, @v_err_msg
-				--		-- *** 로그에 실패 메시지 저장 ***
-				--		set @n_cnt_failure = @n_cnt_failure + 1 -- 실패건수
-				--	end
+				else
+					begin
+						-- *** 로그에 실패 메시지 저장 ***
+						set @v_keys = '@cd_company=' + ISNULL(CONVERT(nvarchar(100), @cd_company),'NULL')
+							  + ',@ym_pay=' + ISNULL(CONVERT(nvarchar(100), @ym_pay),'NULL')
+							  + ',@fg_supp=' + ISNULL(CONVERT(nvarchar(100), @fg_supp),'NULL')
+							  + ',@dt_prov=' + ISNULL(CONVERT(nvarchar(100), @dt_prov),'NULL')
+							  + ',@no_person=' + ISNULL(CONVERT(nvarchar(100), @no_person),'NULL')
+						set @v_err_msg = '선택된 Record가 없습니다.!!!' -- ERROR_MESSAGE()
+						EXEC [dbo].[P_CNV_PAY_LOG_D] @n_log_h_id, @v_keys, @@ERROR, @v_err_msg
+						-- *** 로그에 실패 메시지 저장 ***
+						set @n_cnt_failure = @n_cnt_failure + 1 -- 실패건수
+					end
 			END TRY
 			BEGIN CATCH
 				-- *** 로그에 실패 메시지 저장 ***
@@ -424,4 +374,3 @@ BEGIN
 	PRINT 'CNT_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

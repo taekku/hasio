@@ -6,7 +6,7 @@ GO
 -- Description:	Conversion 급여수시지급
 -- 
 -- =============================================
-CREATE OR ALTER PROCEDURE P_CNV_PAY_ETC_PAY
+CREATE OR ALTER PROCEDURE [dbo].[P_CNV_PAY_ETC_PAY]
       @an_try_no         NUMERIC(4)       -- 시도회차
     , @av_company_cd     NVARCHAR(10)     -- 회사코드
 		, @av_fr_month		NVARCHAR(6)		-- 시작년월
@@ -70,8 +70,8 @@ BEGIN
 	--   As-Is Key Column Select
 	--   Source Table Key
 	-- =============================================
-    DECLARE CNV_CUR CURSOR READ_ONLY FOR
-		SELECT A.CD_COMPANY
+    DECLARE CNV_CUR CURSOR READ_ONLY
+	    FOR SELECT A.CD_COMPANY
 				 , A.FG_SUPP
 				 , A.DT_PROV
 				 , A.NO_PERSON
@@ -226,7 +226,7 @@ BEGIN
 				-- =======================================================
 				--  To-Be Table Insert Start
 				-- =======================================================
-				INSERT INTO dwehrdev_H5.dbo.PAY_ETC_PAY(
+				INSERT INTO PAY_ETC_PAY(
 							PAY_ETC_PAY_ID, --	급여기타지급ID
 							PAY_YMD_ID, --	급여일자ID
 							EMP_ID, --	사원ID
@@ -318,4 +318,3 @@ BEGIN
 	PRINT 'CNT_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

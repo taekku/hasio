@@ -6,7 +6,7 @@ GO
 -- Description:	Conversion 급여수시공제
 -- 
 -- =============================================
-CREATE OR ALTER PROCEDURE P_CNV_PAY_ANY_DEDU
+CREATE OR ALTER PROCEDURE [dbo].[P_CNV_PAY_ANY_DEDU]
       @an_try_no         NUMERIC(4)       -- 시도회차
     , @av_company_cd     NVARCHAR(10)     -- 회사코드
 		, @av_fr_month		NVARCHAR(6)		-- 시작년월
@@ -70,8 +70,8 @@ BEGIN
 	--   As-Is Key Column Select
 	--   Source Table Key
 	-- =============================================
-    DECLARE CNV_CUR CURSOR READ_ONLY FOR
-		SELECT A.CD_COMPANY
+    DECLARE CNV_CUR CURSOR READ_ONLY
+	    FOR SELECT A.CD_COMPANY
 				 , A.FG_SUPP
 				 , A.DT_PROV
 				 , A.NO_PERSON
@@ -226,7 +226,7 @@ BEGIN
 				-- =======================================================
 				--  To-Be Table Insert Start
 				-- =======================================================
-				INSERT INTO dwehrdev_H5.dbo.PAY_ANY_DEDU(
+				INSERT INTO PAY_ANY_DEDU(
 							PAY_ANY_DEDU_ID, --	수시공제등록ID
 							COMPANY_CD, --	회사코드
 							PAY_YMD_ID, --	급여지급일ID
@@ -310,4 +310,3 @@ BEGIN
 	PRINT 'CNT_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

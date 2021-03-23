@@ -142,7 +142,7 @@ BEGIN
 				--  To-Be Table Insert Start
 				-- =======================================================
 				-- 로그작성 START
-				INSERT INTO dwehrdev_H5.dbo.PAY_ACNT_MNG_DUP(
+				INSERT INTO PAY_ACNT_MNG_DUP(
 						PAY_ACNT_MNG_ID, --	계정분류ID
 						COMPANY_CD, --	회사코드
 						PAY_TYPE_CD, --	급여지급유형코드[PAY_TYPE_CD]
@@ -192,7 +192,7 @@ BEGIN
 					 AND CD_ITEM = @cd_item
 					 AND FG_ACCNT = @fg_accnt
 				-- 로그작성 END
-				INSERT INTO dwehrdev_H5.dbo.PAY_ACNT_MNG(
+				INSERT INTO PAY_ACNT_MNG(
 						PAY_ACNT_MNG_ID, --	계정분류ID
 						COMPANY_CD, --	회사코드
 						PAY_TYPE_CD, --	급여지급유형코드[PAY_TYPE_CD]
@@ -330,4 +330,3 @@ BEGIN
 	PRINT 'CNT_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

@@ -6,7 +6,7 @@ GO
 -- Description:	Conversion 급여내역(대상자)
 -- 
 -- =============================================
-CREATE OR ALTER PROCEDURE P_CNV_PAY_PAYROLL_ONE
+CREATE OR ALTER PROCEDURE [dbo].[P_CNV_PAY_PAYROLL_ONE]
       @an_try_no		NUMERIC(4)      -- 시도회차
     , @av_company_cd	NVARCHAR(10)    -- 회사코드
 	, @av_fr_month		NVARCHAR(6)		-- 시작년월
@@ -187,7 +187,7 @@ BEGIN
 				-- =======================================================
 				select @pay_payroll_id = NEXT VALUE FOR S_PAY_SEQUENCE
 				BEGIN TRY
-					INSERT INTO dwehrdev_H5.dbo.PAY_PAYROLL(
+					INSERT INTO PAY_PAYROLL(
 								PAY_PAYROLL_ID,--	급여내역ID
 								PAY_YMD_ID,--	급여일자ID
 								EMP_ID,--	사원ID
@@ -619,4 +619,3 @@ BEGIN
 	PRINT 'CNV_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

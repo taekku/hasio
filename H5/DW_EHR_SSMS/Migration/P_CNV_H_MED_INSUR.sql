@@ -7,7 +7,7 @@ GO
 -- 건강보험/국민연금 업로드 --> 건겅보험가입정보
                         --> 국민연금가입정보
 -- =============================================
-CREATE OR ALTER PROCEDURE P_CNV_H_MED_INSUR
+CREATE OR ALTER PROCEDURE [dbo].[P_CNV_H_MED_INSUR]
       @an_try_no         NUMERIC(4)       -- 시도회차
     , @av_company_cd     NVARCHAR(10)     -- 회사코드
     , @av_fg_insur	     NVARCHAR(10)     -- 국민(1)/건강(2)
@@ -132,7 +132,7 @@ BEGIN
 				-- =======================================================
 				IF @fg_insur = '1' -- 국민연금
 					begin
-						INSERT INTO dwehrdev_H5.dbo.STP_JOIN_INFO(
+						INSERT INTO STP_JOIN_INFO(
 								STP_JOIN_INFO_ID, --	국민연금가입정보ID
 								EMP_ID, --	사원ID
 								REPORT_TYPE, --	신고구분[STP_STAT_TYPE_CD]
@@ -200,7 +200,7 @@ BEGIN
 						IF @init_ym_insur < @ym_insur
 							BEGIN
 								-- 변경
-								INSERT INTO dwehrdev_H5.dbo.STP_JOIN_INFO(
+								INSERT INTO STP_JOIN_INFO(
 										STP_JOIN_INFO_ID, --	국민연금가입정보ID
 										EMP_ID, --	사원ID
 										REPORT_TYPE, --	신고구분[STP_STAT_TYPE_CD]
@@ -265,7 +265,7 @@ BEGIN
 					end
 				ELSE IF @fg_insur = '2' -- 건강보험
 					begin
-						INSERT INTO dwehrdev_H5.dbo.NHS_JOIN_INFO(
+						INSERT INTO NHS_JOIN_INFO(
 								NHS_JOIN_INFO_ID,--	건강보험가입정보ID
 								EMP_ID,--	사원ID
 								REPORT_TYPE,--	신고구분(NHS_STAT_TYPE_CD)
@@ -347,7 +347,7 @@ BEGIN
 							set @insert_ok = 0
 						IF @init_ym_insur < @ym_insur
 							BEGIN
-								INSERT INTO dwehrdev_H5.dbo.NHS_JOIN_INFO(
+								INSERT INTO NHS_JOIN_INFO(
 										NHS_JOIN_INFO_ID,--	건강보험가입정보ID
 										EMP_ID,--	사원ID
 										REPORT_TYPE,--	신고구분(NHS_STAT_TYPE_CD)
@@ -482,4 +482,3 @@ BEGIN
 	PRINT 'CNT_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

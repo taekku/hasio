@@ -6,7 +6,7 @@ GO
 -- Description:	Conversion 코스트센터코드
 -- 
 -- =============================================
-CREATE OR ALTER PROCEDURE P_CNV_ORM_COST
+CREATE OR ALTER PROCEDURE [dbo].[P_CNV_ORM_COST]
       @an_try_no         NUMERIC(4)       -- 시도회차
     , @av_company_cd     NVARCHAR(10)     -- 회사코드
 AS
@@ -89,7 +89,7 @@ BEGIN
 				-- =======================================================
 				--  To-Be Table Insert Start
 				-- =======================================================
-				INSERT INTO dwehrdev_H5.dbo.ORM_COST(
+				INSERT INTO ORM_COST(
 							  ORM_COST_ID, --	코스트센터관리ID
 								COMPANY_CD, --	회사코드
 								COST_CD, --	코스트센터
@@ -178,4 +178,3 @@ BEGIN
 	PRINT 'CNT_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

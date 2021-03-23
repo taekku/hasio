@@ -6,7 +6,7 @@ GO
 -- Description:	Conversion 출어가불금공제관리
 -- 
 -- =============================================
-CREATE OR ALTER PROCEDURE P_CNV_PAY_SHIP_ADV_DTL
+CREATE OR ALTER PROCEDURE [dbo].[P_CNV_PAY_SHIP_ADV_DTL]
       @an_try_no         NUMERIC(4)       -- 시도회차
     , @av_company_cd     NVARCHAR(10)     -- 회사코드
 AS
@@ -137,7 +137,7 @@ BEGIN
 				-- =======================================================
 				--  To-Be Table Insert Start
 				-- =======================================================
-				INSERT INTO dwehrdev_H5.dbo.PAY_SHIP_ADV_DTL(
+				INSERT INTO PAY_SHIP_ADV_DTL(
 							PAY_SHIP_ADV_DTL_ID, --	출어가불금공제관리ID
 							PAY_ADV_ID, --	출어가불금ID
 							DED_REQ_YM, --	공제의뢰월
@@ -224,4 +224,3 @@ BEGIN
 	PRINT 'CNT_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

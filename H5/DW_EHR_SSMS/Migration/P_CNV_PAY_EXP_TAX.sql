@@ -112,7 +112,7 @@ BEGIN
 				-- =======================================================
 				--  To-Be Table Insert Start
 				-- =======================================================
-				INSERT INTO dwehrdev_H5.dbo.PAY_EXP_TAX(
+				INSERT INTO PAY_EXP_TAX(
 						PAY_EXP_TAX_ID, --	개인별원천징수율ID
 						COMPANY_CD, --	인사영역
 						EMP_ID, --	사원ID
@@ -193,4 +193,3 @@ BEGIN
 	PRINT 'CNT_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

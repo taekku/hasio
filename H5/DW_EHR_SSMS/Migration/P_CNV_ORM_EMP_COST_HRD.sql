@@ -2,46 +2,50 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
 -- =============================================
--- Description:	Conversion 선원평균/통상임금기준율관리
+-- Description:	Conversion 개인별코스트센터
 -- 
 -- =============================================
-CREATE OR ALTER PROCEDURE [dbo].[P_CNV_PAY_SHIP_RATE]
+CREATE OR ALTER PROCEDURE [dbo].[P_CNV_ORM_EMP_COST_HRD]
       @an_try_no         NUMERIC(4)       -- 시도회차
     , @av_company_cd     NVARCHAR(10)     -- 회사코드
 AS
 BEGIN
-	SET NOCOUNT ON;
+	SET NOCOUNT ON
 	DECLARE @s_company_cd nvarchar(10)
 	      , @t_company_cd nvarchar(10)
 		  -- 변환작업결과
-		  , @v_proc_nm   nvarchar(50) -- 프로그램ID
-		  , @v_pgm_title nvarchar(100) -- 프로그램Title
+		  , @v_proc_nm		nvarchar(50) -- 프로그램ID
+		  , @v_pgm_title	nvarchar(100) -- 프로그램Title
 		  , @v_params       nvarchar(4000) -- 파라미터
 		  , @n_total_record numeric
 		  , @n_cnt_success  numeric
 		  , @n_cnt_failure  numeric
 		  , @v_s_table      nvarchar(50) -- source table
 		  , @v_t_table      nvarchar(50) -- target table
-		  , @n_log_h_id		  numeric
+		  , @n_log_h_id		numeric
 		  , @v_keys			nvarchar(2000)
 		  , @n_err_cod		numeric
 		  , @v_err_msg		nvarchar(4000)
 		  -- AS-IS Table Key
 		  , @cd_company		nvarchar(20) -- 회사코드
-		  , @cd_ship		nvarchar(20) -- 
+		  , @no_person		nvarchar(40) -- 사번
+		  -- 참조변수
+		  , @emp_id			numeric -- 사원ID
+		  , @person_id		numeric -- 개인ID
 
 	set @v_proc_nm = OBJECT_NAME(@@PROCID) -- 프로그램명
 
 	-- =============================================
 	-- 전환프로그램설명
 	-- =============================================
-	set @v_pgm_title = '선원평균통상임금기준관리'
+	set @v_pgm_title = '개인별 COST센터관리'
 	-- 파라미터를 합침(로그파일에 기록하기 위해서..)
 	set @v_params = CONVERT(nvarchar(100), @an_try_no)
 				+ ',' + ISNULL(CONVERT(nvarchar(100), @av_company_cd),'NULL')
-	set @v_s_table = 'H_SHIP_BASE_RULE1'   -- As-Is Table
-	set @v_t_table = 'PAY_SHIP_RATE' -- To-Be Table
+	set @v_s_table = 'H_PER_MATCH'   -- As-Is Table
+	set @v_t_table = 'ORM_EMP_COST' -- To-Be Table
 	-- =============================================
 	-- 전환프로그램설명
 	-- =============================================
@@ -57,10 +61,10 @@ BEGIN
 	--   As-Is Key Column Select
 	--   Source Table Key
 	-- =============================================
-    DECLARE CNV_CUR CURSOR READ_ONLY
-	    FOR SELECT CD_COMPANY
-				 , CD_SHIP
-			  FROM dwehrdev.dbo.H_SHIP_BASE_RULE1
+    DECLARE CNV_CUR CURSOR READ_ONLY FOR
+		SELECT CD_COMPANY
+				 , NO_PERSON
+			  FROM dwehr_hrd.dbo.H_PER_MATCH
 			 WHERE CD_COMPANY LIKE ISNULL(@av_company_cd,'') + '%'
 	-- =============================================
 	--   As-Is Key Column Select
@@ -73,8 +77,7 @@ BEGIN
 			--  As-Is 테이블에서 KEY SELECT
 			-- =============================================
 			FETCH NEXT FROM CNV_CUR
-			      INTO @cd_company
-				     , @cd_ship
+			      INTO @cd_company, @no_person
 			-- =============================================
 			--  As-Is 테이블에서 KEY SELECT
 			-- =============================================
@@ -85,55 +88,53 @@ BEGIN
 				set @t_company_cd = @cd_company -- TO-BE 회사코드
 				
 				-- =======================================================
+				--  EMP_ID 찾기
+				-- =======================================================
+				SELECT @emp_id = EMP_ID, @person_id = PERSON_ID
+				  FROM PHM_EMP_NO_HIS
+				 WHERE COMPANY_CD = @cd_company
+				   AND EMP_NO = @no_person
+				IF @@ROWCOUNT < 1
+					BEGIN
+						-- *** 로그에 실패 메시지 저장 ***
+						set @v_keys = ISNULL(CONVERT(nvarchar(100), @cd_company),'NULL')
+							  + ',' + ISNULL(CONVERT(nvarchar(100), @no_person),'NULL')
+						set @v_err_msg = 'PHM_EMP_NO_HIS에서 사번을 찾을 수 없습니다.!' -- ERROR_MESSAGE()
+						EXEC [dbo].[P_CNV_PAY_LOG_D] @n_log_h_id, @v_keys, @@ERROR, @v_err_msg
+						-- *** 로그에 실패 메시지 저장 ***
+						set @n_cnt_failure = @n_cnt_failure + 1 -- 실패건수
+						CONTINUE
+					END
+				-- =======================================================
 				--  To-Be Table Insert Start
 				-- =======================================================
-				INSERT INTO PAY_SHIP_RATE(
-							PAY_SHIP_RATE_ID, --	선원평균통상임금기준관리ID
-							COMPANY_CD, --	인사영역
-							ORG_ID, --	부서ID
-							SHIP_CD, --	선박업종[PAY_SHIP_KIND_CD]
-							SHIP_CD_D, --	선박세부업종[PAY_SHIP_KIND_D_CD]
-							PAY_ORG_ID, --	급여담당부서ID
-							RATE_C, --	통상임금율
-							RATE_A, --	평균임금율
-							TONNAGE, --	선박톤수
-							FISHING_CATEGORY, --	표시업종
-							HORSE_POWER, --	선박출력
-							STA_YMD, --	시작일
-							END_YMD, --	종료일
-							NOTE, --	비고
-							MOD_USER_ID, --	변경자
-							MOD_DATE, --	변경일시
-							TZ_CD, --	타임존코드
-							TZ_DATE  --	타임존일시
+				INSERT INTO ORM_EMP_COST(
+							  ORM_EMP_COST_ID, --	사원별코CC관리ID
+								EMP_ID, --	사원ID
+								COMPANY_CD, --	회사코드
+								COST_CD, --	코스트센터
+								STA_YMD, --	시작일
+								END_YMD, --	종료일
+								NOTE --	비고
+							,MOD_USER_ID	-- 변경자
+							,MOD_DATE	-- 변경일시
+							,TZ_CD	-- 타임존코드
+							,TZ_DATE	-- 타임존일시
 				       )
-				SELECT NEXT VALUE FOR S_PAY_SEQUENCE as PAY_SHIP_RATE_ID
-						, @t_company_cd AS COMPANY_CD,
-						(SELECT TOP 1 ORG_ID FROM ORM_ORG WHERE COMPANY_CD = A.CD_COMPANY AND ORG_CD = A.CD_SHIP) AS ORG_ID,
-					   TP_SHIP,
-					   TP_SHIP_D,
-				--       A.NO_PERSON ,
-					   (SELECT TOP 1 ORG_ID FROM VI_FRM_ORM_ORG
-						 WHERE COMPANY_CD = A.CD_COMPANY
-						   AND ORG_CD = A.NO_PERSON
-				--           AND dbo.XF_SYSDATE(0) BETWEEN STA_YMD AND END_YMD
-						 ORDER BY STA_YMD DESC
-					   ) AS PAY_ORG_ID,
-					   RATE_C,
-					   RATE_A,
-					   TONNAGE,
-					   FISHINGCATEGORY,
-					   HORSEPOWER,
-					   '1900-01-01',
-					   '2999-12-31',
-					   '',
-						 0 AS MOD_USER_ID
-						, ISNULL(DT_UPDATE,'1900-01-01')
-						, 'KST'
-						, ISNULL(DT_UPDATE,'1900-01-01')
-				  FROM dwehrdev.dbo.H_SHIP_BASE_RULE1 A
-				 WHERE CD_COMPANY = @s_company_cd
-				   AND CD_SHIP = @cd_ship
+				SELECT NEXT VALUE FOR S_ORM_SEQUENCE ORM_EMP_COST_ID,
+								@emp_id	EMP_ID, --	사원ID
+								@t_company_cd	COMPANY_CD, --	회사코드
+								A.CD_COST	COST_CD, --	코스트센터
+								'19000101'	STA_YMD, --	시작일
+								'29991231'	END_YMD, --	종료일
+								A.REM_COMMENT	NOTE --	비고
+					, 0 --MOD_USER_ID	--변경자
+					, ISNULL(A.DT_INS_UPDATE,'1900-01-01') --MOD_DATE	--변경일시
+					, 'KST' TZ_CD	--타임존코드
+					, ISNULL(A.DT_INS_UPDATE,'1900-01-01') -- TZ_DATE	--타임존일시
+				  FROM dwehr_hrd.dbo.H_PER_MATCH A
+				 WHERE A.CD_COMPANY = @s_company_cd
+				   AND A.NO_PERSON = @no_person
 				-- =======================================================
 				--  To-Be Table Insert End
 				-- =======================================================
@@ -152,7 +153,7 @@ BEGIN
 					begin
 						-- *** 로그에 실패 메시지 저장 ***
 						set @v_keys = ISNULL(CONVERT(nvarchar(100), @cd_company),'NULL')
-							  + ',' + ISNULL(CONVERT(nvarchar(100), @cd_ship),'NULL')
+							  + ',no_person=' + ISNULL(CONVERT(nvarchar(100), @no_person),'NULL')
 						set @v_err_msg = '선택된 Record가 없습니다.!' -- ERROR_MESSAGE()
 						EXEC [dbo].[P_CNV_PAY_LOG_D] @n_log_h_id, @v_keys, @@ERROR, @v_err_msg
 						-- *** 로그에 실패 메시지 저장 ***
@@ -163,7 +164,7 @@ BEGIN
 				-- *** 로그에 실패 메시지 저장 ***
 						set @n_err_cod = ERROR_NUMBER()
 						set @v_keys = ISNULL(CONVERT(nvarchar(100), @cd_company),'NULL')
-							  + ',' + ISNULL(CONVERT(nvarchar(100), @cd_ship),'NULL')
+							  + ',no_person=' + ISNULL(CONVERT(nvarchar(100), @no_person),'NULL')
 						set @v_err_msg = ERROR_MESSAGE()
 						EXEC [dbo].[P_CNV_PAY_LOG_D] @n_log_h_id, @v_keys, @n_err_cod, @v_err_msg
 				-- *** 로그에 실패 메시지 저장 ***

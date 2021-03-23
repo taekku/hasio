@@ -86,7 +86,7 @@ BEGIN
 				-- =======================================================
 				--  To-Be Table Insert Start
 				-- =======================================================
-				INSERT INTO dwehrdev_H5.dbo.PAY_ACNT_CD (
+				INSERT INTO PAY_ACNT_CD (
 						PAY_ACNT_CD_ID, --	계정코드관리ID
 						COMPANY_CD, --	회사코드
 						ACNT_CD, --	계정코드
@@ -164,4 +164,3 @@ BEGIN
 	PRINT 'CNT_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

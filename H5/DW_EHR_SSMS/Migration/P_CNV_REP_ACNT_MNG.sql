@@ -91,7 +91,7 @@ BEGIN
 				set @s_company_cd = @cd_company -- AS-IS 회사코드
 				set @t_company_cd = @cd_company -- TO-BE 회사코드
 				
-				INSERT INTO dwehrdev_H5.dbo.REP_ACNT_MNG (
+				INSERT INTO REP_ACNT_MNG (
 						REP_ACNT_MNG_ID, --	퇴직금계정관리ID
 						COMPANY_CD, --	회사코드
 						REP_BILL_TYPE_CD, --	전표구분[REP_BILL_TYPE_CD]
@@ -207,4 +207,3 @@ BEGIN
 	PRINT 'CNT_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

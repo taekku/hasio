@@ -25,6 +25,7 @@ AS
     --<DOCLINE>   HISTORY     : 작성 임택구 2020.09.08
     --<DOCLINE> ***************************************************************************
 BEGIN
+	SET NOCOUNT ON
     DECLARE
         /* 기본적으로 사용되는 변수 */
         @v_program_id    NVARCHAR(30)
@@ -44,6 +45,7 @@ BEGIN
 	  , @n_wk_gen_cnt		NUMERIC --	근속발생연차
 	  , @n_use_cnt			NUMERIC --	사용일수
 	  , @n_un_use_cnt		NUMERIC --	미사용일수
+	  , @v_emp_no nvarchar(20) -- 사번
 
     SET @v_program_id   = 'P_PEB_DTM_MNG_CREATE'
     SET @v_program_nm   = '인건비계획 연차자료 생성'
@@ -91,9 +93,15 @@ BEGIN
 									NULL, NULL, NULL, NULL, NULL,
 									@v_pay_group, NULL, NULL, NULL, NULL,
 									@d_peb_sta_ymd, 'H1' -- 'H1' : 코드1,  'E1' : 기타코드1
-									) ), 0)
+									) ), 12)
+					, @v_emp_no = A.EMP_NO
 				  FROM PEB_PHM_MST A
 				 WHERE PEB_PHM_MST_ID = @PEB_PHM_MST_ID
+				--if @v_emp_no = '20200092'
+				--	print '@v_emp_no=' + @v_emp_no +
+				--			',@n_year_gen_cnt=' + convert(varchar(10), @n_year_gen_cnt) +
+				--			',@n_gen_cnt=' + convert(varchar(10), @n_gen_cnt) +
+				--			',@n_use_cnt=' + convert(varchar(10), @n_use_cnt) 
 				IF @n_gen_cnt > 0
 					set @n_year_gen_cnt = 0
 				set @n_use_cnt = case
@@ -101,6 +109,11 @@ BEGIN
 										(@n_year_gen_cnt + @n_gen_cnt + @n_wk_gen_cnt)
 								 else @n_use_cnt end
 				set @n_un_use_cnt = (@n_year_gen_cnt + @n_gen_cnt + @n_wk_gen_cnt) - @n_use_cnt
+				--if @v_emp_no = '20200092'
+				--	print '@v_emp_no=' + @v_emp_no +
+				--			',@n_year_gen_cnt=' + convert(varchar(10), @n_year_gen_cnt) +
+				--			',@n_gen_cnt=' + convert(varchar(10), @n_gen_cnt) +
+				--			',@n_use_cnt=' + convert(varchar(10), @n_use_cnt) 
 				INSERT INTO PEB_DTM_MNG(
 						PEB_DTM_MNG_ID, --	인건비연차ID
 						PEB_PHM_MST_ID, --	인건비계획대상자ID
@@ -131,7 +144,7 @@ BEGIN
 				 WHERE A.PEB_PHM_MST_ID = @PEB_PHM_MST_ID
 			END Try
 			BEGIN Catch
-						SET @av_ret_message = dbo.F_FRM_ERRMSG( '인건비 인상율 INSERT 에러[ERR]' + ERROR_MESSAGE(),
+						SET @av_ret_message = dbo.F_FRM_ERRMSG( '인건비 연차자료 생성 에러[ERR]' + ERROR_MESSAGE(),
 												@v_program_id,  0150,  null, null
 											)
 						SET @av_ret_code    = 'FAILURE!'

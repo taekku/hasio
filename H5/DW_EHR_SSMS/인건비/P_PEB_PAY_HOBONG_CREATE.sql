@@ -3,11 +3,12 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-ALTER   PROCEDURE [dbo].[P_PEB_PAY_HOBONG_CREATE]
+CREATE OR ALTER   PROCEDURE [dbo].[P_PEB_PAY_HOBONG_CREATE]
     @av_company_cd      NVARCHAR(10),       -- 인사영역
     @av_locale_cd       NVARCHAR(10),       -- 지역코드
     @an_peb_base_id     NUMERIC,            -- 인건비기준id
     @av_pos_grd_cd      NVARCHAR(50),       -- 직급코드
+	@av_sailor			NVARCHAR(10),		-- 선원여부
     @an_mod_user_id     NUMERIC,            -- 변경자
     @av_ret_code        NVARCHAR(100) OUTPUT,
     @av_ret_message     NVARCHAR(500) OUTPUT
@@ -57,17 +58,15 @@ BEGIN
              , @d_std_ymd     = A.STD_YMD
              , @d_std_sta_ymd = A.STA_YMD
              , @d_std_end_ymd = A.END_YMD
-
              , @n_up_rate     = (ISNULL(B.PEB_RATE, 0) / 100.0) + 1
-             , @d_std_ymd     = A.STD_YMD
              , @v_peb_ym      = B.PEB_YM
           FROM PEB_BASE A
                LEFT OUTER JOIN PEB_RATE B
                        ON A.PEB_BASE_ID = B.PEB_BASE_ID
-                      AND B.PEB_TYPE_CD = '120' -- 110:연봉인상율, 120:호봉인상율
+                      AND B.PEB_TYPE_CD = CASE WHEN @av_sailor = 'Y' then '121' else '120' end -- 110:연봉인상율, 120:호봉인상율, 121:호봉인상율(선원)
          WHERE A.PEB_BASE_ID = @an_peb_base_id
 
-        IF @@ROWCOUNT < 1
+		IF @@ROWCOUNT < 1
             BEGIN
                 SET @v_peb_ym = NULL
             END
@@ -96,6 +95,7 @@ BEGIN
         DELETE FROM PEB_PAY_HOBONG
          WHERE PEB_BASE_ID = @an_peb_base_id
            AND (PAY_POS_GRD_CD = @av_pos_grd_cd OR @av_pos_grd_cd IS NULL)
+		   AND ( case when  @av_sailor  = 'Y' then '000' else PAY_POS_GRD_CD end != '600' )
     END TRY
     BEGIN CATCH
         SET @av_ret_code = 'FAILURE!'
@@ -110,7 +110,7 @@ BEGIN
 -- 시작/종료일 세팅
 --===========================================================
     -- 인건비 인상 정보가 없을 경우
-   IF @v_peb_ym IS NULL
+   IF @v_peb_ym IS NULL OR ISNULL(@n_up_rate, 1) = 1
         BEGIN
             SET @d_sta_ymd = NULL
             SET @d_end_ymd = @d_std_end_ymd
@@ -177,6 +177,7 @@ BEGIN
                                WHERE COMPANY_CD = @av_company_cd
                                  AND @d_std_ymd BETWEEN STA_YMD AND END_YMD
                                  AND (PAY_POS_GRD_CD = @av_pos_grd_cd OR @av_pos_grd_cd IS NULL)
+								 AND ( case when  @av_sailor  = 'Y' then '000' else PAY_POS_GRD_CD end != '600' )
                                  AND ISNULL(PAY_AMT, 0) <> 0
 
     END TRY
@@ -230,7 +231,7 @@ BEGIN
                                            , @d_std_end_ymd                  -- END_YMD
                                            , PAY_AMT                         -- OLD_PAY_AMT
                                            , PAY_OFFICE_AMT                  -- OLD_PAY_OFFICE_AMT
-                              				, BNS_AMT                         -- OLD_BNS_AMT
+                              				, BNS_AMT                        -- OLD_BNS_AMT
                                            , DBO.XF_CEIL(@n_up_rate * PAY_AMT       , -2)    -- PAY_AMT
                                            , DBO.XF_CEIL(@n_up_rate * PAY_OFFICE_AMT, -2)    -- PAY_OFFICE_AMT
                                            , DBO.XF_CEIL(@n_up_rate * BNS_AMT       , -2)    -- BNS_AMT
@@ -243,6 +244,7 @@ BEGIN
                                        WHERE COMPANY_CD = @av_company_cd
                                          AND @d_std_ymd BETWEEN STA_YMD AND END_YMD
                                          AND (PAY_POS_GRD_CD = @av_pos_grd_cd OR @av_pos_grd_cd IS NULL)
+										 AND ( case when  @av_sailor  = 'Y' then '000' else PAY_POS_GRD_CD end != '600' )
                                          AND ISNULL(PAY_AMT, 0) <> 0
 
             END TRY

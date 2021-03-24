@@ -57,15 +57,18 @@ BEGIN
              , @d_std_ymd     = A.STD_YMD
              , @d_std_sta_ymd = A.STA_YMD
              , @d_std_end_ymd = A.END_YMD
-
              , @n_up_rate     = (ISNULL(B.PEB_RATE, 0) / 100.0) + 1
-             , @d_std_ymd     = A.STD_YMD
              , @v_peb_ym      = B.PEB_YM
           FROM PEB_BASE A
                LEFT OUTER JOIN PEB_RATE B
                        ON A.PEB_BASE_ID = B.PEB_BASE_ID
-                      AND B.PEB_TYPE_CD = '120' -- 110:연봉인상율, 120:호봉인상율
+                      AND B.PEB_TYPE_CD = '122' -- 110:연봉인상율, 120:호봉인상율, 121:선원, 122:울산, 123:로엑스
          WHERE A.PEB_BASE_ID = @an_peb_base_id
+
+		IF @@ROWCOUNT < 1
+            BEGIN
+                SET @v_peb_ym = NULL
+            END
 
         IF @@ERROR <> 0
             BEGIN
@@ -82,10 +85,6 @@ BEGIN
                 RETURN
             END
 
-        IF @@ROWCOUNT < 1
-            BEGIN
-                SET @v_peb_ym = NULL
-            END
     END
 
 
@@ -110,7 +109,7 @@ BEGIN
 -- 시작/종료일 세팅
 --===========================================================
     -- 인건비 인상 정보가 없을 경우
-    IF @v_peb_ym IS NULL
+    IF @v_peb_ym IS NULL OR ISNULL(@n_up_rate, 1) = 1
         BEGIN
             SET @d_sta_ymd = NULL
             SET @d_end_ymd = @d_std_end_ymd

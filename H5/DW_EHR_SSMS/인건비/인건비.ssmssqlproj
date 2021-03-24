@@ -3,6 +3,18 @@
   <Items>
     <LogicalFolder Name="연결" Type="2" Sorted="true">
       <Items>
+        <ConnectionNode Name="172.20.13.37:ehr_devel11">
+          <Created>2021-03-23T13:48:07.0060961+09:00</Created>
+          <Type>SQL</Type>
+          <Server>172.20.13.37</Server>
+          <UserName>ehr_devel11</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - 쿼리</ApplicationName>
+        </ConnectionNode>
         <ConnectionNode Name="dbdev:ehr_devel11">
           <Created>2020-08-03T09:18:38.5749068+09:00</Created>
           <Type>SQL</Type>
@@ -19,6 +31,12 @@
     </LogicalFolder>
     <LogicalFolder Name="쿼리" Type="0" Sorted="true">
       <Items>
+        <FileNode Name="F_CAT_GROUP_CHK_PEB_복지포인트기준.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>F_CAT_GROUP_CHK_PEB_복지포인트기준.sql</FullPath>
+        </FileNode>
         <FileNode Name="F_PEB_GET_PAY_GROUP.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
@@ -127,6 +145,12 @@
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_PEB_PNT_MNG_CREATE.sql</FullPath>
         </FileNode>
+        <FileNode Name="P_PEB_PNT_MNG_CREATE_20210319백업.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>P_PEB_PNT_MNG_CREATE_20210319백업.sql</FullPath>
+        </FileNode>
         <FileNode Name="P_PEB_POS_WORK_SAVE.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
@@ -134,16 +158,22 @@
           <FullPath>P_PEB_POS_WORK_SAVE.sql</FullPath>
         </FileNode>
         <FileNode Name="P_PEB_RATE_CREATE.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:172.20.13.37:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>172.20.13.37</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_PEB_RATE_CREATE.sql</FullPath>
         </FileNode>
         <FileNode Name="P_PEB_SCH_MNG_CREATE학자금.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:172.20.13.37:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>172.20.13.37</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>P_PEB_SCH_MNG_CREATE학자금.sql</FullPath>
+        </FileNode>
+        <FileNode Name="SQLQuery1.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
-          <FullPath>P_PEB_SCH_MNG_CREATE학자금.sql</FullPath>
+          <FullPath>SQLQuery1.sql</FullPath>
         </FileNode>
         <FileNode Name="급여그룹.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>

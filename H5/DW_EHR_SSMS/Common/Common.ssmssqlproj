@@ -181,17 +181,17 @@
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>쿼리내용확인.sql</FullPath>
         </FileNode>
-        <FileNode Name="특정단어 검색하기.sql">
+        <FileNode Name="특정단어 검색하기(Fn,Proc).sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
-          <FullPath>특정단어 검색하기.sql</FullPath>
+          <FullPath>특정단어 검색하기(Fn,Proc).sql</FullPath>
         </FileNode>
-        <FileNode Name="프로시저내용검색.sql">
+        <FileNode Name="프로시저검색.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
-          <FullPath>프로시저내용검색.sql</FullPath>
+          <FullPath>프로시저검색.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>

@@ -4,10 +4,9 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Description:	Conversion 복지포인트
--- 이관하지않음
+-- 
 -- =============================================
---CREATE OR ALTER PROCEDURE P_CNV_CAT_PAY_MGR
-CREATE PROCEDURE P_CNV_CAT_PAY_MGR
+ALTER   PROCEDURE [dbo].[P_CNV_CAT_PAY_MGR]
       @an_try_no         NUMERIC(4)       -- 시도회차
     , @av_company_cd     NVARCHAR(10)     -- 회사코드
 AS
@@ -149,12 +148,13 @@ BEGIN
 						'10'	CAT_POINT_TYPE, --	지급구분[CAT_POINT_TYPE] 10:동원몰, 20:더반찬
 						A.DT_PROV GIVE_YMD, --	지급일자
 						A.CD_COMPANY	COMPANY_CD, --	인사영역
-						'EA01'	PAY_GROUP_CD, --	급여그룹CD
+						--'EA01'	PAY_GROUP_CD, --	급여그룹CD
+						dbo.F_PAY_GROUP_ID(@emp_id) as PAY_GROUP_ID, -- 급여그룹ID
 						@emp_id	EMP_ID, --	사원ID
 						@person_id	PERSON_ID, --	개인ID
 						AMT_ITEM	POINT, --	지급Point
 						0	BIRTH_POINT, --	생일지급Point
-						'Y'	PAY_CD, --	과세여부[CAT_POINT_PAY_TYPE]
+						'N'	PAY_CD, --	과세여부[CAT_POINT_PAY_TYPE]
 						NULL	PAY_YMD, --	과세일자
 						'Y'	CONF_CD, --	승인구분[CAT_POINT_CONF_TYPE]
 						A.DT_INSERT	CONF_YMD, --	승인일자
@@ -218,4 +218,3 @@ BEGIN
 	PRINT 'CNT_PAY_WORK_ID = ' + CONVERT(varchar(100), @n_log_h_id)
 	RETURN @n_log_h_id
 END
-GO

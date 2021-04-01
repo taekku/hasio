@@ -1,8 +1,8 @@
 BEGIN
-	 DECLARE @v_source_company_cd NVARCHAR(100) = 'E'
+	 DECLARE @v_source_company_cd NVARCHAR(100) = 'X'
 	       , @v_target_company_cd NVARCHAR(100) = 'A,B,C,E,F,H,I,M,R,S,T,U,W,X,Y'
-		   , @v_unit_cd NVARCHAR(100) = 'PEB'
-		   , @v_std_kind	NVARCHAR(100) = 'PEB_BONUS_ITEM'
+		   , @v_unit_cd NVARCHAR(100) = 'TBS'
+		   , @v_std_kind	NVARCHAR(100) = 'TBS_DEBIS_PAY'
 	DECLARE @TARGET_COMPANY TABLE(
 		COMPANY_CD	NVARCHAR(10)
 	)

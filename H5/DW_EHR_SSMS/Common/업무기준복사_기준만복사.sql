@@ -1,7 +1,8 @@
-DECLARE @v_source_company_cd NVARCHAR(100) = 'E'
-	, @v_target_company_cd NVARCHAR(100) = 'A,B,C,E,F,H,I,M,R,S,T,U,W,X,Y'
+DECLARE @v_source_company_cd NVARCHAR(100) = 'X'
+	--, @v_target_company_cd NVARCHAR(100) = 'A,B,C,E,F,H,I,M,R,S,T,U,W,X,Y'
+	, @v_target_company_cd NVARCHAR(100) = 'A,C,E,F,H,I,M,R,S,T,U,W'
 	, @v_unit_cd NVARCHAR(100) = 'PAY'
-	, @v_std_kind	NVARCHAR(100) = 'PAY_GRP_DTM_MAP,PAY_GRP_CAM_MAP'
+	, @v_std_kind	NVARCHAR(100) = 'PAY_PBT_HRTYPE,PAY_PBT_CUST,PAY_PBT_BILL'
 DECLARE @TARGET_COMPANY TABLE(
 	COMPANY_CD	NVARCHAR(10)
 )
@@ -12,6 +13,7 @@ WHERE Items != @v_source_company_cd
 
 
 --업무기준관리 분류키
+PRINT '삭제 - 업무기준관리 분류키'
 DELETE FROM FRM_UNIT_ETC
 WHERE FRM_UNIT_STD_MGR_ID IN (
 															SELECT FRM_UNIT_STD_MGR_ID 
@@ -22,6 +24,7 @@ WHERE FRM_UNIT_STD_MGR_ID IN (
 															)
 
 --업무기준관리 코드키
+PRINT '삭제 - 업무기준관리 코드키'
 DELETE FROM FRM_UNIT_STD_ETC
 WHERE FRM_UNIT_STD_MGR_ID IN (
 															SELECT FRM_UNIT_STD_MGR_ID 
@@ -30,6 +33,43 @@ WHERE FRM_UNIT_STD_MGR_ID IN (
 															AND UNIT_CD = @v_unit_cd
 															AND STD_KIND IN (SELECT ITEMS FROM dbo.fn_split_array(@v_std_kind,','))
 															)
+
+/*=============================================================================================================
+업무기준 FRM_UNIT_STD_MGR 생성
+=============================================================================================================*/
+	BEGIN
+		PRINT '삽입 - 업무기준 FRM_UNIT_STD_MGR'
+		INSERT INTO FRM_UNIT_STD_MGR
+		SELECT 
+				next VALUE FOR S_FRM_SEQUENCE ,    --기준관리ID
+				A.LOCALE_CD,    --지역코드
+				T.COMPANY_CD,    --인사영역코드
+				A.UNIT_CD,    --단위업무코드
+				A.KEY1,    --분류키1
+				A.KEY2,    --분류키2
+				A.KEY3,    --분류키3
+				A.KEY4,    --분류키4
+				A.KEY5,    --분류키5
+				A.STD_KIND,    --기준분류
+				A.STD_KIND_NM,    --기준분류명
+				A.FUNCTION_CM,    --FUNCTION설명
+				A.SQL,    --SQL
+				A.CHANGE_YN,    --자료변경여부
+				A.NOTE,    --비고
+				A.MOD_USER_ID,    --변경자
+				A.MOD_DATE,    --변경일시
+				A.LABEL_CD    --어휘코드
+		  FROM FRM_UNIT_STD_MGR A
+		  JOIN @TARGET_COMPANY T
+		    ON 1=1
+		  WHERE A.COMPANY_CD = @v_source_company_cd
+							AND UNIT_CD = @v_unit_cd
+							AND STD_KIND IN (SELECT ITEMS FROM dbo.fn_split_array(@v_std_kind,','))
+							AND NOT EXISTS(SELECT * FROM FRM_UNIT_STD_MGR WHERE COMPANY_CD = T.COMPANY_CD
+							                                                AND UNIT_CD = @v_unit_cd
+																			AND STD_KIND = A.STD_KIND)
+	END  
+  
 /*=============================================================================================================
 업무기준 FRM_UNIT_STD_ETC 생성
 =============================================================================================================*/

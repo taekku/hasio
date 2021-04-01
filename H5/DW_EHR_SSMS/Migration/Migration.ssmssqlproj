@@ -3,6 +3,18 @@
   <Items>
     <LogicalFolder Name="연결" Type="2" Sorted="true">
       <Items>
+        <ConnectionNode Name="172.20.13.37:ehr_devel11">
+          <Created>2021-03-27T11:54:14.7985189+09:00</Created>
+          <Type>SQL</Type>
+          <Server>172.20.13.37</Server>
+          <UserName>ehr_devel11</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - 쿼리</ApplicationName>
+        </ConnectionNode>
         <ConnectionNode Name="dbdev:ehr_devel11">
           <Created>2020-08-19T10:12:57.9550677+09:00</Created>
           <Type>SQL</Type>
@@ -68,8 +80,8 @@
           <FullPath>P_CNV_ORM_EMP_COST_HRD.sql</FullPath>
         </FileNode>
         <FileNode Name="P_CNV_PAY_ACCOUNT.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:172.20.13.37:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>172.20.13.37</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_CNV_PAY_ACCOUNT.sql</FullPath>
         </FileNode>
@@ -128,14 +140,14 @@
           <FullPath>P_CNV_PAY_GROUP.sql</FullPath>
         </FileNode>
         <FileNode Name="P_CNV_PAY_HOBONG.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:172.20.13.37:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>172.20.13.37</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_CNV_PAY_HOBONG.sql</FullPath>
         </FileNode>
         <FileNode Name="P_CNV_PAY_HOBONG_U.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:172.20.13.37:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>172.20.13.37</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_CNV_PAY_HOBONG_U.sql</FullPath>
         </FileNode>
@@ -194,8 +206,8 @@
           <FullPath>P_CNV_PAY_PAYROLL_ONE.sql</FullPath>
         </FileNode>
         <FileNode Name="P_CNV_PAY_PHM_EMP.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:172.20.13.37:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>172.20.13.37</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_CNV_PAY_PHM_EMP.sql</FullPath>
         </FileNode>
@@ -403,6 +415,12 @@
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>이관_급여_수시_수당_공제.sql</FullPath>
         </FileNode>
+        <FileNode Name="이관_급여계좌.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:172.20.13.37:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>172.20.13.37</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>이관_급여계좌.sql</FullPath>
+        </FileNode>
         <FileNode Name="이관_급여그룹 사용자.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
@@ -452,8 +470,8 @@
           <FullPath>이관_실적DATA확인.sql</FullPath>
         </FileNode>
         <FileNode Name="이관_호봉테이블.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:172.20.13.37:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>172.20.13.37</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>이관_호봉테이블.sql</FullPath>
         </FileNode>

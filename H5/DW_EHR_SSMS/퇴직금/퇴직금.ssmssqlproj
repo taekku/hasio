@@ -247,6 +247,12 @@
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>퇴직금전표생성 P_REP_CALC_SAP_CREATE.sql</FullPath>
         </FileNode>
+        <FileNode Name="퇴직연금 이관 Query.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>퇴직연금 이관 Query.sql</FullPath>
+        </FileNode>
       </Items>
     </LogicalFolder>
     <LogicalFolder Name="프로시저" Type="4" Sorted="true">

@@ -3,6 +3,18 @@
   <Items>
     <LogicalFolder Name="연결" Type="2" Sorted="true">
       <Items>
+        <ConnectionNode Name="172.20.13.37:ehr_devel11">
+          <Created>2021-03-27T13:53:51.0882385+09:00</Created>
+          <Type>SQL</Type>
+          <Server>172.20.13.37</Server>
+          <UserName>ehr_devel11</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - 쿼리</ApplicationName>
+        </ConnectionNode>
         <ConnectionNode Name="dbdev:ehr_devel11">
           <Created>2020-07-23T09:59:55.9826586+09:00</Created>
           <Type>SQL</Type>
@@ -10,6 +22,18 @@
           <UserName>ehr_devel11</UserName>
           <Authentication>SQL</Authentication>
           <InitialDB>dwehrdev_H5</InitialDB>
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - 쿼리</ApplicationName>
+        </ConnectionNode>
+        <ConnectionNode Name="dbreal:ehr_devel11">
+          <Created>2021-03-29T18:26:33.3953533+09:00</Created>
+          <Type>SQL</Type>
+          <Server>dbreal</Server>
+          <UserName>ehr_devel11</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
           <LoginTimeout>30</LoginTimeout>
           <ExecutionTimeout>0</ExecutionTimeout>
           <ConnectionProtocol>NotSpecified</ConnectionProtocol>
@@ -128,8 +152,8 @@
           <FullPath>세금계산수정-퇴직금-2020-06-29.sql</FullPath>
         </FileNode>
         <FileNode Name="업무기준복사.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>업무기준복사.sql</FullPath>
         </FileNode>
@@ -182,8 +206,8 @@
           <FullPath>쿼리내용확인.sql</FullPath>
         </FileNode>
         <FileNode Name="특정단어 검색하기(Fn,Proc).sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:172.20.13.37:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>172.20.13.37</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>특정단어 검색하기(Fn,Proc).sql</FullPath>
         </FileNode>

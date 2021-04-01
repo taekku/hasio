@@ -27,6 +27,18 @@
           <ConnectionProtocol>NotSpecified</ConnectionProtocol>
           <ApplicationName>Microsoft SQL Server Management Studio - 쿼리</ApplicationName>
         </ConnectionNode>
+        <ConnectionNode Name="dbreal:ehr_devel11">
+          <Created>2021-03-30T14:42:59.7922483+09:00</Created>
+          <Type>SQL</Type>
+          <Server>dbreal</Server>
+          <UserName>ehr_devel11</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - 쿼리</ApplicationName>
+        </ConnectionNode>
       </Items>
     </LogicalFolder>
     <LogicalFolder Name="쿼리" Type="0" Sorted="true">
@@ -74,8 +86,8 @@
           <FullPath>P_PEB_CNM_CNT_CREATE_백업_20210318.sql</FullPath>
         </FileNode>
         <FileNode Name="P_PEB_DTM_MNG_CREATE.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_PEB_DTM_MNG_CREATE.sql</FullPath>
         </FileNode>
@@ -98,20 +110,20 @@
           <FullPath>P_PEB_MON_OT_CREATE.sql</FullPath>
         </FileNode>
         <FileNode Name="P_PEB_PAY_HOBONG_CREATE.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_PEB_PAY_HOBONG_CREATE.sql</FullPath>
         </FileNode>
         <FileNode Name="P_PEB_PAY_HOBONG_U_CREATE.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_PEB_PAY_HOBONG_U_CREATE.sql</FullPath>
         </FileNode>
         <FileNode Name="P_PEB_PAY_HOBONG_X_CREATE.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_PEB_PAY_HOBONG_X_CREATE.sql</FullPath>
         </FileNode>

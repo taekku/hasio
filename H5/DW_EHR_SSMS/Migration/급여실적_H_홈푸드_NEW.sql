@@ -1,5 +1,3 @@
-USE [dwehrdev_H5]
-GO
 
 DECLARE @n_log_h_id numeric
 DECLARE @an_try_no int
@@ -34,9 +32,9 @@ set @av_company_cd = 'H'
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202005','202006') -- 조회그룹(HXXX) 1,469건
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202007','202008') -- 조회그룹(HXXX) 1,509건
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202009','202010') -- 조회그룹(HXXX) 1,519건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202011','202011')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202012','202012')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202101')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202011','202011') -- 조회그룹(HXXX) 57건
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202012','202012') -- 조회그룹(HXXX) 167건
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202105') -- 조회그룹(HXXX) 1474건
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH

@@ -8,7 +8,7 @@ SET @검색어 = 'F_CNM_PAY_HOBONG_LOEX'
 SET @검색어 = 'P_PAY_MST_CHANGE_CNM_X'
 SET @검색어 = 'P_PAY_MST_CHANGE_X'
 SET @검색어 = 'P_PAY_MST_CHANGE_MAKE'
-SET @검색어 = 'PAY_INVEST_MGR'
+SET @검색어 = 'dwehrdev_H5'
 SELECT B.NAME       AS NAME     -- 이름
      , B.TYPE_DESC  AS TYPE     -- 타입 구분
      , A.DEFINITION AS CONTENTS -- 내용

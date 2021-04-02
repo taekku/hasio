@@ -187,12 +187,6 @@
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_PEB_SCH_MNG_CREATE학자금.sql</FullPath>
         </FileNode>
-        <FileNode Name="SQLQuery1.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
-          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
-          <FullPath>SQLQuery1.sql</FullPath>
-        </FileNode>
         <FileNode Name="급여그룹.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
@@ -222,6 +216,12 @@
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>인건비계산-자료검증.sql</FullPath>
+        </FileNode>
+        <FileNode Name="인건비기타금품항목복사(PEB_EST_ITEM).sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>인건비기타금품항목복사(PEB_EST_ITEM).sql</FullPath>
         </FileNode>
         <FileNode Name="필드조합1.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>

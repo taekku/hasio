@@ -21,12 +21,13 @@ Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "전표처리-퇴직금", "�
 EndProject
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "전표처리_로엑스", "전표처리_로엑스\전표처리_로엑스.ssmssqlproj", "{B2FAF467-F5AF-4992-8FC7-07C1B02B5952}"
 EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Maintain", "Maintain\Maintain.ssmssqlproj", "{8D2D5EED-2C5A-419A-A2A0-966508D4A57B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{104B322C-4903-4973-81E8-BBFFDD202ACB}.Default|Default.ActiveCfg = Default
 		{F097EAAD-23E2-4AE1-ADFD-8DD99C315879}.Default|Default.ActiveCfg = Default
 		{BB9B3BAE-57C3-4503-96D8-85C894D83C9C}.Default|Default.ActiveCfg = Default
 		{6426C433-1C3E-4648-A5D2-A93E2F744165}.Default|Default.ActiveCfg = Default
@@ -36,6 +37,8 @@ Global
 		{1CF2A7A8-2AF5-43C2-88B7-E9246E5C0EDC}.Default|Default.ActiveCfg = Default
 		{46AC8DF2-5BF1-40A3-B506-C9E5AA3AF878}.Default|Default.ActiveCfg = Default
 		{B2FAF467-F5AF-4992-8FC7-07C1B02B5952}.Default|Default.ActiveCfg = Default
+		{F7BA2CAE-3448-4DF9-A759-5A88218E4148}.Default|Default.ActiveCfg = Default
+		{8D2D5EED-2C5A-419A-A2A0-966508D4A57B}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -109,6 +109,7 @@ BEGIN
 						POS_YMD, --	직위임용일자
 						DUTY_CD, --	직책코드 [PHM_DUTY_CD]
 						POS_GRD_CD, --	직급코드 [PHM_POS_GRD_CD]
+						JOB_CD, -- 직무코드 [PHM_JOB_CD]
 						POS_GRD_YMD, --	직급승진일자
 						YEARNUM_CD, --	호봉코드 [PHM_YEARNUM_CD]
 						YEARNUM_YMD, --	호봉승급일자
@@ -139,6 +140,7 @@ BEGIN
 						(SELECT BASE_YMD FROM PHM_BASE_DAY WHERE EMP_ID=EMP.EMP_ID AND BASE_TYPE_CD='POS_YMD' AND @ad_base_ymd BETWEEN STA_YMD AND END_YMD) AS POS_YMD,
 						CAM.DUTY_CD	DUTY_CD, --	직책코드 [PHM_DUTY_CD]
 						CAM.POS_GRD_CD	POS_GRD_CD, --	직급코드 [PHM_POS_GRD_CD]
+						CAM.JOB_CD JOB_CD, -- 직무코드 [PHM_JOB_CD]
 						-- 직급승진일자
 						CASE WHEN @av_company_cd in ('E') THEN -- 엔터인 경우 직위승진을 직급승진일로 Setting
 						          (SELECT BASE_YMD FROM PHM_BASE_DAY WHERE EMP_ID=EMP.EMP_ID AND BASE_TYPE_CD='POS_YMD' AND @ad_base_ymd BETWEEN STA_YMD AND END_YMD)

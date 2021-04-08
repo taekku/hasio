@@ -1,5 +1,3 @@
-USE [dwehrdev_H5]
-GO
 
 DECLARE @n_log_h_id numeric
 DECLARE @an_try_no int
@@ -31,7 +29,7 @@ set @av_company_cd = 'F'
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') -- 지급항목중복
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202101')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202003','202003')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202002','202004')
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH

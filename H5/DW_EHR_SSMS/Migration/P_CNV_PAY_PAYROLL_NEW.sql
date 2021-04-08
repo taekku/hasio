@@ -460,6 +460,9 @@ BEGIN
 					-- C100	과세대상금액	AMT_TOT_TAX	세금총과세금액
 					-- C101	통상임금	AMT_CM_PAY	통상임금
 					-- C102	통상시급	AMT_CT_PAY	통상시급
+					-- C110	시급		AMT_T_PAY	시급
+					-- C111	일급		AMT_D_PAY	일급
+					-- C112	통상일급	AMT_CD_PAY	통상일급
 					------------
 						INSERT INTO PAY_PAYROLL_DETAIL(
 									PAY_PAYROLL_DETAIL_ID, --	급여상세내역ID
@@ -495,6 +498,9 @@ BEGIN
 									 WHEN 'AMT_TOT_TAX' THEN 'C100'
 									 WHEN 'AMT_CM_PAY' THEN 'C101'
 									 WHEN 'AMT_CT_PAY' THEN 'C102'
+									 WHEN 'AMT_T_PAY' THEN 'C110' -- C110	시급		AMT_T_PAY	시급
+									 WHEN 'AMT_D_PAY' THEN 'C111' -- C111	일급		AMT_D_PAY	일급
+									 WHEN 'AMT_CD_PAY' THEN 'C112' -- C112	통상일급	AMT_CD_PAY	통상일급
 									 ELSE '' END PAY_ITEM_CD, --	급여항목코드
 									ITEM_VALS	BASE_MON, --	기준금액
 									ITEM_VALS	CAL_MON, --	계산금액
@@ -510,6 +516,9 @@ BEGIN
 											 WHEN 'AMT_TOT_TAX' THEN 'C100'
 											 WHEN 'AMT_CM_PAY' THEN 'C101'
 											 WHEN 'AMT_CT_PAY' THEN 'C102'
+											 WHEN 'AMT_T_PAY' THEN 'C110' -- C110	시급		AMT_T_PAY	시급
+											 WHEN 'AMT_D_PAY' THEN 'C111' -- C111	일급		AMT_D_PAY	일급
+											 WHEN 'AMT_CD_PAY' THEN 'C112' -- C112	통상일급	AMT_CD_PAY	통상일급
 											 ELSE '' END, NULL, NULL, NULL, NULL,
 										  getdATE(),
 										  'H1' -- 'H1' : 코드1,     'H2' : 코드2,     'H3' :  코드3,     'H4' : 코드4,     'H5' : 코드5
@@ -525,8 +534,12 @@ BEGIN
 										, AMT_TAX_EXEMPTION2, AMT_TAX_EXEMPTION1, AMT_TAX_EXEMPTION3, AMT_TAX_EXEMPTION4 , AMT_TOT_TAX
 										, CONVERT(NUMERIC(18,0), AMT_CM_PAY) AMT_CM_PAY
 										, CONVERT(NUMERIC(18,0), AMT_CT_PAY) AMT_CT_PAY
+										, CONVERT(NUMERIC(18,0), AMT_T_PAY) AMT_T_PAY
+										, CONVERT(NUMERIC(18,0), AMT_D_PAY) AMT_D_PAY
+										, CONVERT(NUMERIC(18,0), AMT_CD_PAY) AMT_CD_PAY
 									FROM dwehrdev.dbo.H_MONTH_PAY_BONUS WITH(NOLOCK) ) A
-									UNPIVOT ( ITEM_VALS FOR ITEM_VALS_COL IN (AMT_TAX_EXEMPTION2, AMT_TAX_EXEMPTION1, AMT_TAX_EXEMPTION3, AMT_TAX_EXEMPTION4, AMT_TOT_TAX, AMT_CM_PAY, AMT_CT_PAY )) UNPVT1
+									UNPIVOT ( ITEM_VALS FOR ITEM_VALS_COL IN (AMT_TAX_EXEMPTION2, AMT_TAX_EXEMPTION1, AMT_TAX_EXEMPTION3, AMT_TAX_EXEMPTION4, AMT_TOT_TAX,
+																				AMT_CM_PAY, AMT_CT_PAY, AMT_T_PAY, AMT_D_PAY, AMT_CD_PAY )) UNPVT1
 									JOIN PAY_PAY_YMD YMD WITH(NOLOCK)
 									  ON YMD.PAY_YMD_ID = @pay_ymd_id
 							 WHERE CD_COMPANY = @s_company_cd

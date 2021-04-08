@@ -10,7 +10,7 @@ DECLARE @av_entity_nm        nvarchar(300) --
 	  , @n_origin_column_id		numeric(38)
 	  , @n_target_column_id		numeric(38)
 	  , @v_err_msg			nvarchar(1000)
-	SET @av_entity_nm = 'EN_CNV_PAY_ITEM' -- LIKE를 수행
+	SET @av_entity_nm = 'EN_REP_CALC_LIST' -- LIKE를 수행
 
 	DECLARE @SOURCE_TABLE TABLE(
 		ENTITY_ID	NUMERIC(38),

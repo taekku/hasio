@@ -1,4 +1,4 @@
-DECLARE @v_source_company_cd NVARCHAR(100) = 'X'
+DECLARE --@v_source_company_cd NVARCHAR(100) = 'X'
 	--, @v_target_company_cd NVARCHAR(100) = 'A,B,C,E,F,H,I,M,R,S,T,U,W,X,Y'
 	, @v_target_company_cd NVARCHAR(100) = 'A,C,E,F,H,I,M,R,S,T,U,W'
 	, @v_unit_cd NVARCHAR(100) = 'PAY'
@@ -9,7 +9,7 @@ DECLARE @TARGET_COMPANY TABLE(
 INSERT INTO @TARGET_COMPANY
 SELECT ITEMS
 FROM dbo.fn_split_array(@v_target_company_cd,',')
-WHERE Items != @v_source_company_cd
+--WHERE Items != @v_source_company_cd
 
 
 --업무기준관리 분류키
@@ -62,7 +62,8 @@ WHERE FRM_UNIT_STD_MGR_ID IN (
 		  FROM [172.20.16.40].[dwehrdev_H5].[dbo].FRM_UNIT_STD_MGR A
 		  JOIN @TARGET_COMPANY T
 		    ON 1=1
-		  WHERE A.COMPANY_CD = @v_source_company_cd
+		   AND A.COMPANY_CD = T.COMPANY_CD
+		  WHERE 1=1 --A.COMPANY_CD = @v_source_company_cd
 							AND UNIT_CD = @v_unit_cd
 							AND STD_KIND IN (SELECT ITEMS FROM dbo.fn_split_array(@v_std_kind,','))
 							AND NOT EXISTS(SELECT * FROM FRM_UNIT_STD_MGR WHERE COMPANY_CD = T.COMPANY_CD
@@ -207,6 +208,7 @@ WHERE FRM_UNIT_STD_MGR_ID IN (
 			    ON A.UNIT_CD = C.UNIT_CD
 			   AND A.STD_KIND = C.STD_KIND
 			   AND A.LOCALE_CD = C.LOCALE_CD
+			   AND A.COMPANY_CD = C.COMPANY_CD
 			   AND ISNULL(A.KEY1,'') = ISNULL(C.KEY1,'')
 			   AND ISNULL(A.KEY2,'') = ISNULL(C.KEY2,'')
 			   AND ISNULL(A.KEY3,'') = ISNULL(C.KEY3,'')
@@ -215,7 +217,7 @@ WHERE FRM_UNIT_STD_MGR_ID IN (
 			 INNER JOIN @TARGET_COMPANY T
 			   ON C.COMPANY_CD = T.COMPANY_CD
 			  -- AND C.COMPANY_CD = @v_target_company_cd
-			 WHERE A.COMPANY_CD = @v_source_company_cd
+			 WHERE 1=1 -- A.COMPANY_CD = @v_source_company_cd
 		AND A.UNIT_CD = @v_unit_cd
 		AND A.STD_KIND IN (SELECT ITEMS FROM dbo.fn_split_array(@v_std_kind,','))
 	END
@@ -315,6 +317,7 @@ WHERE FRM_UNIT_STD_MGR_ID IN (
 		    ON A.UNIT_CD = C.UNIT_CD
 		   AND A.STD_KIND = C.STD_KIND
 		   AND A.LOCALE_CD = C.LOCALE_CD
+		   AND A.COMPANY_CD = C.COMPANY_CD
 		   AND ISNULL(A.KEY1,'') = ISNULL(C.KEY1,'')
 		   AND ISNULL(A.KEY2,'') = ISNULL(C.KEY2,'')
 		   AND ISNULL(A.KEY3,'') = ISNULL(C.KEY3,'')
@@ -323,7 +326,7 @@ WHERE FRM_UNIT_STD_MGR_ID IN (
 		 INNER JOIN @TARGET_COMPANY T
 		   ON C.COMPANY_CD = T.COMPANY_CD
 		  -- AND C.COMPANY_CD = @v_target_company_cd
-		 WHERE A.COMPANY_CD = @v_source_company_cd
+		 WHERE 1=1 -- A.COMPANY_CD = @v_source_company_cd
 		AND A.UNIT_CD = @v_unit_cd
 		AND A.STD_KIND IN (SELECT ITEMS FROM dbo.fn_split_array(@v_std_kind,','))
 	END

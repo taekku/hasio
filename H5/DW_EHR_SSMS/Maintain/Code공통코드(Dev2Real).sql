@@ -6,7 +6,8 @@ BEGIN
 		, @b_code_copy char(1) -- 회사별코드 복사여부
 		, @b_code_sys_copy char(1) -- 시스템코드 복사여부
 
-	SET @v_cd_kind = 'PEB_POS_CLS_CD' -- 코드분류
+	--SET @v_cd_kind = 'PAY_ITEM_CD' -- 코드분류 : 급여항목
+	SET @v_cd_kind = 'RMP_INS_TYPE_CD' -- 코드분류 : 퇴직연금구분
 	SET @v_target_company_cd = 'A,B,C,E,F,H,I,M,R,S,T,U,W,X,Y' -- 복사할 회사 -- 콤마로 구분
 	-----------------------------------------------------
 	SET @b_master_copy = 'Y' -- Y/N  마스터 복사여부

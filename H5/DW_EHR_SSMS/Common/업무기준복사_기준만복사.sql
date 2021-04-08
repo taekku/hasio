@@ -1,8 +1,8 @@
-DECLARE @v_source_company_cd NVARCHAR(100) = 'X'
-	--, @v_target_company_cd NVARCHAR(100) = 'A,B,C,E,F,H,I,M,R,S,T,U,W,X,Y'
-	, @v_target_company_cd NVARCHAR(100) = 'A,C,E,F,H,I,M,R,S,T,U,W'
-	, @v_unit_cd NVARCHAR(100) = 'PAY'
-	, @v_std_kind	NVARCHAR(100) = 'PAY_PBT_HRTYPE,PAY_PBT_CUST,PAY_PBT_BILL'
+DECLARE @v_source_company_cd NVARCHAR(100) = 'E'
+	, @v_target_company_cd NVARCHAR(100) = 'A,B,C,E,F,H,I,M,R,S,T,U,W,X,Y'
+	--, @v_target_company_cd NVARCHAR(100) = 'A,C,E,F,H,I,M,R,S,T,U,W'
+	, @v_unit_cd NVARCHAR(100) = 'REP'
+	, @v_std_kind	NVARCHAR(100) = 'REP_AVG_DC_ITEM_CD,REP_AVG_ITEM_CD,REP_AVG_MGR_ITEM_CD'
 DECLARE @TARGET_COMPANY TABLE(
 	COMPANY_CD	NVARCHAR(10)
 )

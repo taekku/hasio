@@ -2,15 +2,19 @@ exec sp_lock
 
 exec sp_lock2
 
-DBCC inputbuffer (178)
+DBCC inputbuffer (465)
 
-EXEC sp_who 178
+EXEC sp_who
+EXEC sp_who 378
 
-kill 150
+EXEC sp_who2
+EXEC sp_who2 195
+
+-- kill 150
 
 SELECT name, object_id
 FROM sys.tables
-where object_id=874798524
+where object_id=542273337
 /*
 Lock Mode
 ¹èÅ¸Àû (X)

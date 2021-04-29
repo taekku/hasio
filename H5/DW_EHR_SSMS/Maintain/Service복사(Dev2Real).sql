@@ -7,7 +7,7 @@ DECLARE @av_service_nm        nvarchar(300) -- 복사할 소스 SQL 이름 LIKE
 	  , @n_temp_oid			numeric(38)
 	  , @n_source_oid		numeric(38)
 	  , @v_err_msg			nvarchar(1000)
-	SET @av_service_nm = 'PAY0090' -- LIKE를 수행
+	SET @av_service_nm = 'REP0018' -- LIKE를 수행
 
 	DECLARE @SOURCE_SERVICE TABLE(
 		SV_DEF_ID	NUMERIC(38),
@@ -21,11 +21,11 @@ DECLARE @av_service_nm        nvarchar(300) -- 복사할 소스 SQL 이름 LIKE
 		   SV_DEF_NM
       FROM [172.20.16.40].[dwehrdev_H5].[dbo].[FRM_SERVICE_DEF]
 	 WHERE SV_DEF_NM LIKE + @av_service_nm + '%';
-	IF @@ROWCOUNT > 100
-		BEGIN
-			PRINT '너무많은 복사를 수행합니다. 자료를 다시 확인하세요.[' + @av_service_nm + ']'
-			return
-		END
+	--IF @@ROWCOUNT > 100
+	--	BEGIN
+	--		PRINT '너무많은 복사를 수행합니다. 자료를 다시 확인하세요.[' + @av_service_nm + ']'
+	--		return
+	--	END
 
     DECLARE COPY_CUR CURSOR READ_ONLY FOR
 		SELECT SV_DEF_ID, SV_DEF_NM
@@ -72,6 +72,14 @@ DECLARE @av_service_nm        nvarchar(300) -- 복사할 소스 SQL 이름 LIKE
 				-- ==============================================================================
 				DELETE A
 				  FROM FRM_SERVICE_ATTR A
+				  JOIN FRM_SERVICE_DEF B
+				    ON A.SV_DEF_ID = B.SV_DEF_ID
+				 WHERE B.SV_DEF_NM = @v_service_nm
+				-- ==============================================================================
+				-- 서비스 권한제어 삭제
+				-- ==============================================================================
+				DELETE A
+				  FROM FRM_SERVICE_AUTH_GROUP A
 				  JOIN FRM_SERVICE_DEF B
 				    ON A.SV_DEF_ID = B.SV_DEF_ID
 				 WHERE B.SV_DEF_NM = @v_service_nm
@@ -192,6 +200,32 @@ DECLARE @av_service_nm        nvarchar(300) -- 복사할 소스 SQL 이름 LIKE
 						, MOD_DATE                       -- 변경일시
 					FROM [172.20.16.40].[dwehrdev_H5].[dbo].FRM_SERVICE_VAL_DEF            -- 트랜잭션 유효성 검사기 정의
 					WHERE SV_DEF_ID = @n_source_oid
+					
+				-- ==============================================================================
+				-- 서비스 권한제어
+				-- ==============================================================================
+				INSERT FRM_SERVICE_AUTH_GROUP ( 
+						SV_AUTH_ID, -- 권한매핑 ID
+						SV_DEF_ID, -- 트랜잭션ID
+						USERGROUP_ID, -- FRM_USER_GROUP 맵핑
+						MOD_DATE, -- 변경자
+						MOD_USER_ID, -- 변경일시
+						COMPANY_CD -- 계열사코드
+				)
+				SELECT NEXT VALUE FOR S_FRM_SEQUENCE           -- 유효성 검사기 정의 ID
+						, @n_temp_oid                    -- 트랜잭션ID
+							,C.USERGROUP_ID, -- FRM_USER_GROUP 맵핑
+							A.MOD_DATE, -- 변경자
+							A.MOD_USER_ID, -- 변경일시
+							A.COMPANY_CD  -- 계열사코드
+					FROM [172.20.16.40].[dwehrdev_H5].[dbo].FRM_SERVICE_AUTH_GROUP A
+					JOIN [172.20.16.40].[dwehrdev_H5].[dbo].FRM_USER_GROUP B
+					  ON A.USERGROUP_ID = B.USERGROUP_ID
+					JOIN FRM_USER_GROUP C
+					  ON B.COMPANY_CD = C.COMPANY_CD
+					 AND B.GROUP_TYPE = C.GROUP_TYPE
+					 AND B.USERGROUP_NM = C.USERGROUP_NM
+					WHERE A.SV_DEF_ID = @n_source_oid
 
 				-- ==============================================================================
 				-- 서비스 전처리 복사

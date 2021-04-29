@@ -221,6 +221,7 @@ BEGIN
 							TRBNK_YN,--	신협공제대상여부
 							PROD_YN,--	생산직여부
 							ADV_YN,--	선망가불금공제여부
+							OPEN_YN, -- 오픈여부
 							SMS_YN,--	SMS발송여부
 							EMAIL_YN,--	E_MAIL발송여부
 							WORK_YN,--	근속수당지급여부
@@ -251,7 +252,8 @@ BEGIN
 							@t_company_cd	SUB_COMPANY_CD,--	서브회사코드
 							A.CD_PAYGP PAY_GROUP_CD, -- 급여그룹
 							A.CD_BIZ_AREA	PAY_BIZ_CD,--	급여사업장코드
-							A.CD_REG_BIZ_AREA	RES_BIZ_CD,--	지방세사업장코드
+							CASE WHEN @t_company_cd = 'X' AND CD_WORK_AREA > ' ' THEN CD_WORK_AREA
+								ELSE A.CD_REG_BIZ_AREA END	RES_BIZ_CD,--	지방세사업장코드
 							ISNULL((select org_id from ORM_ORG where COMPANY_CD = @t_company_cd AND ORG_CD = A.CD_DEPT),0)	ORG_ID, --	발령부서ID
 							(select org_id from ORM_ORG where COMPANY_CD = @t_company_cd AND ORG_CD = A.CD_DEPT) PAY_ORG_ID, --	급여부서ID
 							A.TP_DUTY	MGR_TYPE_CD,-- 관리구분코드
@@ -297,6 +299,7 @@ BEGIN
 							A.YN_CRE	TRBNK_YN, --	신협공제대상여부
 							A.YN_PROD_LABOR	PROD_YN, --	생산직여부
 							NULL	ADV_YN,--	선망가불금공제여부
+							'Y'		OPEN_YN, -- 오픈여부
 							NULL	SMS_YN,--	SMS발송여부
 							NULL	EMAIL_YN,--	E_MAIL발송여부
 							NULL	WORK_YN,--	근속수당지급여부

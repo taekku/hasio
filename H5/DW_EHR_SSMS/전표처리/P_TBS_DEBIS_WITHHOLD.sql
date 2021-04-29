@@ -1,5 +1,3 @@
-USE dwehrdev_H5
-GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -255,7 +253,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 			PRINT('@ad_proc_date : ' + dbo.XF_TO_CHAR_D(@ad_proc_date,'yyyyMMdd'))
 	        
 	        DECLARE C_PBT_WITHHOOD_E CURSOR FOR                       -- 원천세생성 데이터를 가져온다. 
-			SELECT A.PAY_BIZ_CD                                       -- 사업장 - 근무지 
+			SELECT A.RES_BIZ_CD                                       -- 사업장 - 근무지 
 				  ,ISNULL(MAPCOSTDPT_CD,'XXXXX')  MAPCOSTDPT_CD       -- 원가부서
 				  ,COUNT(DISTINCT(A.EMP_ID)) AS SABUN_CNT             -- 총인원
 				  ,SUM(A.PSUM) AS AOLWTOT_AMT                         -- 급여총액
@@ -263,7 +261,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 				  ,SUM(A.D001_AMT) AS INCTAX                          -- 소득세
 				  ,SUM(A.D002_AMT) AS INGTAX						  -- 주민세
 			  FROM (
-					SELECT PAY.PAY_BIZ_CD
+					SELECT PAY.RES_BIZ_CD
 						 , PRI.FROM_TYPE_CD 
 						 , PAY.ACC_CD COST_CD
 						 , PAY.EMP_ID
@@ -313,9 +311,9 @@ DECLARE @v_program_id		NVARCHAR(30)
 														   )
 												   )
 					) A
-			 GROUP BY A.PAY_BIZ_CD		-- 사업장 - 근무지 
+			 GROUP BY A.RES_BIZ_CD		-- 사업장 - 근무지 
 					 ,MAPCOSTDPT_CD		-- 원가부서
-			 ORDER BY PAY_BIZ_CD		-- 사업장 - 근무지 
+			 ORDER BY RES_BIZ_CD		-- 사업장 - 근무지 
 					 ,MAPCOSTDPT_CD;	-- 원가부서  
 
 			OPEN C_PBT_WITHHOOD_E  -- 커서 패치
@@ -407,7 +405,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 							PRINT('@V_MAN_TAX : ' + CAST(@V_MAN_TAX AS VARCHAR))
 							PRINT('@P_SABUN : ' + CAST(@v_emp_no AS VARCHAR))
 							--INSERT INTO TB_FI312
-							INSERT OPENQUERY(DEBIS_DEV, 'SELECT CLOSE_YM    
+							INSERT OPENQUERY(DEBIS_DEV, 'SELECT CLOSE_YM      
 															 ,ACCT_DEPT_CD   
 															 ,WITHHOLD_CLS_CD
 															 ,WORK_SITE_CD
@@ -473,7 +471,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 			
 			PRINT('커서 수행 전')
 			DECLARE C_PBT_WITHHOOD_E CURSOR FOR                                     -- 원천세생성 데이터를 가져온다. 
-			SELECT A.PAY_BIZ_CD                                       -- 사업장 - 근무지 
+			SELECT A.RES_BIZ_CD                                       -- 사업장 - 근무지 
 				  ,ISNULL(MAPCOSTDPT_CD,'XXXXX')  MAPCOSTDPT_CD       -- 원가부서
 				  ,COUNT(DISTINCT(A.EMP_ID)) AS SABUN_CNT             -- 총인원
 				  ,SUM(A.PSUM) AS AOLWTOT_AMT                         -- 급여총액
@@ -481,7 +479,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 				  ,SUM(A.D001_AMT) AS INCTAX                          -- 소득세
 				  ,SUM(A.D002_AMT) AS INGTAX						  -- 주민세
 			  FROM (
-					SELECT PAY.PAY_BIZ_CD
+					SELECT PAY.RES_BIZ_CD
 						 , PRI.FROM_TYPE_CD 
 						 , PAY.ACC_CD COST_CD
 						 , PAY.EMP_ID
@@ -532,9 +530,9 @@ DECLARE @v_program_id		NVARCHAR(30)
 														   )
 												   )
 					) A
-			 GROUP BY A.PAY_BIZ_CD		-- 사업장 - 근무지 
+			 GROUP BY A.RES_BIZ_CD		-- 사업장 - 근무지 
 					 ,MAPCOSTDPT_CD		-- 원가부서
-			 ORDER BY PAY_BIZ_CD		-- 사업장 - 근무지 
+			 ORDER BY RES_BIZ_CD		-- 사업장 - 근무지 
 					 ,MAPCOSTDPT_CD;	-- 원가부서  
 
 			OPEN C_PBT_WITHHOOD_E  -- 커서 패치
@@ -667,7 +665,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 			PRINT('CURSOR 선언(퇴직정산)')
 			                                           -- 원천세생성 데이터를 가져온다. 
 			DECLARE C_PBT_RET_RESULT CURSOR FOR    
-			   SELECT A.PAY_BIZ_CD
+			   SELECT A.REG_BIZ_CD
 					 ,A.MAPCOSTDPT_CD  
 					 ,COUNT(DISTINCT(A.EMP_ID)) AS SABUN_CNT      -- 총인원
 					 ,SUM(A.AMT_RETR_PAY) AS AOLWTOT_AMT          -- 급여총액
@@ -677,7 +675,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 					 ,SUM(A.INCTAX_OLD) AS INCTAX_OLD        -- 원본소득세
 					 ,SUM(A.INHTAX_OLD) AS INHTAX_OLD        -- 원본주민세
 				FROM ( 
-					   SELECT DBO.F_ORM_ORG_BIZ(A.ORG_ID, A.PAY_YMD,'PAY') AS PAY_BIZ_CD,
+					   SELECT DBO.F_TBS_EMP_BIZ(A.COMPANY_CD,A.EMP_ID,dbo.F_FRM_CAM_HISTORY(A.EMP_ID,'KO',A.C1_END_YMD,'ORG_ID'),A.C1_END_YMD) AS REG_BIZ_CD,
 							   dbo.F_ORM_ORG_COST(A.COMPANY_CD, A.EMP_ID, A.PAY_YMD, '1') AS COST_CD,
 							   (SELECT COST_TYPE FROM ORM_COST WHERE COMPANY_CD = A.COMPANY_CD AND COST_CD = dbo.F_ORM_ORG_COST(A.COMPANY_CD, A.EMP_ID, A.PAY_YMD, '1')
 															   AND A.C1_END_YMD BETWEEN STA_YMD AND END_YMD) AS MAPCOSTDPT_CD,
@@ -701,9 +699,9 @@ DECLARE @v_program_id		NVARCHAR(30)
 						   AND A.REP_MID_YN != 'Y'
 						   AND A.INS_TYPE_CD = '10' -- DB형
 						   AND A.C_01 <> 0) A
-				GROUP BY A.PAY_BIZ_CD
+				GROUP BY A.REG_BIZ_CD
 						,A.MAPCOSTDPT_CD  
-				ORDER BY A.PAY_BIZ_CD
+				ORDER BY A.REG_BIZ_CD
 						,A.MAPCOSTDPT_CD
 			OPEN C_PBT_RET_RESULT  -- 커서 패치
 	        FETCH NEXT FROM C_PBT_RET_RESULT INTO    @V_WORK_SITE_CD,
@@ -776,7 +774,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 					ELSE
 						BEGIN
 							--INSERT INTO TB_FI312
-							INSERT OPENQUERY(DEBIS_DEV, 'SELECT CLOSE_YM   
+							INSERT OPENQUERY(DEBIS_DEV, 'SELECT CLOSE_YM  
 															 ,ACCT_DEPT_CD   
 															 ,WITHHOLD_CLS_CD
 															 ,WORK_SITE_CD
@@ -847,7 +845,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 
 			-- CURSOR 선언(연말정산)
 		    DECLARE C_PBT_WITHHOOD_YETA CURSOR FOR    -- 원천세생성 데이터를 가져온다. 
-				SELECT   A.PAY_BIZ_CD
+				SELECT   A.REG_BIZ_CD
 					    ,A.MAPCOSTDPT_CD  
 						,COUNT(DISTINCT(A.SABUN)) AS SABUN_CNT      -- 총인원
 						,SUM(A.INC_TOTAMT) AS AOLWTOT_AMT          -- 급여총액
@@ -855,8 +853,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 						,SUM(A.AMT_NEW_STAX) AS INCTAX                -- 소득세
 						,SUM(A.AMT_NEW_JTAX) AS INGTAX                -- 주민세  
 				  FROM (
-						SELECT -- DBO.F_ORM_ORG_BIZ(A.ORG_ID, A.PAY_YMD,'PAY') AS PAY_BIZ_CD,
-								A.BIZ_CD AS PAY_BIZ_CD,
+						SELECT DBO.F_TBS_EMP_BIZ(A.COMPANY_CD,A.EMP_ID,dbo.F_FRM_CAM_HISTORY(A.EMP_ID,'KO',A.IN_END_YMD,'ORG_ID'),A.IN_END_YMD) AS REG_BIZ_CD,
 							   dbo.F_ORM_ORG_COST(A.COMPANY_CD, A.EMP_ID, A.IN_END_YMD, '1') AS COST_CD,
 							   (SELECT COST_TYPE FROM ORM_COST WHERE COMPANY_CD = A.COMPANY_CD AND COST_CD = dbo.F_ORM_ORG_COST(A.COMPANY_CD, A.EMP_ID, A.IN_END_YMD, '1')
 															   AND A.IN_END_YMD BETWEEN STA_YMD AND END_YMD) AS MAPCOSTDPT_CD
@@ -873,9 +870,9 @@ DECLARE @v_program_id		NVARCHAR(30)
 						   AND PRI.FROM_TYPE_CD = @av_hrtype_cd -- 인력유형
 						   AND A.EC_YY = SUBSTRING(@V_YYYYMM, 1, 4)
 						   AND A.X01_SUM <> 0) A
-			  GROUP BY  A.PAY_BIZ_CD
+			  GROUP BY  A.REG_BIZ_CD
 					   ,A.MAPCOSTDPT_CD  
-			  ORDER BY  A.PAY_BIZ_CD
+			  ORDER BY  A.REG_BIZ_CD
 					   ,A.MAPCOSTDPT_CD;
 		   OPEN C_PBT_WITHHOOD_YETA  -- 커서 패치
 		   FETCH NEXT FROM C_PBT_WITHHOOD_YETA INTO    @V_WORK_SITE_CD,
@@ -1015,7 +1012,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 			-- 퇴직중도정산
 			-- CURSOR 선언(중간정산)
 			DECLARE C_PBT_WITHHOOD_D1 CURSOR FOR    -- 원천세생성 데이터를 가져온다. 
-			  SELECT A.PAY_BIZ_CD
+			  SELECT A.REG_BIZ_CD
 					,A.MAPCOSTDPT_CD  
 					 ,COUNT(DISTINCT(A.EMP_ID)) AS SABUN_CNT      -- 총인원
 					 ,SUM(A.AMT_RETR_PAY) AS AOLWTOT_AMT          -- 급여총액
@@ -1023,7 +1020,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 					 ,SUM(A.T01) AS INCTAX                -- 소득세
 					 ,SUM(A.T02) AS INGTAX                -- 주민세  
 			  FROM (
-					   SELECT DBO.F_ORM_ORG_BIZ(A.ORG_ID, A.PAY_YMD,'PAY') AS PAY_BIZ_CD,
+					   SELECT DBO.F_TBS_EMP_BIZ(A.COMPANY_CD,A.EMP_ID,dbo.F_FRM_CAM_HISTORY(A.EMP_ID,'KO',A.C1_END_YMD,'ORG_ID'),A.C1_END_YMD) AS REG_BIZ_CD,
 							   dbo.F_ORM_ORG_COST(A.COMPANY_CD, A.EMP_ID, A.PAY_YMD, '1') AS COST_CD,
 							   (SELECT COST_TYPE FROM ORM_COST WHERE COMPANY_CD = A.COMPANY_CD AND COST_CD = dbo.F_ORM_ORG_COST(A.COMPANY_CD, A.EMP_ID, A.PAY_YMD, '1')
 															   AND A.C1_END_YMD BETWEEN STA_YMD AND END_YMD) AS MAPCOSTDPT_CD,
@@ -1047,9 +1044,9 @@ DECLARE @v_program_id		NVARCHAR(30)
 						   AND A.REP_MID_YN = 'Y' -- 중도정산
 						   AND A.INS_TYPE_CD = '10' -- DB형
 						   AND A.C_01 <> 0) A
-			  GROUP BY A.PAY_BIZ_CD
+			  GROUP BY A.REG_BIZ_CD
 					,A.MAPCOSTDPT_CD  
-			  ORDER BY A.PAY_BIZ_CD
+			  ORDER BY A.REG_BIZ_CD
 					,A.MAPCOSTDPT_CD  ;
 	        
 			OPEN C_PBT_WITHHOOD_D1
@@ -1122,7 +1119,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 						BEGIN
 							PRINT('인서트구문 수행')
 							--INSERT INTO TB_FI312
-							INSERT OPENQUERY(DEBIS_DEV, 'SELECT CLOSE_YM   
+							INSERT OPENQUERY(DEBIS_DEV, 'SELECT CLOSE_YM  
 															 ,ACCT_DEPT_CD   
 															 ,WITHHOLD_CLS_CD
 															 ,WORK_SITE_CD

@@ -240,6 +240,7 @@ BEGIN
 								TRBNK_YN,--	신협공제대상여부
 								PROD_YN,--	생산직여부
 								ADV_YN,--	선망가불금공제여부
+								OPEN_YN, -- 오픈여부
 								SMS_YN,--	SMS발송여부
 								EMAIL_YN,--	E_MAIL발송여부
 								WORK_YN,--	근속수당지급여부
@@ -257,7 +258,7 @@ BEGIN
 								@salary_type_cd AS SALARY_TYPE_CD, --	급여유형코드[PAY_SALARY_TYPE_CD 연봉,호봉]
 								@t_company_cd	SUB_COMPANY_CD,--	서브회사코드
 								A.CD_PAYGP PAY_GROUP_CD, -- 급여그룹
-								A.CD_BIZ_AREA	PAY_BIZ_CD,--	급여사업장코드
+								A.CD_REG_BIZ_AREA	RES_BIZ_CD,--	지방세사업장코드
 								A.CD_REG_BIZ_AREA	RES_BIZ_CD,--	지방세사업장코드
 								@org_id	ORG_ID, --	발령부서ID
 								@org_id PAY_ORG_ID, --	급여부서ID
@@ -307,6 +308,7 @@ BEGIN
 								A.YN_CRE	TRBNK_YN, --	신협공제대상여부
 								A.YN_PROD_LABOR	PROD_YN, --	생산직여부
 								NULL	ADV_YN,--	선망가불금공제여부
+								'Y'		OPEN_YN, -- 오픈여부
 								NULL	SMS_YN,--	SMS발송여부
 								NULL	EMAIL_YN,--	E_MAIL발송여부
 								NULL	WORK_YN,--	근속수당지급여부

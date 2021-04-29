@@ -1,6 +1,3 @@
-USE [dwehrdev_H5]
-GO
-
 DECLARE @n_log_h_id numeric
 DECLARE @an_try_no int
 DECLARE @av_company_cd nvarchar(10)
@@ -22,13 +19,21 @@ set @an_try_no = 2 -- 시도회차( 같은 [번호 + 파라미터]의 로그를 삭제 )
 -- TODO: 여기에서 매개 변수 값을 설정합니다.
 -- T(테크팩솔루션):201501 ~ 
 set @av_company_cd = 'T'
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512') -- 급여지급유형중복 2건, 급여그룹오류1건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612') -- 급여지급유형중복 581건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712') -- 급여지급유형중복 570건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812') -- 급여지급유형중복 538건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912') -- 급여지급유형중복, 조회급여그룹 653건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201501') -- 
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512') -- 급여지급유형중복 2건, 급여그룹오류1건
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612') -- 급여지급유형중복 581건
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712') -- 급여지급유형중복 570건
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812') -- 급여지급유형중복 538건
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912') -- 급여지급유형중복, 조회급여그룹 653건
+/*
+1196
+1197
+1198
+1199
+1200
+ */
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') -- 급여지급유형중복, 조회급여그룹 307건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202101')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202104')
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH
@@ -68,7 +73,7 @@ WHILE 1=1
 			-- 자료전환
 			IF ISNULL(@v_work_kind, '') <> 'D'
 				BEGIN
-			EXECUTE @n_log_h_id = dbo.P_CNV_PAY_PAYROLL_NEW
+			EXECUTE @n_log_h_id = dbo.P_CNV_PAY_PAYROLL_one --NEW
 			  @an_try_no		-- 시도회차
 			, @av_company_cd	-- 회사코드
 			, @av_fr_month		-- 시작년월

@@ -241,6 +241,7 @@ BEGIN
 								TRBNK_YN,--	신협공제대상여부
 								PROD_YN,--	생산직여부
 								ADV_YN,--	선망가불금공제여부
+								OPEN_YN, -- 오픈여부
 								SMS_YN,--	SMS발송여부
 								EMAIL_YN,--	E_MAIL발송여부
 								WORK_YN,--	근속수당지급여부
@@ -260,7 +261,8 @@ BEGIN
 								@t_company_cd	SUB_COMPANY_CD,--	서브회사코드
 								A.CD_PAYGP PAY_GROUP_CD, -- 급여그룹
 								A.CD_BIZ_AREA	PAY_BIZ_CD,--	급여사업장코드
-								A.CD_REG_BIZ_AREA	RES_BIZ_CD,--	지방세사업장코드
+								CASE WHEN @t_company_cd = 'X' AND CD_WORK_AREA > ' ' THEN CD_WORK_AREA
+									ELSE A.CD_REG_BIZ_AREA END	RES_BIZ_CD,--	지방세사업장코드
 								@org_id	ORG_ID, --	발령부서ID
 								@org_id PAY_ORG_ID, --	급여부서ID
 								A.TP_DUTY	MGR_TYPE_CD,-- 관리구분코드
@@ -309,6 +311,7 @@ BEGIN
 								A.YN_CRE	TRBNK_YN, --	신협공제대상여부
 								A.YN_PROD_LABOR	PROD_YN, --	생산직여부
 								NULL	ADV_YN,--	선망가불금공제여부
+								'Y'		OPEN_YN, -- 오픈여부
 								NULL	SMS_YN,--	SMS발송여부
 								NULL	EMAIL_YN,--	E_MAIL발송여부
 								NULL	WORK_YN,--	근속수당지급여부
@@ -394,7 +397,7 @@ BEGIN
 						   --AND A.CD_ALLOW = @cd_allow
 						 GROUP BY YMD.PAY_TYPE_CD, case when @s_company_cd='F' and @cd_paygp='F21' and A.CD_ALLOW='1001' then 'P132' else B.ITEM_CD end
 					------------
-					-- 공제지급
+					-- 급여공제
 					------------
 						INSERT INTO PAY_PAYROLL_DETAIL(
 									PAY_PAYROLL_DETAIL_ID, --	급여상세내역ID
@@ -423,23 +426,23 @@ BEGIN
 									@pay_ymd_id	BEL_PAY_YMD_ID, --	귀속급여일자ID
 									@salary_type_cd	SALARY_TYPE_CD, --	급여유형코드[PAY_SALARY_TYPE_CD 연봉,호봉]
 									B.ITEM_CD	PAY_ITEM_CD, --	급여항목코드
-									A.AMT_DEDUCT	BASE_MON, --	기준금액
-									A.AMT_DEDUCT	CAL_MON, --	계산금액
+									SUM(A.AMT_DEDUCT)	BASE_MON, --	기준금액
+									SUM(A.AMT_DEDUCT)	CAL_MON, --	계산금액
 									0	FOREIGN_BASE_MON, --	외화기준금액
 									0	FOREIGN_CAL_MON, --	외화계산금액
 									dbo.F_FRM_UNIT_STD_VALUE (@t_company_cd, 'KO', 'PAY', 'PAY_ITEM_CD_BASE',
 										  NULL, NULL, NULL, NULL, NULL,
-										  ITEM_CD, NULL, NULL, NULL, NULL,
+										  B.ITEM_CD, NULL, NULL, NULL, NULL,
 										  getdATE(),
 										  'H1' -- 'H1' : 코드1,     'H2' : 코드2,     'H3' :  코드3,     'H4' : 코드4,     'H5' : 코드5
 											   -- 'E1' : 기타코드1, 'E2' : 기타코드2, 'E3' :  기타코드3, 'E4' : 기타코드4, 'E5' : 기타코드5
 										  )	PAY_ITEM_TYPE_CD, --	급여항목유형
 									@org_id	BEL_ORG_ID, --	귀속부서ID
-									A.REM_COMMENT	NOTE, --	비고
-								 dbo.F_CNV_GET_EMP_ID_FROM_ASIS_LOGINID(A.ID_UPDATE) AS MOD_USER_ID
-								, ISNULL(A.DT_UPDATE,'1900-01-01')
+									MAX(A.REM_COMMENT) NOTE, --	비고
+								 dbo.F_CNV_GET_EMP_ID_FROM_ASIS_LOGINID(MAX(A.ID_UPDATE)) AS MOD_USER_ID
+								, ISNULL(MAX(A.DT_UPDATE),'1900-01-01')
 								, 'KST'
-								, ISNULL(A.DT_UPDATE,'1900-01-01')
+								, ISNULL(MAX(A.DT_UPDATE),'1900-01-01')
 						  FROM dwehrdev.dbo.H_MONTH_DEDUCT A WITH (NOLOCK)
 						  JOIN PAY_PAY_YMD YMD WITH(NOLOCK)
 						    ON YMD.PAY_YMD_ID = @pay_ymd_id
@@ -453,6 +456,7 @@ BEGIN
 						   AND A.DT_PROV = @dt_prov
 						   AND A.NO_PERSON = @no_person
 						   --AND A.CD_DEDUCT = @cd_deduct
+						 GROUP BY YMD.PAY_TYPE_CD, B.ITEM_CD
 					------------
 					-- C001	식대비과세	AMT_TAX_EXEMPTION2	비과세금액(식대)
 					-- C002	생산비과세	AMT_TAX_EXEMPTION1	비과세금액(연장)

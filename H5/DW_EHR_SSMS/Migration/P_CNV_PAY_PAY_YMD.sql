@@ -169,7 +169,7 @@ BEGIN
 					@av_dt_prov	STD_YMD, --	산출기준일
 					SUBSTRING(@av_dt_prov, 1, 6) + '01'	STA_YMD, --	산정기간(From)
 					dbo.XF_LAST_DAY(@av_dt_prov)	END_YMD, --	산정기간(to)
-					case when @pay_type_sys_cd = '009' then 'Y' else 'N' end	RETRO_YN, --	소급대상여부
+					case when @pay_type_sys_cd in ('001') then 'Y' else 'N' end	RETRO_YN, --	소급대상여부
 					'Y'	TAX_YN, --	세금계산여부
 					'Y'	EMI_YN, --	고용보험계산여부
 					'01'	ACCOUNT_TYPE_CD, --	계좌유형[PAY_ACCOUNT_TYPE_CD] 급여계좌

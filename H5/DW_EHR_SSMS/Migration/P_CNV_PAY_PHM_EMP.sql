@@ -65,6 +65,12 @@ BEGIN
 				 , NO_PERSON
 			  FROM dwehrdev.dbo.H_PAY_MASTER
 			 WHERE CD_COMPANY LIKE ISNULL(@av_company_cd,'') + '%'
+		except
+		SELECT B.COMPANY_CD, B.EMP_NO
+		  FROM PAY_PHM_EMP A
+		  JOIN PHM_EMP B
+		    ON A.EMP_ID = B.EMP_ID
+		   AND B.COMPANY_CD LIKE ISNULL(@av_company_cd,'') + '%'
 	-- =============================================
 	--   As-Is Key Column Select
 	-- =============================================
@@ -166,7 +172,8 @@ BEGIN
 					, A.YN_ADVANCE -- ADV_YN	--선망가불금공제여부
 					, NULL -- TODO -- CONT_TIME	--소정근로시간
 					, A.AMT_RETR_ANNU -- PEN_ACCU_AMT	--연금적립액
-					, A.YN_RETR_SUPPLY RET_PROC_YN -- 퇴직정산완료여부
+					, case when (select IN_OFFI_YN from PHM_EMP where EMP_ID=@emp_id) = 'Y' then 'N'
+					       else A.YN_RETR_SUPPLY end RET_PROC_YN -- 퇴직정산완료여부 -- 재직자면 N
 					, A.YN_ULSAN ULSAN_YN -- 울산여부
 					, NULL INS_TRANS_YN -- 동원산업전입여부
 					, A.CD_DUTY_TYPE GLS_WORK_CD -- 유리근무유형[PAY_GLS_WORK_CD]

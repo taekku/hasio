@@ -1,5 +1,3 @@
-USE [dwehrdev_H5]
-GO
 
 DECLARE @n_log_h_id numeric
 DECLARE @an_try_no int
@@ -24,7 +22,7 @@ set @an_try_no = 3 -- 시도회차( 같은 [번호 + 파라미터]의 로그를 삭제 )
 set @av_company_cd = 'B'
 insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912')
 insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202101')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202103')
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH

@@ -7,8 +7,8 @@
 		   --, @v_start_option_key nvarchar(100) = 'PAY_CAL_SET' -- 급여계산설정 2021.04.05
 		   --, @v_start_option_key nvarchar(100) = 'PAY_ETC_SLIP' -- 잡이익및예수금등록 2021.04.05
 		   --, @v_start_option_key nvarchar(100) = 'PAY_SAP' -- SAP기준 2021.04.05
-		   , @v_start_option_key nvarchar(100) = 'DAY_PAY_SAP' -- SAP기준(일용직) 2021.04.05
-		   --, @v_start_option_key nvarchar(100) = 'PAY_ITEM' -- 계정기준관리 2021.04.05
+		   --, @v_start_option_key nvarchar(100) = 'DAY_PAY_SAP' -- SAP기준(일용직) 2021.04.05
+		   , @v_start_option_key nvarchar(100) = 'PAY_ITEM' -- 계정기준관리 2021.04.05
 		   --, @v_start_option_key nvarchar(100) = 'REP_STD' -- 퇴직금기준 2021.04.05
 
 	DECLARE @TARGET_COMPANY TABLE(

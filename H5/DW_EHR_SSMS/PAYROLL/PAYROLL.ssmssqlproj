@@ -27,6 +27,18 @@
           <ConnectionProtocol>NotSpecified</ConnectionProtocol>
           <ApplicationName>Microsoft SQL Server Management Studio - 쿼리</ApplicationName>
         </ConnectionNode>
+        <ConnectionNode Name="dbreal:ehr_devel11">
+          <Created>2021-04-22T18:17:57.5863241+09:00</Created>
+          <Type>SQL</Type>
+          <Server>dbreal</Server>
+          <UserName>ehr_devel11</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB>dwehr_H5</InitialDB>
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - 쿼리</ApplicationName>
+        </ConnectionNode>
         <ConnectionNode Name="localhost,51433:sa">
           <Created>2021-01-18T18:16:05.4046314+09:00</Created>
           <Type>SQL</Type>
@@ -55,11 +67,11 @@
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>Exec P_PAY_PAYROLL_MAKE.sql</FullPath>
         </FileNode>
-        <FileNode Name="P_PAY_APPLY_REQ.sql">
+        <FileNode Name="P_PAY_APPLY_REQ_기타수당급여의뢰.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
-          <FullPath>P_PAY_APPLY_REQ.sql</FullPath>
+          <FullPath>P_PAY_APPLY_REQ_기타수당급여의뢰.sql</FullPath>
         </FileNode>
         <FileNode Name="P_PAY_BANK_FILE_E_CREATE.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
@@ -144,6 +156,18 @@
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>급여 PAY_BONUS없는자료.sql</FullPath>
+        </FileNode>
+        <FileNode Name="급여대상자생성_PAY_PAYROLL_MAKE_E.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>급여대상자생성_PAY_PAYROLL_MAKE_E.sql</FullPath>
+        </FileNode>
+        <FileNode Name="급여명세서출력.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>급여명세서출력.sql</FullPath>
         </FileNode>
         <FileNode Name="급여조회.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>

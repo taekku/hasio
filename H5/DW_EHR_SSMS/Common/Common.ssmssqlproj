@@ -80,16 +80,34 @@
           <FullPath>delete_frm_code.sql</FullPath>
         </FileNode>
         <FileNode Name="F_PAY_GROUP_CHK.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>F_PAY_GROUP_CHK.sql</FullPath>
+        </FileNode>
+        <FileNode Name="F_PAY_GROUP_CHK_old.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>F_PAY_GROUP_CHK_old.sql</FullPath>
+        </FileNode>
+        <FileNode Name="F_PAY_GROUP_EDIT_EMP.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>F_PAY_GROUP_EDIT_EMP.sql</FullPath>
         </FileNode>
         <FileNode Name="F_PAY_GROUP_USE_CHK.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>F_PAY_GROUP_USE_CHK.sql</FullPath>
+        </FileNode>
+        <FileNode Name="F_PAY_GROUP_USE_EMP.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>F_PAY_GROUP_USE_EMP.sql</FullPath>
         </FileNode>
         <FileNode Name="F_PAY_TYPE_AUTH.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
@@ -98,8 +116,8 @@
           <FullPath>F_PAY_TYPE_AUTH.sql</FullPath>
         </FileNode>
         <FileNode Name="Find LOCK And KILL.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>Find LOCK And KILL.sql</FullPath>
         </FileNode>
@@ -121,15 +139,9 @@
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>MyWork.sql</FullPath>
         </FileNode>
-        <FileNode Name="SQL복사.sql">
+        <FileNode Name="공통코드이관copy_frm_code.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
-          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
-          <FullPath>SQL복사.sql</FullPath>
-        </FileNode>
-        <FileNode Name="공통코드이관copy_frm_code.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>공통코드이관copy_frm_code.sql</FullPath>
         </FileNode>
@@ -170,8 +182,8 @@
           <FullPath>업무기준복사_DATA_수정.sql</FullPath>
         </FileNode>
         <FileNode Name="업무기준복사_기준만복사.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>업무기준복사_기준만복사.sql</FullPath>
         </FileNode>
@@ -212,8 +224,8 @@
           <FullPath>쿼리내용확인.sql</FullPath>
         </FileNode>
         <FileNode Name="특정단어 검색하기(Fn,Proc).sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:172.20.13.37:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>172.20.13.37</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>특정단어 검색하기(Fn,Proc).sql</FullPath>
         </FileNode>

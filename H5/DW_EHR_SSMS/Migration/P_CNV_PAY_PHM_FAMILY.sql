@@ -136,7 +136,10 @@ BEGIN
 								@fam_ctz_no	FAM_CTZ_NO, --	가족주민번호
 								@nm_family	FAM_LAST_NM, --	가족성명(성)
 								NULL	FAM_FIRST_NM, --	가족성명(이름)
-								A.CD_RELATION	FAM_REL_CD, --	가족관계코드 [PHM_REL_CD]
+								(SELECT CD
+FROM MIG_STD_CD_MAP MAP
+WHERE MAP.CD_KIND='PHM_FAM_REL_CD'
+AND ASIS_CD=A.CD_RELATION)	FAM_REL_CD, --	가족관계코드 [PHM_REL_CD]
 								NULL	SUPPORT_YN, --	부양자여부
 								A.YN_DISABLED	HANICAP_YN, --	장애자여부
 								A.YN_FAMILY	FAM_PAY_YN, --	가족수당여부

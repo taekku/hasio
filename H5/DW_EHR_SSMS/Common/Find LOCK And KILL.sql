@@ -2,15 +2,15 @@ exec sp_lock
 
 exec sp_lock2
 
-DBCC inputbuffer (465)
+DBCC inputbuffer (465)-- 239
 
 EXEC sp_who
-EXEC sp_who 378
+EXEC sp_who 71
 
 EXEC sp_who2
-EXEC sp_who2 195
+EXEC sp_who2 103
 
--- kill 150
+-- kill 71  
 
 SELECT name, object_id
 FROM sys.tables

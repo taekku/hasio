@@ -6,7 +6,7 @@ DECLARE @av_query_nm        nvarchar(300) -- 복사할 소스 SQL 이름 LIKE
       , @v_query_nm			nvarchar(80)
 	  , @n_frm_query_id		numeric(38)
 	  , @v_err_msg			nvarchar(1000)
-	SET @av_query_nm = 'PAY0036' -- LIKE를 수행-
+	SET @av_query_nm = 'PAY1071_00_R01' -- LIKE를 수행-
 	DECLARE @SOURCE_QUERY TABLE(
 		QUERY_NAME	NVARCHAR(80)
 	);

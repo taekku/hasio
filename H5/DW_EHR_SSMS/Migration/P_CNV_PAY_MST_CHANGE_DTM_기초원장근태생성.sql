@@ -52,8 +52,8 @@ BEGIN
 				+ ',@av_company_cd=' + ISNULL(CONVERT(nvarchar(100), @av_company_cd),'NULL')
 				+ ',@av_fr_month=' + ISNULL(CONVERT(nvarchar(100), @av_fr_month),'NULL')
 				+ ',@av_to_month=' + ISNULL(CONVERT(nvarchar(100), @av_to_month),'NULL')
-	set @v_s_table = 'H_MONTH_PAY_BONUS'   -- As-Is Table
-	set @v_t_table = 'PAY_PAYROLL' -- To-Be Table
+	set @v_s_table = 'DTM_MONTH'   -- As-Is Table
+	set @v_t_table = 'PAY_MST_CHANGE' -- To-Be Table
 	-- =============================================
 	-- 전환프로그램설명
 	-- =============================================
@@ -77,13 +77,13 @@ BEGIN
 		    ON YMD.PAY_YMD_ID = YMD_DTL.PAY_YMD_ID
 		  JOIN PAY_PAY_YMD_DTL_TERM TERM
 		    ON YMD_DTL.PAYYMD_DTL_ID = TERM.PAYYMD_DTL_ID
-		   AND TERM.PAY_TERM_TYPE_CD IN ('21','22','23','24')
+		   AND TERM.PAY_TERM_TYPE_CD IN ('21','22','23','24') -- 근태기간
 		  JOIN FRM_CODE C1
 			ON YMD.COMPANY_CD = C1.COMPANY_CD
 		   AND YMD.PAY_TYPE_CD = C1.CD
 		   AND C1.CD_KIND = 'PAY_TYPE_CD'
 		   AND YMD.PAY_YMD BETWEEN C1.STA_YMD AND C1.END_YMD
-		   AND C1.SYS_CD='001'
+		   AND C1.SYS_CD='001' -- 정기급여
 		  JOIN PAY_GROUP_TYPE T
 			ON YMD.COMPANY_CD = T.COMPANY_CD
 		   AND YMD.PAY_TYPE_CD = T.PAY_TYPE_CD
@@ -111,6 +111,28 @@ BEGIN
 			-- =============================================
 			IF @@FETCH_STATUS <> 0 BREAK
 			BEGIN TRY
+				DELETE A
+				  FROM PAY_MST_CHANGE A
+				  JOIN PAY_PAYROLL P
+					ON A.PAY_YMD_ID = P.PAY_YMD_ID
+				   AND A.EMP_ID = P.EMP_ID
+				   AND P.PAY_GROUP_CD = @v_pay_group_cd
+				   AND A.PAY_YMD_ID = @n_pay_ymd_id
+				   AND A.SALARY_TYPE_CD = @v_salary_type_cd
+				  JOIN (SELECT DISTINCT
+														   A.KEY_CD1 AS PAY_GRPCD,
+														   A.KEY_CD2 AS PAY_DTM_CD--,
+														   --A.KEY_CD3 AS DTM_ITEM_CD
+												  FROM FRM_UNIT_STD_HIS A,
+													   FRM_UNIT_STD_MGR B
+												 WHERE A.FRM_UNIT_STD_MGR_ID = B.FRM_UNIT_STD_MGR_ID
+												   AND B.LOCALE_CD  = @v_locale_cd
+												   AND B.COMPANY_CD = @av_company_cd
+												   AND B.UNIT_CD    = 'PAY'
+												   AND B.STD_KIND   = 'PAY_DTM_MST_MAP'   
+												   AND A.KEY_CD1	= @v_pay_group_cd
+												   AND @d_pay_ymd BETWEEN A.STA_YMD AND A.END_YMD
+												   ) C ON A.PAY_ITEM_CD = C.PAY_DTM_CD
 				INSERT INTO PAY_MST_CHANGE
                         (
                             PAY_MST_CHANGE_ID       ,  -- 기초원장ID
@@ -132,29 +154,29 @@ BEGIN
                             RETRO_CHK_STA_YMD          --소급일자체크여부
                         )
 					SELECT 
-                            PAY_MST_CHANGE_ID       ,  -- 기초원장ID
-                            EMP_ID                  ,  -- 사원ID
-                            SALARY_TYPE_CD          ,  -- 급여유형
-                            PAY_ITEM_CD             ,  -- 급여항목기준코드(PAY_ITEM_CD)
-                            PAY_ITEM_VALUE          ,  -- 급여기준항목값
-                            PAY_ITEM_VALUE_TEXT     ,  -- 급여기준항목값 설명
+							next value for s_pay_sequence PAY_MST_CHANGE_ID       ,  -- 기초원장ID
+                            PAY.EMP_ID EMP_ID                  ,  -- 사원ID
+                            @v_salary_type_cd SALARY_TYPE_CD          ,  -- 급여유형
+                            C.PAY_DTM_CD PAY_ITEM_CD             ,  -- 급여항목기준코드(PAY_ITEM_CD)
+                            SUM(B.ITEM_VAL) PAY_ITEM_VALUE          ,  -- 급여기준항목값
+                            DBO.F_FRM_CODE_NM(@av_company_cd, @v_locale_cd,  'PAY_ITEM_CD', C.PAY_DTM_CD, GETDATE(), '1') PAY_ITEM_VALUE_TEXT     ,  -- 급여기준항목값 설명
                             STA_YMD                 ,  -- 시작일자
                             END_YMD                 ,  -- 종료일자
-                            LAST_YN                 ,  -- 최종데이타여부
-                            PAY_YMD_ID              ,  -- 급여일자ID(급여 의뢰 데이타만
-                            MOD_USER_ID             ,  -- 변경자
-                            MOD_DATE                ,  -- 변경일시
-                            TZ_CD                   ,  -- 타임존코드
-                            TZ_DATE                 ,  -- 타임존일시
-                            BEL_ORG_ID              ,  -- 귀속부서id
-						    MAKE_PAY_YMD_ID         ,  --생성시급여일자ID(소급체크를 위해 넣음)
-                            RETRO_CHK_STA_YMD          --소급일자체크여부
+                            'Y' LAST_YN                 ,  -- 최종데이타여부
+                            @n_pay_ymd_id PAY_YMD_ID              ,  -- 급여일자ID(급여 의뢰 데이타만
+                            0 MOD_USER_ID             ,  -- 변경자
+                            SYSDATETIME() MOD_DATE                ,  -- 변경일시
+                            'KST' TZ_CD                   ,  -- 타임존코드
+							SYSDATETIME() TZ_DATE                 ,  -- 타임존일시
+                            NULL BEL_ORG_ID              ,  -- 귀속부서id
+						    NULL MAKE_PAY_YMD_ID         ,  --생성시급여일자ID(소급체크를 위해 넣음)
+                            NULL RETRO_CHK_STA_YMD          --소급일자체크여부
 					FROM DTM_MONTH A --JOIN PHM_EMP EMP ON (A.EMP_ID=EMP.EMP_ID AND EMP.COMPANY_CD = @av_company_cd)
 					JOIN PAY_PAYROLL PAY
 					  ON A.EMP_ID = PAY.EMP_ID
 					 AND PAY.PAY_YMD_ID = @n_pay_ymd_id
 					 AND PAY.SALARY_TYPE_CD = @v_salary_type_cd
-					 AND PAY.POS_GRD_CD = @v_pay_group_cd
+					 AND PAY.PAY_GROUP_CD = @v_pay_group_cd
 					INNER JOIN DTM_MONTH_DTL B
 					        ON (B.DTM_MONTH_ID = A.DTM_MONTH_ID
 							    AND @d_term_sta_ymd >= B.STA_YMD
@@ -173,9 +195,13 @@ BEGIN
 											   AND A.KEY_CD1	= @v_pay_group_cd
 											   AND @d_pay_ymd BETWEEN A.STA_YMD AND A.END_YMD
 											   ) C ON C.DTM_ITEM_CD = B.MONTH_ITEM_CD
-					WHERE WORK_YM BETWEEN FORMAT(@d_term_sta_ymd, 'yyyyMM') AND FORMAT(@d_term_end_ymd, 'yyyyMM')
+					--WHERE A.WORK_YM BETWEEN FORMAT(@d_term_sta_ymd, 'yyyyMM') AND FORMAT(@d_term_end_ymd, 'yyyyMM')
+					--WHERE WORK_YM = @v_pay_ym
+					WHERE A.WORK_YM = FORMAT(@d_term_sta_ymd, 'yyyyMM')
+					  AND A.CLOSE_YN='Y'
 					--AND dbo.F_PAY_GROUP_CHK(@n_pay_group_id, A.EMP_ID, GETDATE()) = @n_pay_group_id
 					--AND A.EMP_ID = @n_emp_id
+					GROUP BY PAY.EMP_ID, B.STA_YMD, B.END_YMD, C.PAY_DTM_CD
 				
 				-- =======================================================
 				--  To-Be Table Insert End
@@ -183,25 +209,25 @@ BEGIN
 				set @n_ins_cnt = @@ROWCOUNT
 				if @n_ins_cnt > 0 
 					begin
-						set @n_cnt_success = @n_cnt_success + 1 -- 성공건수
+						set @n_cnt_success = @n_cnt_success + @n_ins_cnt -- 성공건수
 					end
-				else
-					begin
-						-- *** 로그에 실패 메시지 저장 ***
-						set @v_keys = '@cd_company=' + ISNULL(CONVERT(nvarchar(100), @av_company_cd),'NULL')
-							  + ',@fr_month=' + ISNULL(CONVERT(nvarchar(100), @av_fr_month),'NULL')
-							  + ',@to_month=' + ISNULL(CONVERT(nvarchar(100), @av_to_month),'NULL')
-							  + ',@pay_type_cd=' + ISNULL(CONVERT(nvarchar(100), @v_pay_type_cd),'NULL')
-							  + ',@pay_group_cd=' + ISNULL(CONVERT(nvarchar(100), @v_pay_group_cd),'NULL')
-							  + ',@salary_type_cd=' + ISNULL(CONVERT(nvarchar(100), @v_salary_type_cd),'NULL')
-							  + ',@pay_term_type_cd=' + ISNULL(CONVERT(nvarchar(100), @v_pay_term_type_cd),'NULL')
-							  + ',@term_sta_ymd=' + ISNULL(CONVERT(nvarchar(100), @d_term_sta_ymd),'NULL')
-							  + ',@term_end_ymd=' + ISNULL(CONVERT(nvarchar(100), @d_term_end_ymd),'NULL')
-						set @v_err_msg = '선택된 Record가 없습니다.!!!' -- ERROR_MESSAGE()
-						EXEC [dbo].[P_CNV_PAY_LOG_D] @n_log_h_id, @v_keys, @@ERROR, @v_err_msg
-						-- *** 로그에 실패 메시지 저장 ***
-						set @n_cnt_failure = @n_cnt_failure + 1 -- 실패건수
-					end
+				--else
+				--	begin
+				--		-- *** 로그에 실패 메시지 저장 ***
+				--		set @v_keys = '@cd_company=' + ISNULL(CONVERT(nvarchar(100), @av_company_cd),'NULL')
+				--			  + ',@fr_month=' + ISNULL(CONVERT(nvarchar(100), @av_fr_month),'NULL')
+				--			  + ',@to_month=' + ISNULL(CONVERT(nvarchar(100), @av_to_month),'NULL')
+				--			  + ',@pay_type_cd=' + ISNULL(CONVERT(nvarchar(100), @v_pay_type_cd),'NULL')
+				--			  + ',@pay_group_cd=' + ISNULL(CONVERT(nvarchar(100), @v_pay_group_cd),'NULL')
+				--			  + ',@salary_type_cd=' + ISNULL(CONVERT(nvarchar(100), @v_salary_type_cd),'NULL')
+				--			  + ',@pay_term_type_cd=' + ISNULL(CONVERT(nvarchar(100), @v_pay_term_type_cd),'NULL')
+				--			  + ',@term_sta_ymd=' + ISNULL(CONVERT(nvarchar(100), @d_term_sta_ymd),'NULL')
+				--			  + ',@term_end_ymd=' + ISNULL(CONVERT(nvarchar(100), @d_term_end_ymd),'NULL')
+				--		set @v_err_msg = '선택된 Record가 없습니다.!!!' -- ERROR_MESSAGE()
+				--		EXEC [dbo].[P_CNV_PAY_LOG_D] @n_log_h_id, @v_keys, @@ERROR, @v_err_msg
+				--		-- *** 로그에 실패 메시지 저장 ***
+				--		set @n_cnt_failure = @n_cnt_failure + 1 -- 실패건수
+				--	end
 			END TRY
 			BEGIN CATCH
 				-- *** 로그에 실패 메시지 저장 ***

@@ -1,5 +1,3 @@
-USE [dwehrdev_H5]
-GO
 
 DECLARE @n_log_h_id numeric
 DECLARE @an_try_no int
@@ -22,13 +20,14 @@ set @an_try_no = 2 -- 시도회차( 같은 [번호 + 파라미터]의 로그를 삭제 )
 -- TODO: 여기에서 매개 변수 값을 설정합니다.
 -- Y(로엑스인천):201501 ~ 
 set @av_company_cd = 'Y'
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512') -- 급여그룹이상 92건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612') -- 급여그룹이상 105건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712') -- 급여그룹이상 200건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812') -- 급여월이상 11건, 급여그룹이상 15건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912') 
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') 
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202101')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512') -- 급여그룹이상 92건
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612') -- 급여그룹이상 105건
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712') -- 급여그룹이상 200건
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812') -- 급여월이상 11건, 급여그룹이상 15건
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912') 
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') 
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202101')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202102','202104')
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH

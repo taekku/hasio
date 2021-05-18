@@ -98,8 +98,8 @@
           <FullPath>P_PEB_GEN_PEB_EST_BASE_인건비계획집계.sql</FullPath>
         </FileNode>
         <FileNode Name="P_PEB_GEN_PEB_EST_PAY_급여실적집계.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_PEB_GEN_PEB_EST_PAY_급여실적집계.sql</FullPath>
         </FileNode>

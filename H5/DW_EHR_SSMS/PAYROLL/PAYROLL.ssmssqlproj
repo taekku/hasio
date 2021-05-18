@@ -103,6 +103,12 @@
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_PAY_CALC_SYSTAX_COPY.sql</FullPath>
         </FileNode>
+        <FileNode Name="P_PAY_CHK_VIEW_USER조회권한사용자등록체크.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>P_PAY_CHK_VIEW_USER조회권한사용자등록체크.sql</FullPath>
+        </FileNode>
         <FileNode Name="P_PAY_MAKE_STANDBY.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>

@@ -20,16 +20,35 @@ set @an_try_no = 3 -- 시도회차( 같은 [번호 + 파라미터]의 로그를 삭제 )
 -- TODO: 여기에서 매개 변수 값을 설정합니다.
 -- F(FnB):201501 ~
 set @av_company_cd = 'F'
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201501') -- 지급항목중복
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201502','201502')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201503','201512')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') -- 지급항목중복
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202101')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202002','202004')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201501') -- 지급항목중복
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201502','201502')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201503','201504')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201505','201506')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201507','201508')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201509','201510')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201511','201512')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201603')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201604','201606')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201607','201609')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201610','201612')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201703')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201704','201706')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201707','201709')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201710','201712')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201803')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201804','201806')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201807','201809')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201810','201812')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201903')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201904','201906')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201907','201909')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201910','201912')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202003')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202004','202006')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202007','202009')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202010','202012')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202103')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202104','202104')
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH

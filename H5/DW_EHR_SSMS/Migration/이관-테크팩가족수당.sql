@@ -28,7 +28,7 @@ select NEXT value FOR S_PAY_SEQUENCE pay_phm_family_id
 	 , fam_ctz_no
 	 , fam_last_nm
 	 , fam_first_nm
-	 ,  fam_rel_cd
+	 , CASE WHEN FAM_REL_CD='12' THEN '11' ELSE FAM_REL_CD END fam_rel_cd
 	 , SUPPORT_YN
 	 , HANICAP_YN
 	 , 'Y' as fam_pay_yn
@@ -42,9 +42,10 @@ join PHM_EMP EMP
 on A.EMP_ID = EMP.EMP_ID
 where getDate() between STA_YMD and END_YMD 
   and EMP.COMPANY_CD = @company_cd
-  and A.FAM_REL_CD in ('11','21','22')
+  and A.FAM_REL_CD in ('11','12','21','22')
   and EMP.IN_OFFI_YN = 'Y'
   and not EXISTS (select * from PAY_PHM_FAMILY pay
                    where pay.emp_id = a.EMP_ID
                      and pay.fam_ctz_no = a.FAM_CTZ_NO
                      and pay.fam_last_nm = a.fam_last_nm )
+AND A.FAM_CTZ_NO IS NOT NULL

@@ -13,7 +13,7 @@ CREATE OR ALTER PROCEDURE [dbo].[P_PEB_GEN_PEB_EST_PAY]
     @av_ret_message     nvarchar(500)    OUTPUT
 AS
     --<DOCLINE> ***************************************************************************
-    --<DOCLINE>   TITLE       : 인건비계획 인건비집계
+    --<DOCLINE>   TITLE       : 급여실적에서 인건비집계
     --<DOCLINE>   PROJECT     : DONGWON
     --<DOCLINE>   AUTHOR      : 임택구
     --<DOCLINE>   PROGRAM_ID  : P_PEB_GEN_PEB_EST_PAY
@@ -32,7 +32,7 @@ BEGIN
       , @v_ret_code      NVARCHAR(100)
       , @v_ret_message   NVARCHAR(500)
 	
-		, @v_plan_cd		nvarchar(10) = '20'
+		, @v_plan_cd		nvarchar(10) = '20' -- 실적
 		, @v_type_nm		nvarchar(50) = '인건비'
 		, @v_hrs_std_mgr	numeric(38,0)
 
@@ -45,7 +45,7 @@ BEGIN
 		PAY_AMT		numeric(18),
 		PAY_ETC_AMT	numeric(18)
 	)
-	
+	SET NOCOUNT ON;
 
     SET @v_program_id   = 'P_PEB_GEN_PEB_EST_PAY'
     SET @v_program_nm   = '급여실적 인건비 생성'
@@ -73,7 +73,7 @@ BEGIN
 		SELECT YMD.PAY_YM BASE_YM
 			 , PAY.ORG_ID
 			 , dbo.F_PEB_GET_VIEW_CD('인건비', PAY.POS_GRD_CD, PAY.POS_CD, PAY.DUTY_CD, PAY.JOB_POSITION_CD
-					, PAY.MGR_TYPE_CD, PAY.JOB_CD, EMP.EMP_KIND_CD) AS VIEW_CD
+					, PAY.MGR_TYPE_CD, PAY.JOB_CD, PAY.EMP_KIND_CD) AS VIEW_CD
 			 , COUNT(DISTINCT PAY.EMP_ID) AS PHM_CNT
 			 , COUNT(DISTINCT PAY.EMP_ID) AS PAY_CNT
 			 , SUM(CASE WHEN PEB.PAY_ITEM_CD IS NULL AND ITEM.CD1 = 'PAY_PAY' THEN DTL.CAL_MON
@@ -91,8 +91,8 @@ BEGIN
 				   AND YMD.PAY_YN = 'Y'
 				   AND YMD.CLOSE_YN = 'Y'
 				   AND YMD.PAY_YM BETWEEN @av_fr_pay_ym AND @av_to_pay_ym
-			INNER JOIN PHM_EMP EMP
-			        ON PAY.EMP_ID = EMP.EMP_ID
+			--INNER JOIN PHM_EMP EMP
+			--        ON PAY.EMP_ID = EMP.EMP_ID
 		  INNER JOIN (select KEY_CD1 ITEM_CD, CD1, HIS.STA_YMD, HIS.END_YMD
 						  FROM FRM_UNIT_STD_HIS HIS
 								   , FRM_UNIT_STD_MGR MGR
@@ -112,7 +112,7 @@ BEGIN
 					AND YMD.COMPANY_CD = PEB.COMPANY_CD
 		 GROUP BY YMD.PAY_YM, PAY.ORG_ID
 			 , dbo.F_PEB_GET_VIEW_CD('인건비', PAY.POS_GRD_CD, PAY.POS_CD, PAY.DUTY_CD, PAY.JOB_POSITION_CD
-					, PAY.MGR_TYPE_CD, PAY.JOB_CD, EMP.EMP_KIND_CD)
+					, PAY.MGR_TYPE_CD, PAY.JOB_CD, PAY.EMP_KIND_CD)
 ----------------
 -- 일용직급여 시작
 ----------------

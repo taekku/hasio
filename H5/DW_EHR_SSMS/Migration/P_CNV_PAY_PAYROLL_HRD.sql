@@ -168,18 +168,25 @@ BEGIN
 				   AND EMP_NO = @no_person
 				IF @@ROWCOUNT < 1
 					BEGIN
-						-- *** 로그에 실패 메시지 저장 ***
-						set @n_err_cod = ERROR_NUMBER()
-						set @v_keys = ISNULL(CONVERT(nvarchar(100), @cd_company),'NULL')
-							  + ',ym_pay=' + ISNULL(CONVERT(nvarchar(100), @ym_pay),'NULL')
-							  + ',fg_supp=' + ISNULL(CONVERT(nvarchar(100), @fg_supp),'NULL')
-							  + ',dt_prov=' + ISNULL(CONVERT(nvarchar(100), @dt_prov),'NULL')
-							  + ',no_person=' + ISNULL(CONVERT(nvarchar(100), @no_person),'NULL')
-						set @v_err_msg = 'PHM_EMP_NO_HIS에서 사번을 찾을 수 없습니다.!' -- ERROR_MESSAGE()
-						EXEC [dbo].[P_CNV_PAY_LOG_D] @n_log_h_id, @v_keys, @n_err_cod, @v_err_msg
-						-- *** 로그에 실패 메시지 저장 ***
-						set @n_cnt_failure = @n_cnt_failure + 1 -- 실패건수
-						CONTINUE
+						SELECT @emp_id = EMP_ID, @person_id = PERSON_ID
+						  FROM PHM_EMP (NOLOCK)
+						 WHERE COMPANY_CD = @cd_company
+						   AND EMP_NO = @no_person
+						IF @@ROWCOUNT < 1
+							BEGIN
+								-- *** 로그에 실패 메시지 저장 ***
+								set @n_err_cod = ERROR_NUMBER()
+								set @v_keys = ISNULL(CONVERT(nvarchar(100), @cd_company),'NULL')
+									  + ',ym_pay=' + ISNULL(CONVERT(nvarchar(100), @ym_pay),'NULL')
+									  + ',fg_supp=' + ISNULL(CONVERT(nvarchar(100), @fg_supp),'NULL')
+									  + ',dt_prov=' + ISNULL(CONVERT(nvarchar(100), @dt_prov),'NULL')
+									  + ',no_person=' + ISNULL(CONVERT(nvarchar(100), @no_person),'NULL')
+								set @v_err_msg = 'PHM_EMP_NO_HIS[PHM_EMP]에서 사번을 찾을 수 없습니다.!' -- ERROR_MESSAGE()
+								EXEC [dbo].[P_CNV_PAY_LOG_D] @n_log_h_id, @v_keys, @n_err_cod, @v_err_msg
+								-- *** 로그에 실패 메시지 저장 ***
+								set @n_cnt_failure = @n_cnt_failure + 1 -- 실패건수
+								CONTINUE
+							END
 					END
 				-- =======================================================
 				--  To-Be Table Insert Start
@@ -201,6 +208,7 @@ BEGIN
 								POS_CD,--	직위코드[PHM_POS_CD]
 								JOB_POSITION_CD,--	직종코드
 								DUTY_CD, -- 직책코드[PHM_DUTY_CD]
+								EMP_KIND_CD, -- 근로구분코드[PHM_EMP_KIND_CD]
 								ACC_CD,--	코스트센터(ORM_COST_ORG_CD)
 								PSUM,--	지급집계(모든기지급포함)
 								PSUM1,--	지급집계(PSUM에서 급여성기지급 포함 안함, 연말정산에서 사용)
@@ -269,6 +277,7 @@ BEGIN
 								A.CD_POSITION	POS_CD, --	직위코드[PHM_POS_CD]
 								A.CD_OCPT	JOB_POSITION_CD, --	직종코드
 								A.CD_ABIL	DUTY_CD, -- 직책코드[PHM_DUTY_CD]
+								A.FG_PERSON	EMP_KIND_CD, -- 근로구분코드[PHM_EMP_KIND_CD]
 								A.CD_COST	ACC_CD, --	코스트센터(ORM_COST_ORG_CD)
 								A.AMT_SUPPLY_TOTAL	PSUM, --	지급집계(모든기지급포함)
 								A.AMT_SUPPLY_TOTAL	PSUM1, --	지급집계(PSUM에서 급여성기지급 포함 안함, 연말정산에서 사용)

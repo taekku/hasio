@@ -35,7 +35,7 @@ BEGIN
 		  , @cd_company		nvarchar(20) -- 회사코드
 		  , @ym_pay			nvarchar(10)
 		  , @fg_supp		nvarchar(10)
-		  , @dt_prov		nvarchar(10)
+		 -- , @dt_prov		nvarchar(10)
 		  , @no_person		nvarchar(10)
 		  -- 기타
 		  , @pay_ymd_id numeric -- 급여일자ID
@@ -68,27 +68,57 @@ BEGIN
 	set @n_cnt_failure = 0
 	set @n_cnt_success = 0
 	-- =============================================
-	--   회사별로 급여지급유형구하기
+	--   회사별로 급여지급유형구하기 222222222
 	-- =============================================
+	--print '@v_proc_nm' + @v_pgm_title + ISNULL(@av_company_cd,'COM') + isnull(@cd_paygp,'paygroup') +isnull( @fg_supp,'fg_up') +isnull( @av_dt_prov,'prov')
 	SELECT @pay_type_cd = CASE WHEN PAY_TYPE_CD = '' THEN NULL ELSE PAY_TYPE_CD END
-	     , @pay_type_sys_cd = (SELECT SYS_CD FROM FRM_CODE (NOLOCK) WHERE COMPANY_CD=A.COMPANY_CD AND CD = A.PAY_TYPE_CD AND CD_KIND='PAY_TYPE_CD' AND GETDATE() BETWEEN STA_YMD AND END_YMD)
-	  FROM CNV_PAY_TYPE A (NOLOCK)
+	     , @pay_type_sys_cd = SYS_CD
+	  FROM CNV_PAY_TYPE2 A (NOLOCK)
 	 WHERE COMPANY_CD = @av_company_cd
 	   AND CD_PAYGP = @cd_paygp
 	   AND FG_SUPP = @fg_supp
+	   AND DT_PROV = @av_dt_prov
 	--PRINT ISNULL(@pay_type_cd,'NULL') + ':' + ISNULL(@pay_type_sys_cd,'NULL') + ':' + ISNULL(@av_company_cd,'NULL') + ':' + ISNULL(@cd_paygp,'NULL') + ':' + ISNULL(@fg_supp,'NULL')
+	--IF @@ROWCOUNT < 1
+	--	BEGIN
+	--		set @v_keys = '@av_company_cd=' + ISNULL(CONVERT(nvarchar(100), @av_company_cd),'NULL')
+	--				+ ',@cd_paygp=' + ISNULL(CONVERT(nvarchar(100), @cd_paygp),'NULL')
+	--				+ ',@fg_supp=' + ISNULL(CONVERT(nvarchar(100), @fg_supp),'NULL')
+	--				+ ',@ym_pay=' + ISNULL(CONVERT(nvarchar(100), @ym_pay),'NULL')
+	--				+ ',@dt_prov=' + ISNULL(CONVERT(nvarchar(100), @dt_prov),'NULL')
+	--				+ ',@no_person=' + ISNULL(CONVERT(nvarchar(100), @no_person),'NULL')
+	--		set @v_err_msg = @v_proc_nm + ' ' + '급여지급유형를 구할 수 없습니다.(CNV_PAY_TYPE)'
+			
+	--		EXEC [dbo].[P_CNV_PAY_LOG_D] @n_log_h_id, @v_keys, @n_err_cod, @v_err_msg
+	--		RETURN
+	--	END
+	--ELSE
+	--print 'cnv_pay_type2: ' + ISNULL( @pay_type_cd, 'N/A') + ':' + isnull(@pay_type_sys_cd,'N/A')
 	IF @@ROWCOUNT < 1
 		BEGIN
-			set @v_keys = '@av_company_cd=' + ISNULL(CONVERT(nvarchar(100), @av_company_cd),'NULL')
-					+ ',@cd_paygp=' + ISNULL(CONVERT(nvarchar(100), @cd_paygp),'NULL')
-					+ ',@fg_supp=' + ISNULL(CONVERT(nvarchar(100), @fg_supp),'NULL')
-					+ ',@ym_pay=' + ISNULL(CONVERT(nvarchar(100), @ym_pay),'NULL')
-					+ ',@dt_prov=' + ISNULL(CONVERT(nvarchar(100), @dt_prov),'NULL')
-					+ ',@no_person=' + ISNULL(CONVERT(nvarchar(100), @no_person),'NULL')
-			set @v_err_msg = @v_proc_nm + ' ' + '급여지급유형를 구할 수 없습니다.(CNV_PAY_TYPE)'
+			-- =============================================
+			--   회사별로 급여지급유형구하기
+			-- =============================================
+			SELECT @pay_type_cd = CASE WHEN PAY_TYPE_CD = '' THEN NULL ELSE PAY_TYPE_CD END
+				 , @pay_type_sys_cd = (SELECT SYS_CD FROM FRM_CODE (NOLOCK) WHERE COMPANY_CD=A.COMPANY_CD AND CD = A.PAY_TYPE_CD AND CD_KIND='PAY_TYPE_CD' AND GETDATE() BETWEEN STA_YMD AND END_YMD)
+			  FROM CNV_PAY_TYPE A (NOLOCK)
+			 WHERE COMPANY_CD = @av_company_cd
+			   AND CD_PAYGP = @cd_paygp
+			   AND FG_SUPP = @fg_supp
+			--PRINT ISNULL(@pay_type_cd,'NULL') + ':' + ISNULL(@pay_type_sys_cd,'NULL') + ':' + ISNULL(@av_company_cd,'NULL') + ':' + ISNULL(@cd_paygp,'NULL') + ':' + ISNULL(@fg_supp,'NULL')
+			IF @@ROWCOUNT < 1
+				BEGIN
+					set @v_keys = '@av_company_cd=' + ISNULL(CONVERT(nvarchar(100), @av_company_cd),'NULL')
+							+ ',@cd_paygp=' + ISNULL(CONVERT(nvarchar(100), @cd_paygp),'NULL')
+							+ ',@fg_supp=' + ISNULL(CONVERT(nvarchar(100), @fg_supp),'NULL')
+							+ ',@ym_pay=' + ISNULL(CONVERT(nvarchar(100), @ym_pay),'NULL')
+							+ ',@dt_prov=' + ISNULL(CONVERT(nvarchar(100), @av_dt_prov),'NULL')
+							+ ',@no_person=' + ISNULL(CONVERT(nvarchar(100), @no_person),'NULL')
+					set @v_err_msg = @v_proc_nm + ' ' + '급여지급유형를 구할 수 없습니다.(CNV_PAY_TYPE)'
 			
-			EXEC [dbo].[P_CNV_PAY_LOG_D] @n_log_h_id, @v_keys, @n_err_cod, @v_err_msg
-			RETURN
+					EXEC [dbo].[P_CNV_PAY_LOG_D] @n_log_h_id, @v_keys, @n_err_cod, @v_err_msg
+					RETURN
+				END
 		END
 	-------------------------
 	-- 대체지급유형코드가 있는지
@@ -120,12 +150,12 @@ BEGIN
 	SELECT @pay_ymd_id = PAY_YMD_ID
 	  FROM PAY_PAY_YMD WITH (NOLOCK)
 	 WHERE COMPANY_CD = @av_company_cd
-	   AND PAY_YM = @av_ym_pay
+	   -- AND PAY_YM = @av_ym_pay -- PAY_PAY_YMD에서는 급여월이 KEY가 아님.
 	   AND PAY_YMD =  @av_dt_prov
 	   AND PAY_TYPE_CD = ISNULL(@alter_pay_type_cd, @pay_type_cd)
 	IF @@ROWCOUNT < 1
 		SET @pay_ymd_id = 0
-
+	--PRINT 'DHK:' + ISNULL(@alter_pay_type_cd,'') + ':' + ISNULL(@pay_type_cd,'')
 	IF ISNULL(@alter_pay_type_cd, @pay_type_cd) is not NULL AND @pay_ymd_id = 0
 		BEGIN
 			--print 'insert:' + @av_company_cd + @av_ym_pay + @av_dt_prov + @pay_type_cd

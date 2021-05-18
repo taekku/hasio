@@ -1,5 +1,3 @@
-USE [dwehrdev_H5]
-GO
 
 DECLARE @n_log_h_id numeric
 DECLARE @an_try_no int
@@ -30,14 +28,13 @@ set @av_company_cd = 'I'
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201301','201312')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201401','201412')
 -- I(동원산업):201501 ~ 전사원
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202010')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202011','202012')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202101')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202104')
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH

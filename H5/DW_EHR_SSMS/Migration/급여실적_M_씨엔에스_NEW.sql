@@ -1,5 +1,3 @@
-USE [dwehrdev_H5]
-GO
 /*
  * HRD도 같이 전환합니다.
  */
@@ -24,15 +22,15 @@ set @an_try_no = 3 -- 시도회차( 같은 [번호 + 파라미터]의 로그를 삭제 )
 -- TODO: 여기에서 매개 변수 값을 설정합니다.
 -- M(씨엔에스):201501 ~ 전사원
 set @av_company_cd = 'M'
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201611','201612')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201502','201512')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202105')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202104')
+
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201501')
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH

@@ -7,7 +7,7 @@ DECLARE @av_service_nm        nvarchar(300) -- 복사할 소스 SQL 이름 LIKE
 	  , @n_temp_oid			numeric(38)
 	  , @n_source_oid		numeric(38)
 	  , @v_err_msg			nvarchar(1000)
-	SET @av_service_nm = 'REP0018' -- LIKE를 수행
+	SET @av_service_nm = 'PAY1050' -- LIKE를 수행
 
 	DECLARE @SOURCE_SERVICE TABLE(
 		SV_DEF_ID	NUMERIC(38),

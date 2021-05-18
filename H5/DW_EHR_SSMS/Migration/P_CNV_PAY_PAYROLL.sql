@@ -182,6 +182,7 @@ BEGIN
 							POS_CD,--	직위코드[PHM_POS_CD]
 							JOB_POSITION_CD,--	직종코드
 							DUTY_CD, -- 직책코드[PHM_DUTY_CD]
+							EMP_KIND_CD, -- 근로구분코드[PHM_EMP_KIND_CD]
 							ACC_CD,--	코스트센터(ORM_COST_ORG_CD)
 							PSUM,--	지급집계(모든기지급포함)
 							PSUM1,--	지급집계(PSUM에서 급여성기지급 포함 안함, 연말정산에서 사용)
@@ -260,6 +261,7 @@ BEGIN
 							ISNULL(B.POS_CD, A.CD_POSITION)	POS_CD, --	직위코드[PHM_POS_CD]
 							ISNULL(B.JOB_POSITION_CD, A.CD_OCPT)	JOB_POSITION_CD, --	직종코드
 							ISNULL(B.DUTY_CD, A.CD_ABIL)	DUTY_CD, -- 직책코드[PHM_DUTY_CD]
+							A.FG_PERSON	EMP_KIND_CD, -- 근로구분코드[PHM_EMP_KIND_CD]
 							A.CD_COST	ACC_CD, --	코스트센터(ORM_COST_ORG_CD)
 							A.AMT_SUPPLY_TOTAL	PSUM, --	지급집계(모든기지급포함)
 							A.AMT_SUPPLY_TOTAL	PSUM1, --	지급집계(PSUM에서 급여성기지급 포함 안함, 연말정산에서 사용)

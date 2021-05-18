@@ -15,10 +15,28 @@
           <ConnectionProtocol>NotSpecified</ConnectionProtocol>
           <ApplicationName>Microsoft SQL Server Management Studio - 쿼리</ApplicationName>
         </ConnectionNode>
+        <ConnectionNode Name="dbreal:ehr_devel11">
+          <Created>2021-05-06T10:18:34.8059002+09:00</Created>
+          <Type>SQL</Type>
+          <Server>dbreal</Server>
+          <UserName>ehr_devel11</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - 쿼리</ApplicationName>
+        </ConnectionNode>
       </Items>
     </LogicalFolder>
     <LogicalFolder Name="쿼리" Type="0" Sorted="true">
       <Items>
+        <FileNode Name="F_REP_PEN_RETIER_MON.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>F_REP_PEN_RETIER_MON.sql</FullPath>
+        </FileNode>
         <FileNode Name="F_REP_R04_DEDUCT.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
@@ -79,11 +97,23 @@
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_REP_CAL_PAY_STD.sql</FullPath>
         </FileNode>
+        <FileNode Name="P_REP_CAL_PAY_STD_03.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>P_REP_CAL_PAY_STD_03.sql</FullPath>
+        </FileNode>
         <FileNode Name="P_REP_CAL_PAY_STD_DC.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_REP_CAL_PAY_STD_DC.sql</FullPath>
+        </FileNode>
+        <FileNode Name="P_REP_CAL_PAY_STD_DC_03.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>P_REP_CAL_PAY_STD_DC_03.sql</FullPath>
         </FileNode>
         <FileNode Name="P_REP_CAL_RETIRE_AMT.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
@@ -122,8 +152,8 @@
           <FullPath>P_REP_CALC_SEND_MAIL.sql</FullPath>
         </FileNode>
         <FileNode Name="P_REP_ESTIMATION.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_REP_ESTIMATION.sql</FullPath>
         </FileNode>
@@ -212,8 +242,8 @@
           <FullPath>디버그 P_REP_ESTIMATION_MAKE.sql</FullPath>
         </FileNode>
         <FileNode Name="디버그 퇴직추계액 생성 P_REP_ESTIMATION.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>디버그 퇴직추계액 생성 P_REP_ESTIMATION.sql</FullPath>
         </FileNode>
@@ -222,6 +252,12 @@
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>연말정산_P_INT_GEN_REHIRE.sql</FullPath>
+        </FileNode>
+        <FileNode Name="추계계산에 대한 것.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>추계계산에 대한 것.sql</FullPath>
         </FileNode>
         <FileNode Name="충당금생성 P_REP_ESTIMATION_CALC.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>

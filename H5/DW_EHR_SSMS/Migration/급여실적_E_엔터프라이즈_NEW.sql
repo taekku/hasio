@@ -19,13 +19,13 @@ set @an_try_no = 3 -- 시도회차( 같은 [번호 + 파라미터]의 로그를 삭제 )
 -- TODO: 여기에서 매개 변수 값을 설정합니다.
 -- E(동원엔터프라이즈):201501 ~
 set @av_company_cd = 'E'
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202104')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202105')
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH
@@ -63,9 +63,9 @@ WHILE 1=1
 			where company_cd like ISNULL(@av_company_cd,'') + '%'
 				and PAY_YM between @av_fr_month and @av_to_month
 			-- 자료전환
-			IF ISNULL(@v_work_kind, '') <> 'D'
+			IF ISNULL(@v_work_kind, '') <> 'D' AND @av_fr_month > '201600'
 				BEGIN
-			EXECUTE @n_log_h_id = dbo.P_CNV_PAY_PAYROLL_NEW
+			EXECUTE @n_log_h_id = dbo.P_CNV_PAY_PAYROLL_ONE
 			  @an_try_no		-- 시도회차
 			, @av_company_cd	-- 회사코드
 			, @av_fr_month		-- 시작년월

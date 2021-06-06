@@ -63,6 +63,7 @@ BEGIN
 	       @v_pos_grade_cd = EMP.POS_GRD_CD,    -- 직급 30
 	       @v_mgr_cd       = EMP.MGR_TYPE_CD,   -- 관리구분 40
 	       @v_emp_kind_cd  = emp.EMP_KIND_CD,    -- 근로형태 50
+		   --@v_pay_biz_cd   = ISNULL(dbo.F_ORM_ORG_BIZ(EMP.ORG_ID, ISNULL(EMP.RETIRE_YMD, GETDATE()), 'PAY'),'001') -- 사업장 10
 		   @v_pay_biz_cd   = dbo.F_ORM_ORG_BIZ(EMP.ORG_ID, ISNULL(EMP.RETIRE_YMD, GETDATE()), 'PAY') -- 사업장 10
 		   --@n_org_id       = EMP.ORG_ID,
 		   --@d_base_ymd     = ISNULL(EMP.RETIRE_YMD, GETDATE())

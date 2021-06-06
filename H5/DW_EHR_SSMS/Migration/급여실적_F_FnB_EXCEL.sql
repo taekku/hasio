@@ -16,16 +16,11 @@ DECLARE @bundle TABLE (
 )
 SET NOCOUNT ON;
 
-set @an_try_no = 3 -- 시도회차( 같은 [번호 + 파라미터]의 로그를 삭제 )
+set @an_try_no = 4 -- 시도회차( 같은 [번호 + 파라미터]의 로그를 삭제 )
 -- TODO: 여기에서 매개 변수 값을 설정합니다.
 -- F(FnB):201501 ~
 set @av_company_cd = 'F'
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201502')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201503','201504')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201505','201506')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201507','201508')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201509','201510')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201511','201512')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201603')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201603')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201604','201606')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201607','201609')
@@ -46,8 +41,9 @@ insert into @bundle(FR_MONTH, TO_MONTH) values ('201509','201510')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202004','202006')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202007','202009')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202010','202012')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202103')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202104','202104')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202102')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202103','202104')
+
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH
@@ -69,49 +65,77 @@ WHILE 1=1
 		-- ==============================================
 			-- 자료삭제
 			DELETE FROM PAY_PAYROLL_DETAIL
-			 WHERE BEL_PAY_YMD_ID in (select PAY_YMD_ID from PAY_PAY_YMD t
-								   where company_cd like ISNULL(@av_company_cd,'') + '%'
-									 and t.PAY_YM between @av_fr_month and @av_to_month
+			 WHERE BEL_PAY_YMD_ID in (select PAY_YMD_ID 
+										from PAY_PAY_YMD YMD
+										JOIN FRM_CODE B
+										  ON YMD.COMPANY_CD = B.COMPANY_CD
+										 AND B.CD_KIND = 'PAY_TYPE_CD'
+										 AND YMD.PAY_TYPE_CD = B.CD
+										 AND ISNULL(B.SYS_CD, '') != '001'
+										 AND YMD.COMPANY_CD = @av_company_cd
+										 AND B.COMPANY_CD = @av_company_cd
+										where YMD.COMPANY_CD like ISNULL(@av_company_cd,'') + '%'
+											and PAY_YM between @av_fr_month and @av_to_month
 								 )
 			-- 자료삭제
 			DELETE FROM PAY_PAYROLL
-			 WHERE PAY_YMD_ID in (select PAY_YMD_ID from PAY_PAY_YMD
-								   where company_cd like ISNULL(@av_company_cd,'') + '%'
-									 and PAY_YM between @av_fr_month and @av_to_month
+			 WHERE PAY_YMD_ID in (select PAY_YMD_ID 
+										from PAY_PAY_YMD YMD
+										JOIN FRM_CODE B
+										  ON YMD.COMPANY_CD = B.COMPANY_CD
+										 AND B.CD_KIND = 'PAY_TYPE_CD'
+										 AND YMD.PAY_TYPE_CD = B.CD
+										 AND ISNULL(B.SYS_CD, '') != '001'
+										 AND YMD.COMPANY_CD = @av_company_cd
+										 AND B.COMPANY_CD = @av_company_cd
+										where YMD.COMPANY_CD like ISNULL(@av_company_cd,'') + '%'
+											and PAY_YM between @av_fr_month and @av_to_month
 								 )
 			-- 급여일자삭제
-			DELETE
-			from PAY_PAY_YMD
-			where company_cd like ISNULL(@av_company_cd,'') + '%'
-				and PAY_YM between @av_fr_month and @av_to_month
+			DELETE YMD
+										from PAY_PAY_YMD YMD
+										JOIN FRM_CODE B
+										  ON YMD.COMPANY_CD = B.COMPANY_CD
+										 AND B.CD_KIND = 'PAY_TYPE_CD'
+										 AND YMD.PAY_TYPE_CD = B.CD
+										 AND ISNULL(B.SYS_CD, '') != '001'
+										 AND YMD.COMPANY_CD = @av_company_cd
+										 AND B.COMPANY_CD = @av_company_cd
+										where YMD.COMPANY_CD like ISNULL(@av_company_cd,'') + '%'
+											and PAY_YM between @av_fr_month and @av_to_month
+											--AND YMD.NOTE = 'FnB(SAP)'
 			-- 자료전환
 			IF ISNULL(@v_work_kind, '') <> 'D'
 				BEGIN
 			--EXECUTE @n_log_h_id = dbo.P_CNV_PAY_PAYROLL_NEW
-			EXECUTE @n_log_h_id = dbo.P_CNV_PAY_PAYROLL_ONE
-			  @an_try_no		-- 시도회차
-			, @av_company_cd	-- 회사코드
-			, @av_fr_month		-- 시작년월
-			, @av_to_month		-- 종료년월
-			, @av_fg_supp		-- 급여구분
-			, @av_dt_prov		-- 급여지급일
+			EXECUTE @n_log_h_id = dbo.P_CNV_PAY_PAYROLL_FnB @an_try_no = @an_try_no
+								, @av_company_cd = @av_company_cd
+								, @av_fr_month = @av_fr_month
+								, @av_to_month = @av_to_month
+								, @av_cd_paygp = NULL
+								, @av_sap_kind1 = NULL
+								, @av_sap_kind2 = NULL
+								, @av_dt_prov = NULL
+
+
 			INSERT INTO @results (log_id) VALUES (@n_log_h_id)
 				END
 		-- ==============================================
 		-- DSUM , TSUM 재계산
 		-- ==============================================
-		UPDATE PAY
-		   SET DSUM = DTL.DAMT, TSUM = DTL.TAMT
-		  FROM PAY_PAYROLL PAY
-		  JOIN PAY_PAY_YMD YMD
-			ON YMD.PAY_YMD_ID = PAY.PAY_YMD_ID
-		  JOIN (SELECT PAY_PAYROLL_ID
-					 , ISNULL(SUM(CASE WHEN PAY_ITEM_TYPE_CD='DEDUCT' THEN CAL_MON ELSE 0 END),0) AS DAMT
-					 , ISNULL(SUM(CASE WHEN PAY_ITEM_TYPE_CD='TAX' THEN CAL_MON ELSE 0 END),0) AS TAMT
-				 FROM PAY_PAYROLL_DETAIL  GROUP BY PAY_PAYROLL_ID) DTL
-			ON PAY.PAY_PAYROLL_ID = DTL.PAY_PAYROLL_ID
-		 WHERE YMD.COMPANY_CD like ISNULL(@av_company_cd,'') + '%'
-		   AND YMD.PAY_YM BETWEEN @av_fr_month AND @av_to_month
+		--UPDATE PAY
+		--   SET DSUM = DTL.DAMT, TSUM = DTL.TAMT
+		--  FROM PAY_PAYROLL PAY
+		--  JOIN PAY_PAY_YMD YMD
+		--	ON YMD.PAY_YMD_ID = PAY.PAY_YMD_ID
+		--  JOIN (SELECT PAY_PAYROLL_ID
+		--			 , ISNULL(SUM(CASE WHEN PAY_ITEM_TYPE_CD='DEDUCT' THEN CAL_MON ELSE 0 END),0) AS DAMT
+		--			 , ISNULL(SUM(CASE WHEN PAY_ITEM_TYPE_CD='TAX' THEN CAL_MON ELSE 0 END),0) AS TAMT
+		--		 FROM PAY_PAYROLL_DETAIL  GROUP BY PAY_PAYROLL_ID) DTL
+		--	ON PAY.PAY_PAYROLL_ID = DTL.PAY_PAYROLL_ID
+		-- WHERE YMD.COMPANY_CD like ISNULL(@av_company_cd,'') + '%'
+		--   AND YMD.PAY_YM BETWEEN @av_fr_month AND @av_to_month
+		--   AND PAY.NOTE='FnB(SAP)'
 		END TRY
 		BEGIN CATCH
 			PRINT ERROR_NUMBER()
@@ -126,7 +150,7 @@ DEALLOCATE CNV_PAY_CUR
 SELECT *
   FROM CNV_PAY_WORK A
  WHERE CNV_PAY_WORK_ID IN (SELECT log_id FROM @results)
-SELECT CNV_PAY_WORK_ID, KEYS, ERR_MSG, LOG_DATE
+SELECT CNV_PAY_WORK_ID, KEYS, ERR_MSG--, LOG_DATE
   FROM CNV_PAY_WORK_LOG B
  WHERE CNV_PAY_WORK_ID IN (SELECT log_id FROM @results)
 

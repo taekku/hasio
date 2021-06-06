@@ -20,22 +20,19 @@ set @an_try_no = 3 -- 시도회차( 같은 [번호 + 파라미터]의 로그를 삭제 )
 -- TODO: 여기에서 매개 변수 값을 설정합니다.
 -- H(홈푸드):201501 ~
 set @av_company_cd = 'H'
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512') -- 기본급(소급) 중복 5건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612') -- 기본급(소급) 중복 2건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712') -- 기본급, 기본급(소급) 중복 8건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812') -- 조회그룹(HXXX) 7건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201906') -- 조회그룹(HXXX) 106건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201907','201909') -- 조회그룹(HXXX) 1,749건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201910','201912') -- 조회그룹(HXXX) 1,539건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202002') -- 조회그룹(HXXX) 1,792건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202003','202004') -- 조회그룹(HXXX) 1,583건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202005','202006') -- 조회그룹(HXXX) 1,469건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202007','202008') -- 조회그룹(HXXX) 1,509건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202009','202010') -- 조회그룹(HXXX) 1,519건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202011','202011') -- 조회그룹(HXXX) 57건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202012','202012') -- 조회그룹(HXXX) 167건
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202104') -- 조회그룹(HXXX) 1474건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202104','202104') -- 조회그룹(HXXX) 1474건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512') -- 
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612') -- 
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712') -- 
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812') -- 
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201906') -- 
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201907','201909') -- 
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201910','201912') -- 
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202003') -- 
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202004','202006') -- 
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202007','202009') -- 
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202010','202012') -- 
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202103') -- 
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202104','202105') -- 
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH
@@ -75,7 +72,8 @@ WHILE 1=1
 			-- 자료전환
 			IF ISNULL(@v_work_kind, '') <> 'D'
 				BEGIN
-			EXECUTE @n_log_h_id = dbo.P_CNV_PAY_PAYROLL_NEW
+			--EXECUTE @n_log_h_id = dbo.P_CNV_PAY_PAYROLL_NEW
+			EXECUTE @n_log_h_id = dbo.P_CNV_PAY_PAYROLL_ONE
 			  @an_try_no		-- 시도회차
 			, @av_company_cd	-- 회사코드
 			, @av_fr_month		-- 시작년월

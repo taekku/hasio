@@ -123,27 +123,27 @@ BEGIN
 	-------------------------
 	-- 대체지급유형코드가 있는지
 	-------------------------
-	SELECT @alter_pay_type_cd = CASE WHEN ALTER_PAY_TYPE_CD > '' THEN ALTER_PAY_TYPE_CD ELSE NULL END
-	  FROM CNV_PAY_YMD
-	 WHERE CD_COMPANY = @av_company_cd
-	   AND YM_PAY = @av_ym_pay
-	   AND FG_SUPP = @av_fg_supp
-	   AND DT_PROV = @av_dt_prov
-	   AND PAY_TYPE_CD = @pay_type_cd
-	IF @@ROWCOUNT < 1
-		SET @alter_pay_type_cd = NULL
-	IF @alter_pay_type_cd > ''
-	BEGIN
-						set @v_keys = '@av_company_cd=' + ISNULL(CONVERT(nvarchar(100), @av_company_cd),'NULL')
-							  + ',@ym_pay=' + ISNULL(CONVERT(nvarchar(100), @av_ym_pay),'NULL')
-							  + ',@fg_supp=' + ISNULL(CONVERT(nvarchar(100), @av_fg_supp),'NULL')
-							  + ',@dt_prov=' + ISNULL(CONVERT(nvarchar(100), @av_dt_prov),'NULL')
-							  + ',@pay_type_cd=' + ISNULL(CONVERT(nvarchar(100), @pay_type_cd),'NULL')
-							  + ',@alter_pay_type_cd=' + ISNULL(CONVERT(nvarchar(100), @alter_pay_type_cd),'NULL')
-							  + ',@cd_paygp=' + ISNULL(CONVERT(nvarchar(100), @cd_paygp),'NULL')
-		set @v_err_message = '대체유형코드사용:' + @alter_pay_type_cd
-		EXEC [dbo].[P_CNV_PAY_LOG_D] @n_log_h_id, @v_keys, '999', @v_err_message
-	END
+	--SELECT @alter_pay_type_cd = CASE WHEN ALTER_PAY_TYPE_CD > '' THEN ALTER_PAY_TYPE_CD ELSE NULL END
+	--  FROM CNV_PAY_YMD
+	-- WHERE CD_COMPANY = @av_company_cd
+	--   AND YM_PAY = @av_ym_pay
+	--   AND FG_SUPP = @av_fg_supp
+	--   AND DT_PROV = @av_dt_prov
+	--   AND PAY_TYPE_CD = @pay_type_cd
+	--IF @@ROWCOUNT < 1
+	--	SET @alter_pay_type_cd = NULL
+	--IF @alter_pay_type_cd > ''
+	--BEGIN
+	--					set @v_keys = '@av_company_cd=' + ISNULL(CONVERT(nvarchar(100), @av_company_cd),'NULL')
+	--						  + ',@ym_pay=' + ISNULL(CONVERT(nvarchar(100), @av_ym_pay),'NULL')
+	--						  + ',@fg_supp=' + ISNULL(CONVERT(nvarchar(100), @av_fg_supp),'NULL')
+	--						  + ',@dt_prov=' + ISNULL(CONVERT(nvarchar(100), @av_dt_prov),'NULL')
+	--						  + ',@pay_type_cd=' + ISNULL(CONVERT(nvarchar(100), @pay_type_cd),'NULL')
+	--						  + ',@alter_pay_type_cd=' + ISNULL(CONVERT(nvarchar(100), @alter_pay_type_cd),'NULL')
+	--						  + ',@cd_paygp=' + ISNULL(CONVERT(nvarchar(100), @cd_paygp),'NULL')
+	--	set @v_err_message = '대체유형코드사용:' + @alter_pay_type_cd
+	--	EXEC [dbo].[P_CNV_PAY_LOG_D] @n_log_h_id, @v_keys, '999', @v_err_message
+	--END
 	-------------------------
 	-- 급여일자가 있는지
 	-------------------------

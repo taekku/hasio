@@ -163,12 +163,12 @@ BEGIN
 				-- =======================================================
 				--  EMP_ID 찾기
 				-- =======================================================
-				SELECT @emp_id = EMP_ID, @person_id = PERSON_ID
-				  FROM PHM_EMP_NO_HIS (NOLOCK)
-				 WHERE COMPANY_CD = @cd_company
-				   AND EMP_NO = @no_person
-				IF @@ROWCOUNT < 1
-					BEGIN
+				--SELECT @emp_id = EMP_ID, @person_id = PERSON_ID
+				--  FROM PHM_EMP_NO_HIS (NOLOCK)
+				-- WHERE COMPANY_CD = @cd_company
+				--   AND EMP_NO = @no_person
+				--IF @@ROWCOUNT < 1
+				--	BEGIN
 						SELECT @emp_id = EMP_ID, @person_id = PERSON_ID
 						  FROM PHM_EMP (NOLOCK)
 						 WHERE COMPANY_CD = @cd_company
@@ -188,7 +188,7 @@ BEGIN
 								set @n_cnt_failure = @n_cnt_failure + 1 -- 실패건수
 								CONTINUE
 							END
-					END
+					--END
 				-- =======================================================
 				--  To-Be Table Insert Start
 				-- =======================================================
@@ -270,7 +270,7 @@ BEGIN
 								A.CD_PAYGP PAY_GROUP_CD, -- 급여그룹
 								A.CD_BIZ_AREA	PAY_BIZ_CD,--	급여사업장코드
 								CASE WHEN @t_company_cd = 'X' AND CD_WORK_AREA > ' ' THEN CD_WORK_AREA
-									ELSE A.CD_REG_BIZ_AREA END	RES_BIZ_CD,--	지방세사업장코드
+									 ELSE A.CD_REG_BIZ_AREA END	RES_BIZ_CD,--	지방세사업장코드
 								@org_id	ORG_ID, --	발령부서ID
 								@org_id PAY_ORG_ID, --	급여부서ID
 								A.TP_DUTY	MGR_TYPE_CD,-- 관리구분코드
@@ -343,7 +343,8 @@ BEGIN
 					   AND FG_SUPP = @fg_supp
 					   AND DT_PROV = @dt_prov
 					   AND NO_PERSON = @no_person
-					set @n_cnt_success = @n_cnt_success + 1 -- 성공건수:대상자별로 성공카운트
+					IF @@ROWCOUNT > 0 
+						set @n_cnt_success = @n_cnt_success + 1 -- 성공건수:대상자별로 성공카운트
 					------------
 					-- 급여지급
 					------------

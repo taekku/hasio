@@ -1,18 +1,19 @@
-exec sp_lock
+exec sp_lock 359
+
+EXEC sp_lock 274
 
 exec sp_lock2
-exec sp_lock2 85
+exec sp_lock2 @SPID=274
 
-DBCC inputbuffer (185)-- 239
-
+DBCC inputbuffer (287    )-- 239
+SELECT db_name(), schema_name(), original_login()
 EXEC sp_who
-EXEC sp_who 82
+EXEC sp_who 557  
 
 EXEC sp_who2
-EXEC sp_who2 478
+EXEC sp_who2 287      
 
-
--- kill 488
+-- kill 274
 
 SELECT name, object_id
 FROM sys.tables

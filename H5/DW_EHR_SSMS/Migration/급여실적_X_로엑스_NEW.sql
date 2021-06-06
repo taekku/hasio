@@ -20,15 +20,15 @@ set @an_try_no = 3 -- 시도회차( 같은 [번호 + 파라미터]의 로그를 삭제 )
 -- TODO: 여기에서 매개 변수 값을 설정합니다.
 -- X(로엑스):201501 ~ 
 set @av_company_cd = 'X'
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512') -- 급여그룹이상 20,554건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612') -- 급여그룹이상 19,664건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712') -- 급여그룹이상 18,054건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812') -- 총12,741 급여그룹이상 561건 조회그룹 398건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912') -- 조회그룹 19건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') -- 조회그룹 7건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202101')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202102','202102')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512') -- 급여그룹이상 20,554건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612') -- 급여그룹이상 19,664건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712') -- 급여그룹이상 18,054건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812') -- 총12,741 급여그룹이상 561건 조회그룹 398건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912') -- 조회그룹 19건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') -- 조회그룹 7건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202102')
 insert into @bundle(FR_MONTH, TO_MONTH) values ('202103','202104')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202105','202106')
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH
@@ -66,7 +66,7 @@ WHILE 1=1
 			where company_cd like ISNULL(@av_company_cd,'') + '%'
 				and PAY_YM between @av_fr_month and @av_to_month
 			-- 자료전환
-			IF ISNULL(@v_work_kind, '') <> 'D'
+			IF ISNULL(@v_work_kind, '') <> 'D' AND @av_fr_month >= '201601'
 				BEGIN
 			EXECUTE @n_log_h_id = dbo.P_CNV_PAY_PAYROLL_ONE
 			  @an_try_no		-- 시도회차
@@ -105,7 +105,7 @@ DEALLOCATE CNV_PAY_CUR
 SELECT *
   FROM CNV_PAY_WORK A
  WHERE CNV_PAY_WORK_ID IN (SELECT log_id FROM @results)
-SELECT CNV_PAY_WORK_ID, KEYS, ERR_MSG, LOG_DATE
+SELECT CNV_PAY_WORK_ID, KEYS, ERR_MSG--, LOG_DATE
   FROM CNV_PAY_WORK_LOG B
  WHERE CNV_PAY_WORK_ID IN (SELECT log_id FROM @results)
 

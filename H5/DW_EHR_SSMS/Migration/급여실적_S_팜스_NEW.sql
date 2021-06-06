@@ -19,13 +19,15 @@ set @an_try_no = 2 -- 시도회차( 같은 [번호 + 파라미터]의 로그를 삭제 )
 -- TODO: 여기에서 매개 변수 값을 설정합니다.
 -- S(동원팜스):201501 ~ 
 set @av_company_cd = 'S'
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512') -- 인사정보가 없음 232건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612') -- 인사정보가 없음 96건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812') -- 조회그룹(SXXX) 5건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912') -- 조회그룹(SXXX) 465건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') 
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202104')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512') -- 인사정보가 없음 232건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612') -- 인사정보가 없음 96건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812') -- 조회그룹(SXXX) 5건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912') -- 조회그룹(SXXX) 465건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') 
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202104')
+
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202105')
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH
@@ -102,7 +104,7 @@ DEALLOCATE CNV_PAY_CUR
 SELECT *
   FROM CNV_PAY_WORK A
  WHERE CNV_PAY_WORK_ID IN (SELECT log_id FROM @results)
-SELECT CNV_PAY_WORK_ID, KEYS, ERR_MSG, LOG_DATE
+SELECT CNV_PAY_WORK_ID, KEYS, ERR_MSG--, LOG_DATE
   FROM CNV_PAY_WORK_LOG B
  WHERE CNV_PAY_WORK_ID IN (SELECT log_id FROM @results)
 

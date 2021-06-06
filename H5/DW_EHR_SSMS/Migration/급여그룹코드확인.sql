@@ -1,4 +1,4 @@
-DECLARE @company_cd nvarchar(10) = 'T'
+DECLARE @company_cd nvarchar(10) = 'X'
 SELECT *
 FROM FRM_CODE
 WHERE CD_KIND = 'PAY_GROUP_CD'

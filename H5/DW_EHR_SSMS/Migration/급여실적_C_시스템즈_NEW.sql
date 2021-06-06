@@ -19,13 +19,14 @@ set @an_try_no = 3 -- 시도회차( 같은 [번호 + 파라미터]의 로그를 삭제 )
 -- TODO: 여기에서 매개 변수 값을 설정합니다.
 -- C(동원시스템즈):201501 ~ 
 set @av_company_cd = 'C'
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202104')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202105')
+
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH

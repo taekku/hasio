@@ -2,9 +2,10 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE OR ALTER PROCEDURE [dbo].[P_PEB_GEN_PEB_EST_PAY]
+CREATE OR ALTER PROCEDURE [dbo].[P_PEB_GEN_PEB_EST_PAY_COM]
 		@av_company_cd      NVARCHAR(10),
 		@av_locale_cd       NVARCHAR(10),
+		@av_type_nm			NVARCHAR(10),
 		@av_fr_pay_ym		nvarchar(06),
 		@av_to_pay_ym		nvarchar(06),
     @av_tz_cd           NVARCHAR(10),    -- 타임존코드
@@ -16,7 +17,7 @@ AS
     --<DOCLINE>   TITLE       : 급여실적에서 인건비집계
     --<DOCLINE>   PROJECT     : DONGWON
     --<DOCLINE>   AUTHOR      : 임택구
-    --<DOCLINE>   PROGRAM_ID  : P_PEB_GEN_PEB_EST_PAY
+    --<DOCLINE>   PROGRAM_ID  : P_PEB_GEN_PEB_EST_PAY_COM
     --<DOCLINE>   ARGUMENT    : 
     --<DOCLINE>   RETURN      : SUCCESS!/FAILURE!
     --<DOCLINE>                 결과 메시지
@@ -33,7 +34,7 @@ BEGIN
       , @v_ret_message   NVARCHAR(500)
 	
 		, @v_plan_cd		nvarchar(10) = '20' -- 실적
-		, @v_type_nm		nvarchar(50) = '인건비'
+		, @v_type_nm		nvarchar(50) = @av_type_nm
 		, @v_hrs_std_mgr	numeric(38,0)
 
 	DECLARE @TEMP_EST_PAY TABLE (
@@ -47,7 +48,7 @@ BEGIN
 	)
 	SET NOCOUNT ON;
 
-    SET @v_program_id   = 'P_PEB_GEN_PEB_EST_PAY'
+    SET @v_program_id   = 'P_PEB_GEN_PEB_EST_PAY_COM'
     SET @v_program_nm   = '급여실적 인건비 생성'
     SET @av_ret_code    = 'SUCCESS!'
     SET @av_ret_message = dbo.F_FRM_ERRMSG('프로시져 실행 시작..[ERR]',
@@ -113,72 +114,75 @@ BEGIN
 		 GROUP BY YMD.PAY_YM, PAY.ORG_ID
 			 , dbo.F_PEB_GET_VIEW_CD(@v_type_nm, PAY.POS_GRD_CD, PAY.POS_CD, PAY.DUTY_CD, PAY.JOB_POSITION_CD
 					, PAY.MGR_TYPE_CD, PAY.JOB_CD, PAY.EMP_KIND_CD)
-----------------
--- 일용직급여 시작
-----------------
-		INSERT INTO @TEMP_EST_PAY(
-			  BASE_YM
-			, ORG_ID
-			, VIEW_CD
-			, PHM_CNT
-			, PAY_CNT
-			, PAY_AMT
-			, PAY_ETC_AMT
-		)
-		 SELECT YMD.REVERT_YM BASE_YM       -- 지급년월
-		, EMP.ORG_ID
-		, '50' AS VIEW_CD -- 일용/도급
-		, 0-- COUNT(DISTINCT MST.DAY_EMP_MST_ID) PHM_CNT
-		, 0-- COUNT(DISTINCT MST.DAY_EMP_MST_ID) PAY_CNT
-		 , SUM(PAY.RD_PAY_S)                                 AS RD_PAY_S       --기본급여
-		 , SUM(PAY.EDU_AMT + PAY.ETC_PAY_AMT)                AS ETC_PAY_AMT    -- 교육비 + 기타지급
-  FROM DAY_PAY_PAYROLL PAY
-       INNER JOIN DAY_PHM_EMP EMP
-	           ON PAY.EMP_ID = EMP.EMP_ID
-       INNER JOIN DAY_EMP_MST MST
-               ON EMP.DAY_EMP_MST_ID = MST.DAY_EMP_MST_ID
-       INNER JOIN DAY_PAY_YMD YMD
-	           ON PAY.DAY_PAY_YMD_ID = YMD.DAY_PAY_YMD_ID
-	          AND YMD.CLOSE_YN = 'Y'
- WHERE MST.COMPANY_CD =  @av_company_cd
-   AND YMD.REVERT_YM BETWEEN  @av_fr_pay_ym AND @av_to_pay_ym
- GROUP BY YMD.REVERT_YM , EMP.ORG_ID
-----------------
--- 일용직급여 끝
-----------------
-----------------
--- 도급직급여 시작
-----------------
-		INSERT INTO @TEMP_EST_PAY(
-			  BASE_YM
-			, ORG_ID
-			, VIEW_CD
-			, PHM_CNT
-			, PAY_CNT
-			, PAY_AMT
-			, PAY_ETC_AMT
-		)
-		SELECT PAY_YM
-		     , ORG_ID
-			 , '50' AS VIEW_CD -- 일용/도급
-			 , 0 AS PHM_CNT
-			 , 0 AS PAY_CNT
-			 , PAY_AMT
-			 , 0 PAY_ETC_AMT
-		  FROM (
-				SELECT DAY_CNT_DEPT_ID ORG_ID
-					, YYYY + SUBSTRING(AMT_COL,5,2) AS PAY_YM
+	IF @v_type_nm IN ('인건비')
+		BEGIN
+		----------------
+		-- 일용직급여 시작
+		----------------
+				INSERT INTO @TEMP_EST_PAY(
+					  BASE_YM
+					, ORG_ID
+					, VIEW_CD
+					, PHM_CNT
+					, PAY_CNT
 					, PAY_AMT
-				  FROM DAY_CNT_DATA A
-					   --   UNPIVOT ( PAY_CNT FOR PHM_COL IN (CNT_01, CNT_02, CNT_03, CNT_04, CNT_05, CNT_06, CNT_07, CNT_08, CNT_09, CNT_10, CNT_11, CNT_12) )  UNPVT1
-						  UNPIVOT ( PAY_AMT FOR AMT_COL IN (AMT_01, AMT_02, AMT_03, AMT_04, AMT_05, AMT_06, AMT_07, AMT_08, AMT_09, AMT_10, AMT_11, AMT_12) )  UNPVT2
-				 WHERE COMPANY_CD = @av_company_cd
-				   AND YYYY BETWEEN SUBSTRING(@av_fr_pay_ym, 1, 4) AND SUBSTRING(@av_to_pay_ym, 1, 4)
-		  ) A
-		  WHERE PAY_YM BETWEEN @av_fr_pay_ym AND @av_to_pay_ym
-----------------
--- 도급직급여 끝
-----------------
+					, PAY_ETC_AMT
+				)
+				 SELECT YMD.REVERT_YM BASE_YM       -- 지급년월
+				, EMP.ORG_ID
+				, '50' AS VIEW_CD -- 일용/도급
+				, 0-- COUNT(DISTINCT MST.DAY_EMP_MST_ID) PHM_CNT
+				, 0-- COUNT(DISTINCT MST.DAY_EMP_MST_ID) PAY_CNT
+				 , SUM(PAY.RD_PAY_S)                                 AS RD_PAY_S       --기본급여
+				 , SUM(PAY.EDU_AMT + PAY.ETC_PAY_AMT)                AS ETC_PAY_AMT    -- 교육비 + 기타지급
+		  FROM DAY_PAY_PAYROLL PAY
+			   INNER JOIN DAY_PHM_EMP EMP
+					   ON PAY.EMP_ID = EMP.EMP_ID
+			   INNER JOIN DAY_EMP_MST MST
+					   ON EMP.DAY_EMP_MST_ID = MST.DAY_EMP_MST_ID
+			   INNER JOIN DAY_PAY_YMD YMD
+					   ON PAY.DAY_PAY_YMD_ID = YMD.DAY_PAY_YMD_ID
+					  AND YMD.CLOSE_YN = 'Y'
+		 WHERE MST.COMPANY_CD =  @av_company_cd
+		   AND YMD.REVERT_YM BETWEEN  @av_fr_pay_ym AND @av_to_pay_ym
+		 GROUP BY YMD.REVERT_YM , EMP.ORG_ID
+		----------------
+		-- 일용직급여 끝
+		----------------
+		----------------
+		-- 도급직급여 시작
+		----------------
+				INSERT INTO @TEMP_EST_PAY(
+					  BASE_YM
+					, ORG_ID
+					, VIEW_CD
+					, PHM_CNT
+					, PAY_CNT
+					, PAY_AMT
+					, PAY_ETC_AMT
+				)
+				SELECT PAY_YM
+					 , ORG_ID
+					 , '50' AS VIEW_CD -- 일용/도급
+					 , 0 AS PHM_CNT
+					 , 0 AS PAY_CNT
+					 , PAY_AMT
+					 , 0 PAY_ETC_AMT
+				  FROM (
+						SELECT DAY_CNT_DEPT_ID ORG_ID
+							, YYYY + SUBSTRING(AMT_COL,5,2) AS PAY_YM
+							, PAY_AMT
+						  FROM DAY_CNT_DATA A
+							   --   UNPIVOT ( PAY_CNT FOR PHM_COL IN (CNT_01, CNT_02, CNT_03, CNT_04, CNT_05, CNT_06, CNT_07, CNT_08, CNT_09, CNT_10, CNT_11, CNT_12) )  UNPVT1
+								  UNPIVOT ( PAY_AMT FOR AMT_COL IN (AMT_01, AMT_02, AMT_03, AMT_04, AMT_05, AMT_06, AMT_07, AMT_08, AMT_09, AMT_10, AMT_11, AMT_12) )  UNPVT2
+						 WHERE COMPANY_CD = @av_company_cd
+						   AND YYYY BETWEEN SUBSTRING(@av_fr_pay_ym, 1, 4) AND SUBSTRING(@av_to_pay_ym, 1, 4)
+				  ) A
+				  WHERE PAY_YM BETWEEN @av_fr_pay_ym AND @av_to_pay_ym
+		----------------
+		-- 도급직급여 끝
+		----------------
+		END
 		INSERT INTO PEB_EST_PAY(
 			PEB_EST_PAY_ID,--	인건비통계ID
 			COMPANY_CD,--	회사코드

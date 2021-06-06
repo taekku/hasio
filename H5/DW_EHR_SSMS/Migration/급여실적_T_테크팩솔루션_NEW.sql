@@ -19,13 +19,13 @@ set @an_try_no = 2 -- 시도회차( 같은 [번호 + 파라미터]의 로그를 삭제 )
 -- TODO: 여기에서 매개 변수 값을 설정합니다.
 -- T(테크팩솔루션):201501 ~ 
 set @av_company_cd = 'T'
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512') -- 급여지급유형중복 2건, 급여그룹오류1건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612') -- 급여지급유형중복 581건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712') -- 급여지급유형중복 570건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812') -- 급여지급유형중복 538건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912') -- 급여지급유형중복, 조회급여그룹 653건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') -- 급여지급유형중복, 조회급여그룹 307건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202104')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512') -- 급여지급유형중복 2건, 급여그룹오류1건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612') -- 급여지급유형중복 581건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712') -- 급여지급유형중복 570건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812') -- 급여지급유형중복 538건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912') -- 급여지급유형중복, 조회급여그룹 653건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') -- 급여지급유형중복, 조회급여그룹 307건
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202105')
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH
@@ -102,7 +102,7 @@ DEALLOCATE CNV_PAY_CUR
 SELECT *
   FROM CNV_PAY_WORK A
  WHERE CNV_PAY_WORK_ID IN (SELECT log_id FROM @results)
-SELECT CNV_PAY_WORK_ID, KEYS, ERR_MSG, LOG_DATE
+SELECT CNV_PAY_WORK_ID, KEYS, ERR_MSG--, LOG_DATE
   FROM CNV_PAY_WORK_LOG B
  WHERE CNV_PAY_WORK_ID IN (SELECT log_id FROM @results)
 

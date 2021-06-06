@@ -131,6 +131,7 @@ BEGIN
 			-- =============================================
 			IF @@FETCH_STATUS <> 0 BREAK
 			BEGIN TRY
+				SET @emp_id = NULL
 				set @n_total_record = @n_total_record + 1 -- 총 건수확인
 				set @s_company_cd = @cd_company -- AS-IS 회사코드
 				set @t_company_cd = @cd_company -- TO-BE 회사코드
@@ -163,12 +164,12 @@ BEGIN
 				-- =======================================================
 				--  EMP_ID 찾기
 				-- =======================================================
-				SELECT @emp_id = EMP_ID, @person_id = PERSON_ID
-				  FROM PHM_EMP_NO_HIS (NOLOCK)
-				 WHERE COMPANY_CD = @cd_company
-				   AND EMP_NO = @no_person
-				IF @@ROWCOUNT < 1
-					BEGIN
+				--SELECT @emp_id = EMP_ID, @person_id = PERSON_ID
+				--  FROM PHM_EMP_NO_HIS (NOLOCK)
+				-- WHERE COMPANY_CD = @cd_company
+				--   AND EMP_NO = @no_person
+				--IF @@ROWCOUNT < 1
+				--	BEGIN
 						SELECT @emp_id = EMP_ID, @person_id = PERSON_ID
 						  FROM PHM_EMP (NOLOCK)
 						 WHERE COMPANY_CD = @cd_company
@@ -188,7 +189,7 @@ BEGIN
 								set @n_cnt_failure = @n_cnt_failure + 1 -- 실패건수
 								CONTINUE
 							END
-					END
+					--END
 				-- =======================================================
 				--  To-Be Table Insert Start
 				-- =======================================================
@@ -381,7 +382,7 @@ BEGIN
 									dbo.F_FRM_UNIT_STD_VALUE (@t_company_cd, 'KO', 'PAY', 'PAY_ITEM_CD_BASE',
 									  NULL, NULL, NULL, NULL, NULL,
 									  B.ITEM_CD, NULL, NULL, NULL, NULL,
-									  getdATE(),
+									  GETDATE(),
 									  'H1' -- 'H1' : 코드1,     'H2' : 코드2,     'H3' :  코드3,     'H4' : 코드4,     'H5' : 코드5
 										   -- 'E1' : 기타코드1, 'E2' : 기타코드2, 'E3' :  기타코드3, 'E4' : 기타코드4, 'E5' : 기타코드5
 									  )	PAY_ITEM_TYPE_CD, --	급여항목유형

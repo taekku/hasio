@@ -28,13 +28,16 @@ set @av_company_cd = 'I'
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201301','201312')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201401','201412')
 -- I(동원산업):201501 ~ 전사원
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202104')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202104')
+
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202105')
+
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH
@@ -111,7 +114,7 @@ DEALLOCATE CNV_PAY_CUR
 SELECT *
   FROM CNV_PAY_WORK A
  WHERE CNV_PAY_WORK_ID IN (SELECT log_id FROM @results)
-SELECT CNV_PAY_WORK_ID, KEYS, ERR_MSG, LOG_DATE
+SELECT CNV_PAY_WORK_ID, KEYS, ERR_MSG--, LOG_DATE
   FROM CNV_PAY_WORK_LOG B
  WHERE CNV_PAY_WORK_ID IN (SELECT log_id FROM @results)
 

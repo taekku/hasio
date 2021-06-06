@@ -20,13 +20,15 @@ set @an_try_no = 2 -- 시도회차( 같은 [번호 + 파라미터]의 로그를 삭제 )
 -- A(동원건설산업):201501 ~ 201812
 set @av_company_cd = 'A'
 
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912') /* 조회그룹 AXXX가 있음: 10건 */
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') /* 202004월에 급여일:20200525가 있음 */
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202104')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201501','201512')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912') /* 조회그룹 AXXX가 있음: 10건 */
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') /* 202004월에 급여일:20200525가 있음 */
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202104')
+
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202105')
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH

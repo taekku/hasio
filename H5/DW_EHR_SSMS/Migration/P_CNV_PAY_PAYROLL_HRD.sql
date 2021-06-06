@@ -287,6 +287,7 @@ BEGIN
 								A.AMT_REAL_SUPPLY	REAL_AMT, --	실지급액
 								A.CD_BANK1	BANK_CD, --	은행코드[PAY_BANK_CD]
 								A.NO_BANK_ACCNT1	ACCOUNT_NO, --	계좌번호
+								--DBO.F_FRM_ENCRYPT_C(	A.NO_BANK_ACCNT1)	ACCOUNT_NO, --	계좌번호
 								A.DT_AUTO	FILLDT, --	기표일
 								A.LVL_PAY1	POS_GRD_CD, --	직급[PHM_POS_GRD_CD]
 								A.LVL_PAY2	PAY_GRADE,-- 호봉코드 [PHM_YEARNUM_CD]

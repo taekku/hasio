@@ -404,8 +404,8 @@
           <FullPath>급여실적_H_홈푸드_NEW.sql</FullPath>
         </FileNode>
         <FileNode Name="급여실적_I_동원산업_NEW.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>급여실적_I_동원산업_NEW.sql</FullPath>
         </FileNode>
@@ -468,6 +468,12 @@
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>급여항목-회계계정코드중복확인.sql</FullPath>
+        </FileNode>
+        <FileNode Name="이관_FnB_통상임금.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>이관_FnB_통상임금.sql</FullPath>
         </FileNode>
         <FileNode Name="이관_고정_수당_공제.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>

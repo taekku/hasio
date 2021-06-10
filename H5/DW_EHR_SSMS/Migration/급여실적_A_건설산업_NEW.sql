@@ -25,10 +25,10 @@ set @av_company_cd = 'A'
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912') /* 조회그룹 AXXX가 있음: 10건 */
---insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') /* 202004월에 급여일:20200525가 있음 */
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') /* 202004월에 급여일:20200525가 있음 */
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202104')
 
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202105')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202105')
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH
@@ -105,7 +105,7 @@ DEALLOCATE CNV_PAY_CUR
 SELECT *
   FROM CNV_PAY_WORK A
  WHERE CNV_PAY_WORK_ID IN (SELECT log_id FROM @results)
-SELECT CNV_PAY_WORK_ID, KEYS, ERR_MSG, LOG_DATE
+SELECT CNV_PAY_WORK_ID, KEYS, ERR_MSG--, LOG_DATE
   FROM CNV_PAY_WORK_LOG B
  WHERE CNV_PAY_WORK_ID IN (SELECT log_id FROM @results)
 

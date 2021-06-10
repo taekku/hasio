@@ -230,8 +230,8 @@
           <FullPath>쿼리내용확인.sql</FullPath>
         </FileNode>
         <FileNode Name="특정단어 검색하기(Fn,Proc).sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>특정단어 검색하기(Fn,Proc).sql</FullPath>
         </FileNode>

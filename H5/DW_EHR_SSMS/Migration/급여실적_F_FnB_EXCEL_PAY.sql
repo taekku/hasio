@@ -22,10 +22,10 @@ set @an_try_no = 4 -- 시도회차( 같은 [번호 + 파라미터]의 로그를 삭제 )
 -- TODO: 여기에서 매개 변수 값을 설정합니다.
 -- F(FnB):201501 ~
 set @av_company_cd = 'F'
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201603')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201604','201606')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201607','201609')
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201610','201612')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201603')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201604','201606')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201607','201609')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201610','201612')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201703')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201704','201706')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201707','201709')
@@ -42,9 +42,9 @@ set @av_company_cd = 'F'
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202004','202006')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202007','202009')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202010','202012')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202102')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202103','202104')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202105','202105')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202102')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202103','202104')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202105','202105')
 
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR

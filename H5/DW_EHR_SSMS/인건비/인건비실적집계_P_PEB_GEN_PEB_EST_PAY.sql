@@ -13,7 +13,7 @@ DECLARE @v_target_company_cd NVARCHAR(100) = 'A,B,C,E,F,H,I,M,R,S,T,W,X,Y'
 
 --SET @av_fr_pay_ym = '202101'
 --SET @av_to_pay_ym = '202105'
---SET @v_target_company_cd = 'F'
+SET @v_target_company_cd = 'F'
 
 DECLARE @TARGET_COMPANY TABLE(
 	COMPANY_CD	NVARCHAR(10)
@@ -31,10 +31,10 @@ DECLARE @bundle TABLE (
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712')
 ------
---insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912') 
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') 
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202105')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202105')
 
 
 

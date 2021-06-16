@@ -1,0 +1,939 @@
+/* -----------------------------------------------------------------------*/
+/* ----------------- "Main" IBSheet style definition ---------------------*/
+/* -----------------------------------------------------------------------*/
+
+/* wine tags */
+.wineImage {padding-bottom:256px;}
+.wineNone {display:none;}
+.wineSection,.wineSectionFF3, .wineChildPart {table-layout:fixed; width:0;}
+.wineSectionFF3 {border-collapse:collapse; }
+
+/* Sections */
+.wineMainTable {border:1px solid #A7ABAD; border-collapse:separate; text-align:left; background:#ffffff; font:12px Dotum,Helvetica,AppleGothic,Sans-serif;}
+.wineFootLeft,.wineFootMid,.wineFootRight {border-top:1px solid #99BCE8;}
+.wineHeadLeft,.wineBodyLeft,.wineFootLeft,.wineHScrollLeft {border-right:1px solid #c0c0ff;}    
+.wineHeadRight,.wineBodyRight,.wineFootRight,.wineHScrollRight {border-left:1px solid #c0c0ff;} 
+.wineVScroll {padding-top:1px; padding-bottom:1px;}
+.wineHScrollLeft,.wineHScrollMid,.wineHScrollLeftResizeTouch,.wineHScrollRightResizeTouch {padding-left:1px; padding-right:1px; cursor:default;}
+.wineHScrollLeftResizeTouch {border-right:2px solid #000000; padding-right:18px; background:#F4F4F4;}
+.wineHScrollRightResizeTouch {border-left:2px solid #000000; padding-left:18px; background:#F4F4F4;}
+.wineHScrollMidLeftResizeTouch {border-left:1px solid #000000; padding-left:19px; background:#F4F4F4;}
+.wineHScrollMidRightResizeTouch {border-right:1px solid #000000; padding-right:19px; background:#F4F4F4;}
+.wineHScrollWide {padding-right:1px;}
+.wineHScrollHidden {overflow:visible !important; background:#F4F4F4; cursor:default; }
+.wineXScroll {background:#F4F4F4;}
+.winePage {border-top:0px solid #E0E0E0;}
+
+/* Rows */
+.wineSpaceRowHeight{height:21px; }
+.wineRowHeight     {height:18px; }
+.wineRowHeightTouch{height:22px; }
+.wineSpaceMargin   {margin:0; }
+.wineSpaceMarginTouch{margin:0; }
+.wineSpaceRow {background:#ffffff; white-space:nowrap; overflow:hidden; padding-top:2px; padding-bottom:2px; border-bottom:1px solid #e0e0ff;}
+.wineGroupRow,.wineSearchRow,.winePagerRow 
+{background-color:#C9E1F5; white-space:nowrap; padding-top:1px; padding-bottom:1px; overflow:hidden; border-bottom:1px solid #99BCE8;} 
+.wineGroupRow,.winePagerRow {background-position:0 -1801px; }
+.wineFillRow {background:#ffffff; }
+.wineRowAbove,.wineRowBelow {border-left:1px solid #9cb6c8; border-right:1px solid #9cb6c8;}
+.wineRowAbove { margin-top:3px; overflow:hidden;}
+.wineRowBelow {margin-bottom:3px; overflow:hidden;}
+.wineCountRowTop {background-color:#C9E1F5; white-space:nowrap;padding-top:1px; padding-bottom:1px; overflow:hidden; border-bottom:1px solid #99BCE8;}
+.wineCountRowBottom {background-color:#C9E1F5; white-space:nowrap; padding-top:1px; padding-bottom:1px; overflow:hidden; border-top:1px solid #99BCE8;}
+.wineButtonbarTop {background-color:#C9E1F5; white-space:nowrap;padding-top:1px; padding-bottom:1px; overflow:hidden; border-bottom:1px solid #99BCE8;}
+.wineButtonbarBottom {background-color:#C9E1F5; white-space:nowrap; padding-top:1px; padding-bottom:1px; overflow:hidden; border-top:1px solid #99BCE8;}
+.wineCountFont { font-size:/*IBFS*/12px; font-family:/*IBFN*/"Dotum", "Helvetica", "AppleGothic", sans-serif; }
+.wineNoDataRow {padding-top:0px; padding-bottom:0px; background-color:#ffffff; color:#000000;}
+
+/* Cell */
+.wineCell,.wineCellPanel,.wineCellFilter,.wineHeaderDrag,.wineHeaderGroup 
+ {border-bottom:1px solid #e0e0ff; border-right:1px solid #e0e0ff; border-left:0; border-top:0;vertical-align:top; overflow:hidden; height:auto; font-size:/*IBFS*/12px; font-family:/*IBFN*/"Dotum", "Helvetica", "AppleGothic", sans-serif; line-height: 14px; box-sizing: border-box;}
+
+.wineCellHeader,.wineCellHeaderEmpty
+ {vertical-align:middle; overflow:hidden;height:auto; background-color:#E5D5D9; padding-top:1px; border-right:1px solid #A7ABAD; border-bottom:1px solid #A7ABAD;}
+
+.wineHeaderGroup, .wineHeaderGroupCustom { vertical-align: middle; height:20px; text-align: center; }
+
+.wineCellBorderFF3 {border-left:0;border-top:0;} 
+.wineCellSpace {vertical-align:top; padding-top:5px !important; }
+.wineCellSpacePanel,.wineCellSpaceBool {vertical-align:top; }
+.wineCellSpaceRadio { padding-top:3px !important;}
+.wineCellSpaceEditButton { vertical-align:top; padding-top:4px !important; border:1px solid #000000 !important; background-color:#ffffff !important; }
+.wineCellSpaceButtonButton { vertical-align:top; }
+.wineCellSpaceButton { vertical-align:top; padding-top:5px !important; white-space:nowrap; }
+.wineCellSpaceAbove { border-top:1px solid #9cb6c8; }
+.wineCellSpaceBelow { border-bottom:1px solid #9cb6c8; }
+.wineCellPanel,.wineCellHeaderPanel{ white-space:nowrap; } 
+.wineCellHidden { background:transparent!important; border-top:none!important; border-bottom:none!important; }
+.wineHeaderButton { padding:0; }
+.wineHeaderGroup {background: #7FA9E6; color:#ffffff; font-weight: bold; border-radius: 5px;}
+.wineHeaderGroupFocus {background-color: #C0C0A0; }
+.wineHeaderGroupDelete {background-color: #F0F0E0; color: #F0F0E0; }
+.wineHeaderGroupCustom {color:#BBB; padding-left:5px; cursor:default; white-space:nowrap; }
+.wineHeaderDrag {background: #9FB9E9; cursor:default; overflow:hidden; }
+.wineHeaderFocus {background: #9FB9E9;}
+.winePanel {padding-left:80px;}
+.wineNoTreeLines1 {text-align:right;}
+.wineNoTreeLines2 {text-align:right; vertical-align:middle; padding-top:0;}
+.wineTree {padding-top:0; white-space:nowrap;}
+.wineSpannedTree {vertical-align:top;}
+.wineCellClassInner {padding-top:0; padding-bottom:0;}
+
+.wineCellSpan { border-bottom: 0px;}
+
+/* Inside cell */
+.wineStatus,.wineSeq,.winePopup,.winePopupEdit,.wineHtml,.wineText,.wineLines,.winePass,.wineInt,.wineFloat,.wineDate,
+.wineLink,.wineImg,.wineRadio,.wineRadioText,.wineList,.wineEnum,.wineDropCols,.wineAbs,.winePagerEdit,.wineUser,.wineResult,.wineNumber,.wineBtn
+ {white-space:nowrap;vertical-align: middle;padding:2px 3px;} 
+.wineInt,.wineFloat { text-align:right; }
+.wineLines,.wineRadio,.wineHtml,.wineList { white-space:normal; }   
+.wineImg,.wineHtml {padding:0; } 
+.wineRadio,.wineRadioText { padding:0; font-weight:normal !important; }
+.wineBool { text-align:center; }
+.wineIcon { background-repeat:no-repeat; }
+.wineHiddenSpace { display:none; }
+.wineDropCols { padding-top:2px !important; }
+
+.wineHeaderText {color: #2f2f2f; vertical-align:middle; font-size:/*IBFS*/14px; font-family:/*IBFN*/'Noto Sans KR', "Helvetica", "AppleGothic", sans-serif;}
+.wineAbs { padding:0; }
+.wineUser { padding:0; }
+.winePagerEdit { text-align:right; padding-top:4px!important; }
+.winePagerTotal { text-align:left; padding-top:4px!important; }
+.wineEditPager { /*background-color:#ffffff; border:1px solid gray;*/font-size:/*IBFS*/12px; font-family:/*IBFN*/"Dotum", "Helvetica", "AppleGothic", sans-serif;}
+.wineMergedCellH {padding:0 0 5px 0}
+.wineMergedCellV {padding:0 0 1px 0}
+
+.wineWrap0 { white-space:nowrap; }
+.wineWrap1 { white-space:normal; }
+.wineEllipsis { white-space:nowrap; text-overflow:ellipsis;}
+
+.wineAlignLeft { text-align:left; }
+.wineAlignCenter { text-align:center; }
+.wineAlignJustify { text-align:center; }
+.wineAlignRight { text-align:right;}
+
+.wineValignTop { vertical-align:top; }
+.wineValignMiddle { vertical-align:middle; }
+.wineValignBottom { vertical-align:bottom;}
+
+.wineCellButtonwine {
+    color: #fff;
+    display: inline-block;
+    padding: 2px 10px 3px;
+    text-decoration: none;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    border-bottom: 1px solid rgba(0,0,0,0.25);
+    line-height: 1;
+    border:0;
+    font-family: "Dotum";
+    font-weight: bold;
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+    height: 20px;
+}
+.wineCellButton {
+    cursor: pointer;
+    background-color: #5689b9;
+}
+.wineCellButton0 {
+    cursor:default;
+    background-color: #c8c8c8;
+}
+.wineCellButton:hover { background-color: #3a6ea0; }
+.wineCellButton0:hover {}
+
+/* Tree Img with lines */
+.wine000,.wine010,.wine001,.wine011,.wine100,.wine110,.wine101,.wine111, 
+.wine000T,.wine010T,.wine001T,.wine011T,.wine100T,.wine110T,.wine101T,.wine111T,
+.wine00,.wine01,.wine10,.wine11,.wine00T,.wine01T,.wine10T,.wine11T,
+.wine0T,.wine1T,.wine0TL,.wine1TL,.wine0C,.wine1C,.wine0CL,.wine1CL,.wine0E,.wine1E,.wine0EL,.wine1EL,
+.wine0,.wine1,.wineT,.wineTL,.wineC,.wineCL,.wineE,.wineEL,.wineD0,.wineD1,.wineD2,.wineD3,.wineD4,.wineD0L,.wineD1L,.wineD2L,.wineD3L,.wineD4L 
+{background-image:url(Tree.gif); vertical-align:top;}
+
+u.wine000,u.wine010,u.wine001,u.wine011,u.wine100,u.wine110,u.wine101,u.wine111 { padding-left:39px; }
+u.wine000T,u.wine010T,u.wine001T,u.wine011T,u.wine100T,u.wine110T,u.wine101T,u.wine111T { padding-left:60px; }
+u.wine00,u.wine01,u.wine10,u.wine11 { padding-left:26px; }   
+u.wine00T,u.wine01T,u.wine10T,u.wine11T { padding-left:47px; }   
+u.wine0T,u.wine1T,u.wine0TL,u.wine1TL,u.wine0C,u.wine1C,u.wine0CL,u.wine1CL,u.wine0E,u.wine1E,u.wine0EL,u.wine1EL { padding-left:34px; }   
+u.wine0,u.wine1 { padding-left:13px; }
+u.wineT,u.wineTL,u.wineC,u.wineCL,u.wineE,u.wineEL,u.wineD0,u.wineD1,u.wineD2,u.wineD3,u.wineD4,u.wineD0L,u.wineD1L,u.wineD2L,u.wineD3L,u.wineD4L { padding-left:21px; }   
+
+.wine000,.wine000T{ background-position:-24px 0px; }
+.wine010,.wine010T{ background-position:-136px 0; }
+.wine001,.wine001T{ background-position:-272px 0; }
+.wine011,.wine011T{ background-position:-392px 0; }
+.wine100,.wine100T{ background-position:-512px 0; }
+.wine110,.wine110T{ background-position:-640px 0; }
+.wine101,.wine101T{ background-position:-768px 0; }
+.wine111,.wine111T{ background-position:-896px 0; }
+.wine00,.wine00T  { background-position:-37px 0;  }
+.wine10,.wine10T  { background-position:-149px 0; }
+.wine01,.wine01T  { background-position:-285px 0; }
+.wine11,.wine11T  { background-position:-405px 0; }
+.wine0,.wine0T    { background-position:-50px 0;  }
+.wine1,.wine1T    { background-position:-298px 0; }
+.wineT          { background-position:-63px 0;  }
+.wine0TL        { background-position:-1032px 0; }
+.wine1TL        { background-position:-1088px 0; }
+.wine0C         { background-position:-1160px 0; }
+.wine1C         { background-position:-1216px 0; }
+.wine0CL        { background-position:-1288px 0; }
+.wine1CL        { background-position:-1344px 0; }
+.wine0E         { background-position:-1416px 0; }
+.wine1E         { background-position:-1472px 0; }
+.wine0EL        { background-position:-1544px 0; }
+.wine1EL        { background-position:-1600px 0; }
+.wineTL         { background-position:-1045px 0; }
+.wineC          { background-position:-1173px 0; }
+.wineCL         { background-position:-1301px 0; }
+.wineE          { background-position:-1429px 0; }
+.wineEL         { background-position:-1557px 0; }
+.wineD0         { background-position:-1664px 0; }
+.wineD1         { background-position:-1696px 0; }
+.wineD2         { background-position:-1728px 0; }
+.wineD3         { background-position:-1760px 0; }
+.wineD0L        { background-position:-1792px 0; }
+.wineD1L        { background-position:-1824px 0; }
+.wineD2L        { background-position:-1856px 0; }
+.wineD3L        { background-position:-1888px 0; }
+.wineD4         { background-position:-1920px 0; }
+.wineD4L        { background-position:-1952px 0; }
+
+/* Tree Img without lines  */
+.wineND0,.wineND1,.wineND2,.wineND3,.wineND4,.wineNC,.wineNE,.wineNCR,.wineNER {background-image:url(TreeN.gif); background-repeat:no-repeat; vertical-align:top; }
+u.wineND0,u.wineND1,u.wineND2,u.wineND3,u.wineND4,u.wineNC,u.wineNE,u.wineNCR,u.wineNER { padding-left:20px; }
+.wineND0 { background-position: -6px 0; }
+.wineND1 { background-position: -56px 0; }
+.wineND2 { background-position: -106px 0; }
+.wineND3 { background-position: -156px 0; }
+.wineND4 { background-position: -206px 0; }
+.wineNC { background-position:right -50px;}
+.wineNE { background-position:right -2000px;}
+.wineNCR { background-position:-255px -50px;}
+.wineNER { background-position:-255px -2000px;}
+u.wineNL { padding-left:21px; }
+
+/* Tree Node Image */
+.wineTreeNodeIcon0, .wineTreeNodeIcon1, .wineTreeNodeIcon2 { background-position:2px 0px; background-repeat:no-repeat; }
+.wineTreeNodeIcon0 { background-image:url(treenode0.gif); }
+.wineTreeNodeIcon1 { background-image:url(treenode1.gif); }
+.wineTreeNodeIcon2 { background-image:url(treenode2.gif); }
+
+/* Cell images */
+.wineIconLink { text-decoration:none; width:1000px; display:inline-block; }
+.wineIconLeft,.wineIconRight,.wineIconCenter {  background-repeat:no-repeat; }
+.wineIconLeft { background-position:left 0; padding-left:20px !important; }
+.wineIconRight { background-position:right 0; padding-right:20px !important; }
+.wineIconCenter { background-position:center 0; }
+.winePopupRight { background:url(popup.gif) no-repeat 5px center; }
+.wineExpandLeft,.wineCollapseLeft,.wineExpandHeaderLeft,.wineCollapseHeaderLeft { padding-left:20px!important; }
+.wineDateRight{ padding-right:20px!important;}
+u.wineDateRight,u.winePopupRight { padding-right:0!important; padding-left:17px; }
+.wineDateRight {background:url(calendar.gif) no-repeat 2px center}
+.wineEnumRight { background:url(combo.gif) no-repeat right center; }
+u.wineEnumRight {padding-right:0; padding-left:17px}
+.wineExpandLeft { background:url(ic_plus.gif) no-repeat 3px center; padding:2px 0 0  18px; _padding:0 0 0 18px }
+.wineCollapseLeft { background:url(ic_minus.gif) no-repeat 3px center ; padding:2px 0 0  18px; _padding:0 0 0 18px }
+
+.wineRadio0Left,.wineRadio1Left,.wineRadio2Left,.wineRadio3Left,.wineRadioRO0Left,.wineRadioRO1Left,.wineRadioRO2Left,.wineRadioRO3Left { padding-left:17px; padding-right:10px; line-height:17px; background-repeat:no-repeat; background-position:3px 50%;}
+.wineRadio0Right,.wineRadio1Right,.wineRadio2Right,.wineRadio3Right,.wineRadioRO0Right,.wineRadioRO1Right,.wineRadioRO2Right,.wineRadioRO3Right {line-height:17px; padding-right:17px; padding-left:10px; background-repeat:no-repeat; background-position:3px 50%;}
+.wineRadio0Left  { background-image:url(chk2.gif); } 
+.wineRadioRO0Left  { background-image:url(chk2R.gif); } 
+.wineRadio1Left  { background-image:url(chk3.gif); } 
+.wineRadioRO1Left  { background-image:url(chk3R.gif); } 
+.wineRadio2Left  { background-image:url(chk0.gif); }
+.wineRadioRO2Left  { background-image:url(chk0R.gif); }
+.wineRadio3Left  { background-image:url(chk1.gif); }
+.wineRadioRO3Left  { background-image:url(chk1R.gif); }
+.wineRadio0Right { background-image:url(chk2.gif); } 
+.wineRadioRO0Right { background-image:url(chk2R.gif); } 
+.wineRadio1Right { background-image:url(chk3.gif); } 
+.wineRadioRO1Right { background-image:url(chk3R.gif); } 
+.wineRadio2Right { background-image:url(chk0.gif); }
+.wineRadioRO2Right { background-image:url(chk0R.gif); }
+.wineRadio3Right { background-image:url(chk1.gif); }
+.wineRadioRO3Right { background-image:url(chk1R.gif); }
+
+u.wineFilter0,u.wineFilter1 { padding-left:16px; }
+.wineBool0,.wineBool0RO,.wineBool1,.wineBool1RO,.wineBool2,.wineBool2RO,.wineBool3,.wineBool3RO {background-position:center center; background-repeat:no-repeat;}
+
+.wineCheck0Left, .wineCheck1Left, .wineCheckRO0Left, .wineCheckRO1Left { background-repeat:no-repeat; padding-left:20px!important; background-position:3px 50%;}
+.wineCheck0Left   { background-image:url(chk0.gif); }
+.wineCheck1Left   { background-image:url(chk1.gif); }
+.wineCheckRO0Left { background-image:url(chk0R.gif); }
+.wineCheckRO1Left { background-image:url(chk1R.gif); }
+
+.wineBool0   { background-image:url(chk0.gif);  }
+.wineBool0RO { background-image:url(chk0R.gif); }
+
+.wineBool1   { background-image:url(chk1.gif);  }
+.wineBool1RO { background-image:url(chk1R.gif); }
+
+.wineBool2   { background-image:url(chk2.gif);  }
+.wineBool2RO { background-image:url(chk2R.gif); }
+
+.wineBool3   { background-image:url(chk3.gif);  }
+.wineBool3RO { background-image:url(chk3R.gif); }
+
+/* Filter images  */
+.wineFilter0Left,.wineFilter1Left,.wineFilter2Left,.wineFilter3Left,.wineFilter4Left,.wineFilter5Left,.wineFilter6Left,.wineFilter7Left,
+.wineFilter8Left,.wineFilter9Left,.wineFilter10Left,.wineFilter11Left,.wineFilter12Left {width:100%; height:18px; padding-left:18px;}
+
+.wineFilter0Left,.wineFilter0Menu   { background:url(filter0.gif) no-repeat left center; }   
+.wineFilter1Left,.wineFilter1Menu   { background:url(filter1.gif) no-repeat left center; }
+.wineFilter2Left,.wineFilter2Menu   { background:url(filter2.gif) no-repeat left center; }
+.wineFilter3Left,.wineFilter3Menu   { background:url(filter3.gif) no-repeat left center; }
+.wineFilter4Left,.wineFilter4Menu   { background:url(filter4.gif) no-repeat left center; }
+.wineFilter5Left,.wineFilter5Menu   { background:url(filter5.gif) no-repeat left center; }   
+.wineFilter6Left,.wineFilter6Menu   { background:url(filter6.gif) no-repeat left center; }
+.wineFilter7Left,.wineFilter7Menu   { background:url(filter7.gif) no-repeat left center; }
+.wineFilter8Left,.wineFilter8Menu   { background:url(filter8.gif) no-repeat left center; }
+.wineFilter9Left,.wineFilter9Menu   { background:url(filter9.gif) no-repeat left center; }
+.wineFilter10Left,.wineFilter10Menu { background:url(filter10.gif) no-repeat left center; }
+.wineFilter11Left,.wineFilter11Menu { background:url(filter11.gif) no-repeat left center; }
+.wineFilter12Left,.wineFilter12Menu { background:url(filter12.gif) no-repeat left center; }
+
+.wineFilter0Menu,.wineFilter1Menu,.wineFilter2Menu,.wineFilter3Menu,.wineFilter4Menu,.wineFilter5Menu,.wineFilter6Menu,.wineFilter7Menu,.wineFilter8Menu,.wineFilter9Menu,
+.wineFilter10Menu,.wineFilter11Menu,.wineFilter12Menu {width:18px; height:18px; overflow:hidden; margin: -2px 0 0 -1px;}
+.wineFilterMenuHeader { padding-left:2px; border-bottom:0 !important; } 
+
+/*  Keyfield Image */
+.wineKeyfield {background-image:url(keyfield.gif); display:inline-block; vertical-align:middle; background-repeat: no-repeat; background-position:center 1px; padding: 0 2px 0 4px; margin-top : 8px;}
+
+.wineStatusR,.wineStatusI,.wineStatusU,.wineStatusD {background-position:center center; background-repeat:no-repeat;}
+.wineStatusI   { background-image:url(status_i.gif); }
+.wineStatusU   { background-image:url(status_u.gif); }
+.wineStatusD   { background-image:url(status_d.gif); }
+
+/* wineKeyfield : hack OP*/
+ @media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0) 
+ { .wineKeyfield{  background-position: center 3px;padding: 0 2px 0 4px; }}
+
+/* CheckBox Header Image */
+.wineCheckHeader0 {background-image:url(chk0.gif); display:inline-block; vertical-align:middle; background-repeat:no-repeat; background-position:5px 1px; padding:2px 7px 0 6px; margin:0 2px 0 0;}
+
+/* wineCheckHeader0 : hack CR,SF*/
+@media screen and (-webkit-min-device-pixel-ratio:0) 
+{.wineCheckHeader0{ background-position:6px 1px ; padding: 2px 8px 0 6px; }}
+
+/* wineCheckHeader0 : hack FF*/
+.wineCheckHeader0, x:-moz-any-link, x:default { background-position:6px 1px ; padding: 2px 8px 0 6px; }
+
+/* wineCheckHeader0 : hack OP*/
+ @media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0) 
+ { .wineCheckHeader0{ background-position:7px center ; padding:1px  17px 0 0; }}
+
+.wineCheckHeader1 {background-image:url(chk1.gif); display:inline-block; vertical-align:middle; background-repeat:no-repeat; background-position:4px 1px ; padding:2px 6px 0 6px; margin:0 2px 0 0}
+
+/* wineCheckHeader1 : hack CR,SF*/
+@media screen and (-webkit-min-device-pixel-ratio:0) 
+{.wineCheckHeader1{ background-position:6px 1px ; padding: 2px 8px 0 6px; }}
+
+/* wineCheckHeader1 : hack FF*/
+.wineCheckHeader1, x:-moz-any-link, x:default { background-position:6px 1px ; padding: 2px 8px 0 6px; }
+
+/* wineCheckHeader1 : hack OP*/
+ @media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0) 
+ { .wineCheckHeader1 { background-position:7px center ; padding:1px  17px 0 0;  }}
+
+/* Sort images */
+.wineSort {display:block; float:right; margin:2px 2px 0; width:7px;}
+
+/* State classes */
+/* The colors must be set by numbers not by names */
+.wineColorDefault  { background-color:#FFFFFF;}
+.wineColorNoFocus  { background-color:#E8F4FF;}
+.wineColorReadOnly { background-color:#F4F4F4;}
+.wineColorPreview  { background-color:#FFFFFF;}
+.wineColorAlternate{ background-color:#EBFFFF;}
+.wineColorSelected { background-color:/*#FFFF80*/#aadbff; }
+
+.wineColorFilter {background-color:#FFFFFF;}
+
+/*//.wineClassSelected { }*/
+.wineColorError   { background-color:#FF6969; }
+.wineColorDeleted { background-color:#FFCDCD; }
+.wineClassDeleted { font-style:italic; }
+.wineColorAdded   { background-color:#CDFFCD; }
+.wineClassAdded   { font-weight:bold; }
+.wineColorMoved1  { background-color:#FFFFFF; }
+.wineColorMoved2  { background-color:#D7EBEB; }
+.wineColorChanged { background-color:#EBEBFF; }
+.wineColorChangedCell { background-color:#E1E1FF; }
+.wineClassChangedCell { font-weight:bold; }
+.wineColorMaxChildren { background-color:#FFFFF0; }
+.wineColorDetail { background-color:#FFF0FF; }
+.wineColorDetailSelected { background-color:#FFF0E0; }
+.wineColorDragged{ background-color:#E0E0C0; }
+.wineColorFound1 { background-color:#FF87FF; }
+.wineColorFound2 { background-color:#FFC387; }
+.wineColorFound3 { background-color:#87FF87; }
+
+.wineColorHovered             { background-color:#f4edfe; }
+.wineColorHoveredCell         { background-color:#d7c6ee; }
+.wineColorHoveredCellReadOnly { background-color:#d7c6ee; }
+.wineColorHoveredCellSpace    { background-color:#FFFFFF; }
+.wineColorHoveredCellSpaceEdit{ background-color:#C0C0FF; }
+.wineColorHoveredCellSpaceBool{ background-color:#FFFFFF; }
+.wineColorHoveredCellButton   { background-color:#d0dde7; }
+.wineColorHoveredCellButton1  { background-color:#add4f5; }
+
+.wineColorFocused             { background-color:#e9f5d0; }
+.wineColorFocusedCell         { background-color:#FFFFFE; }
+.wineColorFocusedCellSpace    { background-color:#E6E6E6; }
+.wineColorFocusedCellButton   { background-color:#BCD; }
+.wineColorFocusedCellHeader   { background-color:#FFFFFE; }
+.wineColorFocusedCellPanel    { background-color:#FFFFFE; }
+.wineColorEditedCell          { background-color:#FFFFFF; }
+.wineColorViewedCell          { background-color:#FFFFFF; }
+.wineColorMultiRowFocused     { background-color:#e9f5d0; }
+
+/* Hover, focus, edit cursors */
+.wineHoverRowBackground   { opacity:0.2; filter:alpha(opacity=20); background:#8238f0; } /* ?씪諛섎え?뱶?뿉?꽌?쓽 Hover Row?쓽 Background*/
+.wineHoverRowBorder       { z-index:0; border-top:1px solid #bda7dc; border-bottom:1px solid #bda7dc; } /* ?씪諛섎え?뱶?뿉?꽌?쓽 Hover Row?쓽 Border*/
+.wineHoverCellBorder      { z-index:0; border:1px solid #bda7dc; cursor:default; } /* ?씪諛섎え?뱶?뿉?꽌?쓽 Hover Cell?쓽 Border*/
+.wineFocusRowBackground   { opacity:0.1; filter:alpha(opacity=20); background:/*IBSB*/#b6d102; } /* <-- Sheet : Selected Row Background */
+.wineFocusRowBorder       { z-index:0; border:1px solid /*IBSB*/#D6E581; } /* <-- Sheet : Selected Row Border */
+.wineFocusCellBorder      { z-index:0; border:2px solid /*IBSB*/#CCE24C; } /* <-- Sheet : Selected Cell Border */
+.wineFocusCellSpaceBorder,.wineEditCellSpaceBorder { z-index:4; }
+.wineEditCellBorder       { z-index:0; border:2px solid #FF6666;}    /*<-- Sheet : CellEdit Border */
+.wineEditCellInput        { position:relative; border:0 solid #39aefb; overflow:hidden; z-index:2; } 
+
+.wineCursorBackground, .wineCursorBorderLeft ,.wineCursorBorderRight,.wineCursorBorderTop,.wineCursorBorderBottom 
+ {position:relative;overflow:hidden;}
+
+.wineCursorBackground  {border:none; padding:0;}
+.wineCursorBorderLeft  {padding-right:0; padding-top:0; padding-bottom:0; border-right:none; border-top:none; border-bottom:none;  width:0; height:0;}
+.wineCursorBorderRight {padding-left:0; padding-top:0; padding-bottom:0; border-left:none; border-top:none; border-bottom:none;  width:0; height:0;}
+.wineCursorBorderTop   {padding-bottom:0; padding-left:0; padding-right:0; border-bottom:none; border-left:none; border-right:none;  width:0; height:0;}
+.wineCursorBorderBottom{padding-top:0; padding-left:0; padding-right:0; border-top:none; border-left:none; border-right:none; width:0; height:0;}
+
+/* Cell edges */
+.wineNoLeft { border-left:0; }
+.wineNoRight { border-right:0; }
+
+/* Dragging */
+.wineMouseObject { opacity:0.5; filter:alpha(opacity=50); z-index:300; overflow:hidden;}
+.wineDragObject {z-index:300; margin-left:10px; margin-top:10px; padding-left:3px; padding-right:3px;background:#E4E5F0 ; border:1px solid #777;}
+.wineUserDragObject {z-index:300; margin-left:10px; margin-top:10px;}
+.wineDragColInsideTop,.wineDragColInsideBottom,.wineDragColOutsideTop,.wineDragColOutsideBottom{position:absolute;width:10px; height:11px; overflow:hidden; z-index:258;}
+.wineDragColInsideTop     {background:url(in_top.gif) no-repeat;}     
+.wineDragColInsideBottom  {background:url(in_bottom.gif) no-repeat;}  
+.wineDragColOutsideTop    {background:url(out_top.gif) no-repeat;}    
+.wineDragColOutsideBottom {background:url(out_bottom.gif) no-repeat;}  
+
+/* Messages */
+.wineDisabled{position:absolute; z-index:264; background:#ffffff; opacity:0.5; filter:alpha(opacity=50); } 
+.wineProcess {position: absolute; left:0; top:0; background:#E2F0FF; border:1px solid #777; white-space:nowrap; text-align:center; visibility:hidden; z-index:266;}
+.wineMessage {background:#E2F0FF; border:1px solid #000000; padding:10px; white-space:nowrap; text-align:center;
+             position: absolute; left:0; top:0; visibility:hidden; z-index:266;}
+.wineMessageShadow 
+{position:absolute; margin-left:3px; margin-top:3px; z-index:265;background:#888; opacity:0.5; filter:alpha(opacity=50); left:0; top:0; visibility:hidden;}
+      
+/* Other */
+/* !!! No .wine style prefix here !!! */
+.GridTmpTag { position:absolute; left:5px; top:5px; visibility:hidden; }
+
+/* Popup menus */
+.wineMenuMain  {position:absolute;left:0;top:0; z-index:258;}
+.wineMenuOuter {overflow:hidden; border:1px solid #000000; background:#fff; padding:1px; margin:1px;}
+.wineMenuHeader{overflow:hidden; position:absolute; z-index:258;border:1px solid #b0b0c0; background:#fff; cursor:pointer; _cursor:hand;}
+.wineMenuHead {color:#15498B; cursor:pointer; text-align:left; font-weight:bold; padding-top:5px; padding-bottom:4px;
+    background: #c9e1f5; /* Old browsers */
+    background: -moz-linear-gradient(top,  #c9e1f5 0%, #99bce8 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c9e1f5), color-stop(100%,#99bce8)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #c9e1f5 0%,#99bce8 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #c9e1f5 0%,#99bce8 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #c9e1f5 0%,#99bce8 100%); /* IE10+ */
+    background: linear-gradient(top,  #c9e1f5 0%,#99bce8 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9e1f5', endColorstr='#99bce8',GradientType=0 ); /* IE6-9 */
+}
+.wineMenuClose {float:right!important; width:14px; cursor:pointer; _cursor:hand; display:none;}
+.wineMenuBody {cursor:default; background-color:#fff; padding-top:1px; padding-bottom:1px;}
+.wineMenuShadow {position:absolute;margin:3px 0 0 3px;z-index:257;background-color:#888; opacity:0.5; filter:alpha(opacity=50);}
+.wineMenuCheckedIconRight {padding-right:17px; background:url(chk1.gif) no-repeat 96% center; }
+.wineMenuUncheckedIconRight { padding-right:17px;background:url(chk0.gif) no-repeat 96% center ; }
+
+.wineMenuCursorIcon {background-image:url(d_gray_right.gif); background-repeat:no-repeat; background-position: 3px center;_background-color:#fff}
+.wineMenuHoverIcon {background-image:url(d_right.gif); background-repeat:no-repeat; background-position: 3px center; _background-color:#ffeeaa }   
+
+.wineMenuNextIcon { padding-right:10px; }
+.wineMenuNextIconRtl { padding-left:10px; }
+
+.wineMenuItemText,.wineMenuItemIcon,.wineMenuEnum,.wineMenuEnumHeader,.wineMenuEdit,.wineFilterMenuItemText 
+{white-space:nowrap; overflow:hidden; vertical-align: middle; padding:1px 0 0 0; font-size:/*IBFS*/12px; font-family:/*IBFN*/"Dotum", "Helvetica", "AppleGothic", sans-serif;}
+.wineMenuItemDisabled {opacity:0.50; filter:alpha(opacity=30); overflow:hidden; }
+.wineMenuLevel {color:blue;text-align:center; }  
+.wineMenuEnumParent,.wineMenuEditParent {padding-left:5px; padding-right:2px}
+.wineMenuItemIcon {background-repeat:no-repeat;}
+.wineMenuEnum {border:1px solid #DDD; border-top:1px solid #666; border-left:1px solid #666; padding-left:15px; overflow:hidden;}
+.wineMenuEnumHeader  {padding:1px 0 2px 16px; cursor:default; } 
+.wineMenuEdit{border:1px solid #DDD; border-top:1px solid #666; border-left:1px solid #666; background:white; overflow:hidden;white-space:nowrap;
+  padding-left:2px; padding-right:2px;}
+.wineMenuEditInput,.wineMenuEditTextarea {margin:0;padding:0;border:0; background:#FDD;_margin:-1px; _padding-right:1px; _padding_left:1px; }   
+.wineMenuEditTextarea { line-height:13px;  }   
+.wineMenuEditInt,.wineMenuEditFloat,.wineMenuEditDate { text-align:right; } 
+.wineMenuEditMulti { white-space:normal; }
+.wineMenuItem {background-color:#ffffff;padding:2px;}  
+.wineMenuItemHover {background-color:#ffeeaa; border:1px solid #aaaadd;margin:0 1px; padding:1px 0;}
+.wineMenuFocusHover {margin:1px; background-color:#CAE1F3; border:1px solid #000000;}
+.wineMenuFocus      {margin:1px; background-color:#CAE1F3; border:1px solid #aaaadd;}
+.wineMenuSeparator {margin:1px 3px 0 3px; height:1px; border-top:1px solid #aaaadd; overflow:hidden;}
+.wineMenuCaption {padding:2px; background:#ffffff; color:blue; text-align:center;}
+.wineMenuVSeparator { border-right:1px solid #DDD; }
+.wineMenuFoot { border-top:none; text-align:center; white-space:nowrap; }
+.wineMenuButton {font-size:11px;background:#dcecf8; text-align:center; border:1px solid #8a8fb5;margin:5px 2px 4px 2px;padding:0;white-space:nowrap;width:48px;} 
+.wineMenuButtonHover { background:#ffeeaa; border:1px solid #aaaadd; }
+
+.wineEnumMenuItem {background-color:#ffffff;padding:2px;padding-top:0px;padding-bottom:0px;}  
+.wineEnumMenuFocus      {margin:1px; background-color:#CAE1F3; border:1px solid #aaaadd;}
+.wineEnumMenuFocusHover {margin:1px; background-color:#CAE1F3; border:1px solid #000000;}
+.wineEnumMenuItemHover {background-color:#ffeeaa; border:0px solid #aaaadd;margin:0 1px; padding:1px;padding-top:0px;padding-bottom:0px;}
+.wineEnumMenuColBorderColor {border-color:#e0e0ff; font-size:/*IBFS*/12px; font-family:/*IBFN*/"Dotum", "Helvetica", "AppleGothic", sans-serif;}
+
+.wineSuggestMenuItem {background-color:#ffffff;padding:2px;padding-top:0px;padding-bottom:0px;}  
+.wineSuggestMenuFocus       {margin:1px; background-color:#CAE1F3; border:1px solid #aaaadd;}
+.wineSuggestMenuFocusHover {margin:1px; background-color:#CAE1F3; border:1px solid #000000;}
+.wineSuggestMenuItemHover {background-color:#ffeeaa; border:0px solid #aaaadd;margin:0 1px; padding:1px;padding-top:0px;padding-bottom:0px;}
+.wineSuggestMenuColBorderColor {border-color:#e0e0ff;}
+
+/* Grid configuration menus */
+.wineCfwineenuOuter,.wineColumnsMenuOuter { border:1px solid #000000; }
+.wineCfwineenuHead,.wineColumnsMenuHead { padding-left:3px; }
+.wineCfwineenuBody,.wineColumnsMenuBody { padding-left:4px; padding-right:4px;}
+.wineCfwineenuFoot,.wineColumnsMenuFoot { padding-right:3px; padding-left:3px;}
+.wineCfwineenuButton { width:70px; } 
+.wineCfwineenuItemText,.wineColumnsMenuItemText { padding-left:3px; }
+.wineColumnsMenuItemText { white-space:nowrap; }
+.wineCfwineenuItem,.wineColumnsMenuItem { padding-top:3px; padding-bottom:3px;}
+.wineCfwineenuItemHover,.wineCfwineenuFocus,.wineCfwineenuFocusHover,
+.wineColumnsMenuItemHover,.wineColumnsMenuFocus,.wineColumnsMenuFocusHover { padding-top:2px; padding-bottom:2px;}
+
+/* Popup grid dialog */
+.winePopupGridOuter { border:0; overflow:visible; }
+.winePopupGridHead { padding:0; }
+.winePopupGridBody { padding:0; }
+.winePopupGridFoot { padding:0; }
+.winePopupGridButton { width:50px;margin-top:-2px; margin-bottom:3px;} 
+
+/* Calendar */
+/* calendar small design */
+.winePickMain  {position:absolute; left:0; top:0; z-index:258; font-size:/*IBFS*/12px; font-family:/*IBFN*/"Dotum", "Helvetica", "AppleGothic", sans-serif;}
+.winePickOuter {overflow:hidden; background:white; padding:1px; border:1px solid #426b8c; }
+.winePickHeader{overflow:hidden; position:absolute; z-index:258; border:1px solid black; background:#ffffff; cursor:pointer; _cursor:hand;}
+.winePickHeaderBottom{border-bottom:0; padding-bottom:1px;}
+.winePickHeaderTop{border-top:0; padding-bottom:1px; }
+.winePickHead {background:#5c8397; font:10px Dotum,Verdana,Arial; color:white; cursor:default; padding-left:5px; padding-top:1px; padding-bottom:1px;border-bottom:1px solid white;}
+.winePickClose{float:right; width:14px; cursor:pointer; _cursor:hand; display:none;}
+.winePickBody {cursor:default; padding:0; }
+.winePickShadow{position:absolute; background:#888; z-index:257; margin:3px 0 0 3px;opacity:0.5; filter:alpha(opacity=50);} 
+.winePickFooter,.winePick2Footer{text-align:center; padding:2px; cursor:default; background:#EFF0F1; border-top:1px solid #E3E4E6}
+ 
+.winePickMY{background-color:#C9E1F5;border-bottom:1px solid #99BCE8;color:#15498B; cursor:default;text-align:center;padding:2px 0 4px 0;}
+   
+.winePickMYDown{padding-right:13px; background:url(d_down.gif) no-repeat right; cursor:pointer; _cursor:hand;}
+.winePickMYUp {padding-right:13px; background:url(d_up.gif) no-repeat right center; cursor:pointer; _cursor:hand;}
+
+.winePickMYRtl{padding-right:0; padding-left:13px; }
+.winePickBL,.winePickBR{padding-top:3px; cursor:pointer; _cursor:hand; width:16px; height:14px; overflow:hidden;}
+
+.winePickBL {float:left !important; background:url(d_left.gif) no-repeat 50%; }
+.winePickBR {float:right !important; background:url(d_right.gif) no-repeat 50%; }
+
+.winePickTable{width:160px !important;}
+.winePickRow  {background:#ffffff;}
+.winePickRowW {background:#DAEAF8;}
+.winePickCell {width:22px;}
+.winePickWDN {background:transparent; color:#333333;text-align:center; cursor:default; margin:2px 3px;padding:1px;}
+
+.winePickHover,.winePickSelHover,.winePickWD,.winePickSa,.winePickSu,.winePickHo,.winePickSel,.winePickNow,.winePickWDNE,.winePickSaNE,.winePickSuNE,
+.winePickSelNE,.winePickNowNE,.winePickOM,.winePickOMNE {text-align:center; border:1px solid #ffffff; cursor:pointer; _cursor:hand;margin:2px 3px;}
+.winePickWN,.winePickWNE {text-align:center; cursor:pointer; _cursor:hand;padding:3px 4px; border-right:1px solid #8CA9E1; background:#EFF0F1; white-space:nowrap;}
+
+.winePickWDNE,.winePickSaNE,.winePickSuNE,.winePickSelNE,.winePickNowNE,.winePickWNE {cursor:default;}
+.winePickWD{background-color:#ffffff;}
+.winePickSa{background-color:#ffffff; color:blue;}
+.winePickSu{background-color:#ffffff; color:red;}
+.winePickHo {background-color:#ffffff; color:orange;}
+.winePickSel{background-color:#fbea54; border:1px solid #dad1d1;}
+.winePickSelNE{background-color:#fbea54; border:1px solid #dad1d1;}
+.winePickNow {background-color:#c0f3ff; border:1px solid #dad1d1;}
+.winePickNowNE{background-color:#c0f3ff; border:1px solid #dad1d1;}
+.winePickHover{background-color:#ddd; border:1px solid #ddd;}
+.winePickSelHover{background-color:#eeeeaa; border:1px solid #ddd;}
+.winePickOM{background-color:white; color:#aaaaaa;}
+.winePickOMNE{color:#aaaaaa;}
+
+.winePickEmpty{background:url(d_blank.gif) no-repeat 50%; cursor:pointer; _cursor:hand;padding:3px 0; }
+
+.winePickTimeCell 
+{text-align:right; padding-bottom:4px; padding-top:6px; padding-right:5px; border-top:1px solid #8CA9E1; background:#EFF0F1;}
+
+.winePickTime 
+{border:0px none; white-space:nowrap; text-align:right; background:#EFF0F1;}
+
+.winePickButton{background:#dcecf8; text-align:center; border:1px solid #8a8fb5; width:45px; height:16px; font:inherit;}
+    
+.winePickButtonHover{background:#ffeeaa; border:1px solid #aaaadd; }
+.winePick2Table{width:158px !important; vertical-align:middle}
+.winePick2CellM{height:20px; width:55px; }
+.winePick2CellY{height:20px; width:35px; vertical-align:middle }
+.winePick2CellSep{height:20px; width:5px; }
+.winePick2Cell{vertical-align:middle}
+.winePick2M,.winePick2Y,.winePick2MSel,.winePick2YSel,.winePick2MHover,.winePick2YHover,.winePick2MSelHover,.winePick2YSelHover
+{cursor:pointer; _cursor:hand; text-align:center; margin-left:1px; margin-right:1px; padding-left:4px; padding-right:4px; overflow:hidden; }
+   
+.winePick2MSel,.winePick2YSel {background:#c0f3ff; border:1px solid #dad1d1; margin-left:0; margin-right:0;}
+.winePick2MHover,.winePick2YHover {background:#DDD; border:1px solid #ffffff; margin-left:0; margin-right:0;}
+.winePick2MSelHover,.winePick2YSelHover {background:#80e0f0; border:1px solid #ffffff;margin-left:0; margin-right:0;}   
+.winePick2SepH {width:1px; height:1px; overflow:hidden; }
+.winePick2Sep {width:1px; background:#E3E4E6; overflow:hidden; margin-left:2px; margin-right:2px; height:20px;}
+.winePick2BL,.winePick2BR {width:35px; cursor:pointer; _cursor:hand; }
+
+
+.winePick2BL {background:url(d_left2.gif) no-repeat center center}
+.winePick2BR {background:url(d_right2.gif) no-repeat center center}
+
+/* calendar large design */
+/*
+.winePickMain { position:absolute; left:0px; top:0px; z-index:258; font-size:12px; font-family:"Dotum", "Helvetica", "AppleGothic", sans-serif;}
+.winePickOuter { overflow:hidden; border:1px solid black; background:white; }
+.winePickHeader { overflow:hidden; position:absolute; z-index:258; border:1px solid black; background:white; cursor:pointer; _cursor:hand; }
+.winePickHeaderBottom { border-bottom:0px none; padding-bottom:1px; }
+.winePickHeaderTop { border-top:0px none; padding-bottom:1px; }
+.winePickHead { background:white; font:bold 13px "Microsoft Sans Serif",Arial; cursor:default; padding-left:5px; padding-top:3px; padding-bottom:4px; }
+.winePickClose { float:right; width:14px; cursor:pointer; _cursor:hand; display:none; background:url(Menu.gif) no-repeat right -353px; }
+.winePickBody { cursor:default; border:none;}
+.winePickShadow { position:absolute; background:#888; z-index:257; margin-left:3px; margin-top:3px; opacity:0.5; filter:alpha(opacity=50); }   
+.winePickFooter,.winePick2Footer { border-top:1px solid #E3E4E6; background:#EFF0F1; color:blue; cursor:default; padding:2px; text-align:center; }
+
+.winePickMY{background-color:#0062b1; color:white; cursor:default; text-align:center; padding:4px 0 4px 0;}
+
+.winePickMYNone { font:15px "Microsoft Sans Serif",Arial; padding-right:13px; }
+.winePickMYDown { font:15px "Microsoft Sans Serif",Arial; padding-right:13px; background:url(d_l_down.gif) no-repeat right; cursor:pointer; _cursor:hand; }   
+.winePickMYUp { font:15px "Microsoft Sans Serif",Arial; padding-right:13px; background:url(d_l_up.gif) no-repeat right; cursor:pointer; _cursor:hand; }
+.winePickMYRtl { padding-right:0px; padding-left:13px; }
+
+.winePickBL,.winePickBR { padding-top:10px; cursor:pointer; _cursor:hand; width:16px; overflow:hidden; }
+.winePickBL { float:left !important; background:url(d_l_left.gif) no-repeat 50%;}
+.winePickBR { float:right !important; background:url(d_l_right.gif) no-repeat 50%;}
+
+.winePickTableParent { padding-left:3px; padding-right:5px; padding-bottom:5px; padding-top:3px; clear:both; }
+.winePickTable { width:240px !important; }
+.winePickRow { background:white; }
+.winePickRowW { background:#a8daff;}   
+.winePickCell { width:30px;}
+.winePickWDN {
+   text-align:center; padding:1px; color:#010101;
+   padding-left:3px; padding-right:3px; padding-top:2px; padding-bottom:2px;border-left:1px solid #fff;
+   font:15px "Microsoft Sans Serif",Arial; cursor:default;
+   }
+.winePickHover,.winePickSelHover,.winePickWD,.winePickSa,.winePickSu,.winePickHo,.winePickSel,.winePickNow,.winePickWDNE,.winePickSaNE,.winePickSuNE,.winePickSelNE,.winePickNowNE,.winePickOM,.winePickOMNE {
+   text-align:center; padding-top:4px; padding-bottom:4px; padding-left:3px; padding-right:3px;
+   font:15px "Microsoft Sans Serif",Arial; cursor:pointer; _cursor:hand;border-bottom:1px solid #e4e4e4;border-right:1px solid #e4e4e4;
+   }
+.winePickWN,.winePickWNE { 
+   text-align:center; font:15px "Microsoft Sans Serif",Arial; cursor:pointer; _cursor:hand;
+   padding-left:4px; padding-right:4px; padding-top:4px; padding-bottom:4px;
+   background:#488; color:white;
+   }
+.winePickWDNE,.winePickSaNE,.winePickSuNE,.winePickSelNE,.winePickNowNE,.winePickWNE { cursor:default; background-color:#e4e4e4; color:#000; border-bottom:1px solid #d0d0d0; border-left:1px solid #d0d0d0;}
+.winePickWD { background-color:#fff; }
+.winePickSa { color:#0d3def; } 
+.winePickSu { color:#e40505; } 
+.winePickHo { color:orange; } 
+.winePickSel { color:#05467c;font-weight:bold;background-color:#e4e4e4; }
+.winePickSelNE { color:#05467c;font-weight:bold;background-color:#e4e4e4; }
+.winePickNow { background-color:#a8daff; }
+.winePickNowNE { background-color:#ffe0ff; }
+.winePickOM { background-color:inherit; color:#c1c1c1; }
+.winePickOMNE { color:#aaaaaa; }
+.winePickEmpty { background:url(d_blank.gif) no-repeat 50%; cursor:pointer; _cursor:hand; padding:6px 0 0 0;}
+.winePickHover { background-color:#DDD; }
+.winePickSelHover { background-color:#eeee77; }
+
+.winePickTimeCell { text-align:right; background-color:white; padding-bottom:4px; padding-top:6px; padding-right:5px; }
+.winePickTime { font:13px Verdana,Arial; border:0px none; white-space:nowrap; text-align:right; }
+.winePickButton {font:14px "Microsoft Sans Serif",Arial; background:#dcecf8; text-align:center; border:1px solid #8a8fb5; width:60px; height:20px; font:inherit;}
+    
+.winePickButtonHover{background:#9cd0fa; border:1px solid #aaaadd; }
+
+.winePick2TableParent { padding-left:3px; padding-right:3px; padding-bottom:1px; padding-top:2px; text-align:center; }
+.winePick2Table { vertical-align:middle; width:240px !important; }
+.winePick2Row { background:white;}
+.winePick2CellM { height:35px; width:76px; }
+.winePick2CellY { vertical-align:middle; height:27px; width:55px;text-align:center;}
+.winePick2CellSep { height:27px; width:10px; }
+.winePick2Cell { vertical-align:middle; height:27px; width:55px;}
+.winePick2M,.winePick2Y,.winePick2MSel,.winePick2YSel,.winePick2MHover,.winePick2YHover,.winePick2MSelHover,.winePick2YSelHover {
+   font:14px "Microsoft Sans Serif",Arial; overflow:hidden;
+   margin-left:1px; margin-right:1px;
+   padding-left:4px; padding-right:4px; overflow:hidden;
+   background-color:white; cursor:pointer; _cursor:hand; text-align:center;
+   }
+.winePick2MSel,.winePick2YSel { background-color:#d1ebff; border:1px solid #dad1d1; margin-left:0; margin-right:0;}
+.winePick2MHover,.winePick2YHover { background-color:#DDD; border:1px solid #ffffff; margin-left:0; margin-right:0;}
+.winePick2MSelHover,.winePick2YSelHover { background-color:#9cd0fa; border:1px solid #ffffff; margin-left:0; margin-right:0;}   
+.winePick2SepH { width:1px; height:1px; overflow:hidden; }
+.winePick2Sep { width:1px; background:#E3E4E6; overflow:hidden; margin-left:4px; margin-right:5px; height:27px; }    
+.winePick2BL,.winePick2BR {width:24px !important; cursor:pointer; _cursor:hand;padding:3px 0px;margin:0 auto;}
+.winePick2BL { background:url(d_l_left2.gif) no-repeat center center;}
+.winePick2BR { background:url(d_l_right2.gif) no-repeat center center;}
+*/
+
+/* Edit controls */
+.wineEdit,.wineEditInline {padding:2px 4px;border:1px solid #DDD; border-top:1px solid #666; border-left:1px solid #666;background:#ffffff; white-space:nowrap; overflow:hidden;}
+  
+.wineEditInline { display:inline-block; vertical-align:bottom; }
+.wineEditInput,.wineEditTextarea {border:0 solid transparent !important; margin:0; padding:0;padding-right:1px !important;vertical-align: middle; font-size:/*IBFS*/12px; font-family:/*IBFN*/"Dotum", "Helvetica", "AppleGothic", sans-serif;} 
+
+.wineEditTextarea { line-height:13px; }
+.wineEditSpaceInput { vertical-align:middle; }
+.wineEditNormalInput,.wineEditNormalTextarea,.wineEditSpaceTextarea { background-color:#FFFFFF; /*#FFDCFF;*/; }
+.wineEditInt,.wineEditFloat { text-align:right; }
+
+.wineEditMulti { white-space:normal; }
+.wineEditReadOnly { background-color:#FFEEFF; }   
+.wineEditParent { position:absolute; z-index:258; overflow:hidden; }
+
+.wineEnumHeaderLeft,.wineEnumHeaderRight,.wineEnumHeaderNone 
+{background:white; cursor:pointer; _cursor:hand; vertical-align:middle; text-align:left; padding:2px 0 2px 2px; font-size:/*IBFS*/12px; font-family:/*IBFN*/"Dotum", "Helvetica", "AppleGothic", sans-serif;}
+
+.wineEnumHeaderRight {background: url(combo.gif) no-repeat right center;margin:1px 1px 0 0;}
+ @media screen and (-webkit-min-device-pixel-ratio:0) {.wineEnumHeaderRight{margin:1px 0 0 0;}}/* hack:CR,SF */
+.wineEnumHeaderRight, x:-moz-any-link, x:default {margin:1px 0 0 0;} /* hack:FF */
+ @media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0) {.wineEnumHeaderRight{ margin:1px 0 0 0;}}/* hack:OP */
+
+.wineEnumMenuHeader { background:#ffffff; }
+
+.wineEnumControl,.wineEnumInline {
+   cursor:pointer; _cursor:hand; padding-left:15px; padding-right:4px; padding-top:2px; padding-bottom:2px;
+   border:1px solid #DDD; border-top:1px solid #666; border-left:1px solid #666; overflow:hidden;}
+   
+.wineEnumInline { display:inline-block; vertical-align:bottom; }
+.wineEnumHeader { cursor:pointer; _cursor:hand;padding-left:15px; padding-right:4px; padding-top:2px; padding-bottom:2px;} 
+
+/*  Custom scrollbars  */
+.wineCustScroll1RightHidden { background:url(VScroll.gif) left -108px; height:18px; overflow:hidden; }
+.wineCustScroll1Right { padding-right:18px; background:url(VScroll.gif) right 0; }
+.wineCustScroll1RightHover { padding-right:18px; background:url(VScroll.gif) right -18px; }
+.wineCustScroll1Left { padding-left:18px;  background:url(VScroll.gif) left 0; }
+.wineCustScroll1LeftHover { padding-left:18px;  background:url(VScroll.gif) left -18px; }
+.wineCustScroll1SliderRight { padding-right:3px; background:url(VScroll.gif) right -36px; }
+.wineCustScroll1SliderLeft { padding-left:3px; background:url(VScroll.gif) left -36px; }
+.wineCustScroll1SliderHIn { height:18px; overflow:hidden; background:url(VScroll.gif) center -54px; }
+.wineCustScroll1SliderRightHover { padding-right:3px; background:url(VScroll.gif) right -72px; }
+.wineCustScroll1SliderLeftHover { padding-left:3px; background:url(VScroll.gif) left -72px; }
+.wineCustScroll1SliderHInHover { height:18px; overflow:hidden; background:url(VScroll.gif) center -90px; }
+
+.wineCustScroll2RightHidden { background:url(VScroll.gif) left -460px; height:10px; overflow:hidden; }
+.wineCustScroll2Right { padding-right:10px; background:url(VScroll.gif) right -400px; }
+.wineCustScroll2RightHover { padding-right:10px; background:url(VScroll.gif) right -410px; }
+.wineCustScroll2Left { padding-left:10px;  background:url(VScroll.gif) left -400px; }
+.wineCustScroll2LeftHover { padding-left:10px;  background:url(VScroll.gif) left -410px; }
+.wineCustScroll2SliderRight { padding-right:6px; background:url(VScroll.gif) right -420px; }
+.wineCustScroll2SliderLeft { padding-left:6px; background:url(VScroll.gif) left -420px; }
+.wineCustScroll2SliderHIn { height:10px; overflow:hidden; background:url(VScroll.gif) center -430px; }
+.wineCustScroll2SliderRightHover { padding-right:6px; background:url(VScroll.gif) right -440px; }
+.wineCustScroll2SliderLeftHover { padding-left:6px; background:url(VScroll.gif) left -440px; }
+.wineCustScroll2SliderHInHover { height:10px; overflow:hidden; background:url(VScroll.gif) center -450px; }
+
+.wineCustScroll3Right,.wineCustScroll3RightHidden { background:white; height:9px; overflow:hidden; }
+.wineCustScroll3SliderRight,.wineCustScroll3SliderRightHover { padding-right:3px; height:9px; background:url(VScroll.gif) right -126px; }
+.wineCustScroll3SliderLeft,.wineCustScroll3SliderLeftHover { height:9px; background:url(VScroll.gif) left -126px; }
+.wineCustScroll3SliderRightHover { background-position:right -135px; }
+.wineCustScroll3SliderLeftHover { background-position:left -135px; }
+
+.wineCustScroll4Right,.wineCustScroll4RightHidden,.wineCustScroll4SliderRight,.wineCustScroll4SliderRightHover { height:1px; overflow:hidden; }
+
+.wineCustScroll1DownHidden { background:url(HScroll.gif) -108px top; width:18px; overflow:hidden; }
+.wineCustScroll1Down { padding-bottom:18px; background:url(HScroll.gif) 0px bottom; cursor:default; width:18px; overflow:hidden; }
+.wineCustScroll1DownHover { padding-bottom:18px; background:url(HScroll.gif) -18px bottom; width:18px; overflow:hidden; }
+.wineCustScroll1Up { padding-top:18px; background:url(HScroll.gif) 0px top; width:18px; overflow:hidden; }
+.wineCustScroll1UpHover { padding-top:18px;  background:url(HScroll.gif) -18px top; width:18px; overflow:hidden; }
+.wineCustScroll1SliderDown { padding-bottom:3px; background:url(HScroll.gif) -36px bottom; width:18px; overflow:hidden; }
+.wineCustScroll1SliderUp { padding-top:3px; background:url(HScroll.gif) -36px top; width:18px; overflow:hidden; }
+.wineCustScroll1SliderVIn { background:url(HScroll.gif) -54px center; width:18px; overflow:hidden; }
+.wineCustScroll1SliderDownHover { padding-bottom:3px; background:url(HScroll.gif) -72px bottom; width:18px; overflow:hidden; }
+.wineCustScroll1SliderUpHover { padding-top:3px; background:url(HScroll.gif) -72px top; width:18px; overflow:hidden; }
+.wineCustScroll1SliderVInHover { background:url(HScroll.gif) -90px center; width:18px; overflow:hidden; }
+
+.wineCustScroll2DownHidden { background:url(HScroll.gif) -460px top; width:10px; overflow:hidden; }
+.wineCustScroll2Down { padding-bottom:10px; background:url(HScroll.gif) -400px bottom; cursor:default; width:10px; overflow:hidden; }
+.wineCustScroll2DownHover { padding-bottom:10px; background:url(HScroll.gif) -410px bottom; width:10px; overflow:hidden; }
+.wineCustScroll2Up { padding-top:10px; background:url(HScroll.gif) -400px top; width:10px; overflow:hidden; }
+.wineCustScroll2UpHover { padding-top:10px;  background:url(HScroll.gif) -410px top; width:10px; overflow:hidden; }
+.wineCustScroll2SliderDown { padding-bottom:6px; background:url(HScroll.gif) -420px bottom; width:10px; overflow:hidden; }
+.wineCustScroll2SliderUp { padding-top:6px; background:url(HScroll.gif) -420px top; width:10px; overflow:hidden; }
+.wineCustScroll2SliderVIn { background:url(HScroll.gif) -430px center; width:10px; overflow:hidden; }
+.wineCustScroll2SliderDownHover { padding-bottom:6px; background:url(HScroll.gif) -440px bottom; width:10px; overflow:hidden; }
+.wineCustScroll2SliderUpHover { padding-top:6px; background:url(HScroll.gif) -440px top; width:10px; overflow:hidden; }
+.wineCustScroll2SliderVInHover { background:url(HScroll.gif) -450px center; width:10px; overflow:hidden; }
+
+.wineCustScroll3Down,.wineCustScroll3DownHidden { background:white; width:9px; overflow:hidden; cursor:default; }
+.wineCustScroll3SliderDown,.wineCustScroll3SliderDownHover { padding-bottom:3px; width:9px; background:url(HScroll.gif) -126px bottom; }
+.wineCustScroll3SliderUp,.wineCustScroll3SliderUpHover { width:9px; background:url(HScroll.gif) -126px top; cursor:default; }
+.wineCustScroll3SliderDownHover { background-position:-135px bottom; }
+.wineCustScroll3SliderUpHover { background-position:-135px top; cursor:default; }
+
+.wineCustScroll4Down,.wineCustScroll4DownHidden,.wineCustScroll4SliderDown,.wineCustScroll4SliderDownHover { width:1px; overflow:hidden; }
+
+/* Other messages */
+.wineHintMain {position:absolute; margin-left:-1px; margin-top:-1px; left:0px; top:0px; z-index:260; background:#ffffff; cursor:default; }
+.wineHintOuter {overflow:hidden; border:1px solid #000000; background:#ffffff !important; color:black; text-align:left; }
+.wineHintHeaderOuter {background-color:#39aefb !important; color:#ffffff; border: 1px solid #ffffff; }
+.wineHintShadow {position:absolute; z-index:259;background:#888; opacity:0.3; filter:alpha(opacity=30);margin-left:2px; margin-top:2px;}
+.wineTipMain {position:absolute; left:0px; top:0px; z-index:262; visibility:hidden; }
+.wineTipOuter  {overflow:hidden; cursor:default; font:12px Arial;padding-left:3px; padding-right:3px; background:#E4E5F0; border:1px solid #777;}
+.wineTipBody {background:#E4E5F0; white-space:nowrap; padding: 3px;}
+.wineTipShadow {position:absolute;z-index:261;background:#888; opacity:0.3; filter:alpha(opacity=30);visibility:hidden; margin-left:3px; margin-top:3px}
+.wineMouseOrig { background:yellow !important; opacity:0.5; filter:alpha(opacity=50); }
+.wineMouseDragObject { position:absolute; z-index:260; background:#888; opacity:0.5; filter:alpha(opacity=50); }
+.wineFocus { border:1px solid #AAF; border-top:1px solid #00F; border-left:1px solid #00F; background-color:#EEE; } 
+.GridDisabled { position:absolute; z-index:256; background:white; opacity:0.5; filter:alpha(opacity=50); } 
+
+/* Do not change, marks the style loaded */
+.wineLoaded { border:1px solid #000000 !important;}
+
+/*sum*/
+.wineSumCell{background:#EAF1FB; color:#F30;}/*//text-align: right;font-weight:bold;*/
+.wineSubSumCell{background: #FFFFEF; border-bottom:1px solid #F5D9CD; color:#FF6600}
+.wineCumulateCell{background: #FFFFEF; border-bottom:1px solid #F5D9CD; color:#AE4600}
+
+/* FindDialog && PivotDialog */
+.wineH1Pop,.winePPop{margin:0; padding:0}
+.winePaddingl10{padding-left:10px}
+.winePaddingT10{padding-top:10px}
+.winePPop{ padding:0 0 10px 0; text-align:center }
+.winePop{width:410px; overflow:hidden; border:1px solid #426B8C; padding:0; font-size:12px;background:#EBF2F5; font-family:dotum, Arial, Helvetica, sans-serif}
+.winePopTitle{width:100%; border-bottom:1px solid #99BCE8; font-size:12px; font-weight:bold; display:block; line-height:28px; color:#15498B;
+background: #c9e1f5; /* Old browsers */
+background: -moz-linear-gradient(top,  #c9e1f5 0%, #99bce8 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c9e1f5), color-stop(100%,#99bce8)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #c9e1f5 0%,#99bce8 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #c9e1f5 0%,#99bce8 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #c9e1f5 0%,#99bce8 100%); /* IE10+ */
+background: linear-gradient(top,  #c9e1f5 0%,#99bce8 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9e1f5', endColorstr='#99bce8',GradientType=0 ); /* IE6-9 */
+}
+.winePopSearch{margin:5px; overflow:hidden; }
+.winePopContent{border:1px solid #D0DBE8; background-color:#fff}
+.winePopUl,.winePopUl2{list-style:none; margin:0; padding:10px;}
+.winePopDiv{overflow:hidden; width:100%}
+.winePopDiv2{overflow:hidden; width:100%}
+.winePopLeft,.winePopLeft2, .winePopLeft3 {width:220px; float:left !important; }
+.winePopRight,.winePopRight2,.winePopRight3 {width:166px; float:right !important; }
+.winePopUl input {margin:-2px 2px 0px 0px;padding:0 ; width:13px; height:13px; vertical-align:middle;}
+.winePopUl li{ padding-top:4px; padding-bottom:3px; padding-left:5px}
+.winePopUl2 li{ padding-top:4px; padding-bottom:3px;}
+.wineBtnArea {margin-top:10px; text-align:center }
+.winePopLeft, .winePopRight{ height:120px}
+.winePopLeft2, .winePopRight2{ height:120px}
+.winePopLabel{line-height:12px; margin:0 0 0 2px}
+.winePopSubtitle{font-weight:bold; color:#000; border-bottom:1px solid  #E0E0E0; background-color:#E7E7E7;padding-left:4px;}
+.winePopBtn {text-align: center;text-decoration: none;color:#fff;position: relative;border:1px solid #316290;
+          font-size:12px; width:50px !important; height:22px !important; cursor:pointer;}
+.winePopBtn2 {text-align: center;text-decoration: none;color:#fff;position: relative;border:1px solid #316290;
+          font-size:12px; height:22px !important; cursor:pointer;}
+.winePopBtn, .winePopBtn:hover {color:#fff;}
+.winePopBtnBlue {
+    background: #5689b9; /* Old browsers */
+    background: -moz-linear-gradient(top,  #5689b9 0%, #3a6ea0 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5689b9), color-stop(100%,#3a6ea0)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #5689b9 0%,#3a6ea0 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #5689b9 0%,#3a6ea0 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #5689b9 0%,#3a6ea0 100%); /* IE10+ */
+    background: linear-gradient(top,  #5689b9 0%,#3a6ea0 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5689b9', endColorstr='#3a6ea0',GradientType=0 ); /* IE6-9 */
+}
+.winePopBtnBlue:hover {
+    background: #3a6ea0; /* Old browsers */
+    background: -moz-linear-gradient(top,  #3a6ea0 0%, #5689b9 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3a6ea0), color-stop(100%,#5689b9)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #3a6ea0 0%,#5689b9 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #3a6ea0 0%,#5689b9 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #3a6ea0 0%,#5689b9 100%); /* IE10+ */
+    background: linear-gradient(top,  #3a6ea0 0%,#5689b9 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3a6ea0', endColorstr='#5689b9',GradientType=0 ); /* IE6-9 */
+}
+
+.wineUserBtn {text-align: center;text-decoration: none;color:#fff;position: relative;border:1px solid #316290;margin-left:4px;
+          font-size:12px; height:20px !important; cursor:pointer;}
+.wineUserBtn, .wineUserBtn:hover {color:#fff;}
+.wineUserBtnBlue {
+    background: #5689b9; /* Old browsers */
+    background: -moz-linear-gradient(top,  #5689b9 0%, #3a6ea0 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5689b9), color-stop(100%,#3a6ea0)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #5689b9 0%,#3a6ea0 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #5689b9 0%,#3a6ea0 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #5689b9 0%,#3a6ea0 100%); /* IE10+ */
+    background: linear-gradient(top,  #5689b9 0%,#3a6ea0 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5689b9', endColorstr='#3a6ea0',GradientType=0 ); /* IE6-9 */
+}
+.wineUserBtnBlue:hover {
+    background: #3a6ea0; /* Old browsers */
+    background: -moz-linear-gradient(top,  #3a6ea0 0%, #5689b9 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3a6ea0), color-stop(100%,#5689b9)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #3a6ea0 0%,#5689b9 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #3a6ea0 0%,#5689b9 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #3a6ea0 0%,#5689b9 100%); /* IE10+ */
+    background: linear-gradient(top,  #3a6ea0 0%,#5689b9 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3a6ea0', endColorstr='#5689b9',GradientType=0 ); /* IE6-9 */
+}
+
+.winePopDisc {margin:0px 8px 8px 8px; background-color:#ebf2f5; border:1px solid #D0DBE8;}
+.winePopDisc ul {padding:0px; margin-left:0; margin-top:10px; margin-bottom:0;}
+.winePopDisc li {list-style:none; background:url(bullet.gif) no-repeat 5px 3px; margin-bottom:8px; padding-left:13px; color:#426b8c; word-break:break-all;}
+
+.winePopChkArea {margin:8px; height:25px;}
+.winePopChkArea ul {margin:0; padding:0; float:right!important; background-color:#ebf2f5; border:1px solid #D0DBE8;}
+.winePopChkArea li {float:left!important; padding:3px 5px 0px 5px; list-style:none; color:#426b8c; font-weight:bold;}
+
+.winePopFilter {width:250px;}
+.winePopHelp0, .winePopHelp1, .winePopClose {
+    cursor:pointer;
+    margin-top:4px;padding-right:3px;float:right!important;height:20px;
+    border: 0px none; background-repeat: no-repeat; padding-left: 12px; background-image: url(filter_btn.gif);
+}
+.winePopHelp0 { background-position:0px 0px; }
+.winePopHelp1 { background-position:-23px 0px; }
+.winePopClose { background-position:-46px 0px; }
+
+/* Paging Icon */
+.wineToolPagerFirst, .wineToolPagerFirst1, .wineToolPagerPrev, .wineToolPagerPrev1, .wineToolPagerNext, .wineToolPagerNext1, .wineToolPagerLast, .wineToolPagerLast1 {
+    border: 0px none; background-repeat: no-repeat; padding-left: 16px; padding-right: 3px; background-image: url(pager.gif);
+}
+
+.wineToolPagerFirst1 { background-position:0px 0px; }
+.wineToolPagerFirst { background-position:-30px 0px; }
+.wineToolPagerPrev1 { background-position:-120px 0px; }
+.wineToolPagerPrev { background-position:-150px 0px; }
+.wineToolPagerNext1 { background-position:-180px 0px; }
+.wineToolPagerNext { background-position:-210px 0px; }
+.wineToolPagerLast1 { background-position:-300px 0px; }
+.wineToolPagerLast { background-position:-330px 0px; }
+
+.wineToolExpand1, .wineToolCollapse1 {
+    border: 0px none; background-repeat: no-repeat; padding-left: 16px; padding-right: 3px; background-image: url(group.gif);
+}
+
+.wineToolExpand1 { background-position:4px 3px; }
+.wineToolCollapse1 { background-position:-21px 3px; }
+
+.wineScrollInfo {
+    background:#E8E8E8; padding: 8px; border: 1px solid #C8C8C8; z-index:300; box-shadow: 3px 3px 3px #888888;    
+}
+
+/* FocusedSheet */
+/*
+.wineFocusedSheet{  
+    z-index:0; border:1px solid #88bde9 !important; outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px #88bde9, 0 0 10px #88bde9;
+    -moz-box-shadow: inset 0 1px 1px #88bde9, 0 0 10px #88bde9;
+    box-shadow: 0 0 10px #88bde9; 
+}
+*/

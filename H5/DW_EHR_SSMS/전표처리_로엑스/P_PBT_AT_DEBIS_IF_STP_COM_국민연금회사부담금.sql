@@ -157,8 +157,8 @@ DECLARE
 	@V_CNT_MAIN                 INT,
 	@OPENQUERY					nvarchar(4000), 
 	@TSQL						nvarchar(4000), 
-	--@LinkedServer				nvarchar(20) = 'DEBIS';
-	@LinkedServer				nvarchar(20) = 'DEBIS_DEV';
+	@LinkedServer				nvarchar(20) = 'DEBIS';
+	--@LinkedServer				nvarchar(20) = 'DEBIS_DEV';
         /* 기본적으로 사용되는 변수 */
 DECLARE @v_program_id		NVARCHAR(30)
       , @v_program_nm		NVARCHAR(100)

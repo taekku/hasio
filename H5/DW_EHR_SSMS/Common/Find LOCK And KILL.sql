@@ -3,15 +3,19 @@ exec sp_lock 359
 EXEC sp_lock 274
 
 exec sp_lock2
-exec sp_lock2 @SPID=415
+exec sp_lock2 @SPID=865
 
-DBCC inputbuffer (415    )-- 239
+DBCC inputbuffer (865)
 SELECT db_name(), schema_name(), original_login()
 EXEC sp_who
 EXEC sp_who 557  
 
 EXEC sp_who2
-EXEC sp_who2 415      
+EXEC sp_who2 300
+EXEC sp_who2 978
+EXEC sp_who2 1053
+EXEC sp_who2 865
+EXEC sp_who2 865
 
 -- kill 274
 

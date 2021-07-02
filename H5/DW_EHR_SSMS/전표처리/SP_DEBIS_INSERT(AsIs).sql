@@ -558,9 +558,6 @@ BEGIN TRY
                   ,@V_REPLY_CLS_CD     
                   ,@V_SND_DT           
                   ,@V_SND_HH      
-                  
-                  
-                  
         
      END;   
      

@@ -193,11 +193,11 @@
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_CNV_PAY_PAY_YMD_SAP.sql</FullPath>
         </FileNode>
-        <FileNode Name="P_CNV_PAY_PAY_YMD_SAP_PAY.sql">
+        <FileNode Name="P_CNV_PAY_PAY_YMD_SAP_PAY_F.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
-          <FullPath>P_CNV_PAY_PAY_YMD_SAP_PAY.sql</FullPath>
+          <FullPath>P_CNV_PAY_PAY_YMD_SAP_PAY_F.sql</FullPath>
         </FileNode>
         <FileNode Name="P_CNV_PAY_PAYROLL.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
@@ -223,11 +223,11 @@
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_CNV_PAY_PAYROLL_FnB.sql</FullPath>
         </FileNode>
-        <FileNode Name="P_CNV_PAY_PAYROLL_FnB_PAY.sql">
+        <FileNode Name="P_CNV_PAY_PAYROLL_FnB_PAY_F.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
-          <FullPath>P_CNV_PAY_PAYROLL_FnB_PAY.sql</FullPath>
+          <FullPath>P_CNV_PAY_PAYROLL_FnB_PAY_F.sql</FullPath>
         </FileNode>
         <FileNode Name="P_CNV_PAY_PAYROLL_HRD.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
@@ -469,11 +469,29 @@
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>급여항목-회계계정코드중복확인.sql</FullPath>
         </FileNode>
+        <FileNode Name="이관_FnB_과세대상금액_제수당.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>이관_FnB_과세대상금액_제수당.sql</FullPath>
+        </FileNode>
+        <FileNode Name="이관_FnB_식대비과세.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>이관_FnB_식대비과세.sql</FullPath>
+        </FileNode>
         <FileNode Name="이관_FnB_통상임금.sql">
-          <AssociatedConnectionMoniker />
-          <AssociatedConnSrvName />
-          <AssociatedConnUserName />
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>이관_FnB_통상임금.sql</FullPath>
+        </FileNode>
+        <FileNode Name="이관_X(로엑스)_기타이자(M).sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>이관_X(로엑스)_기타이자(M).sql</FullPath>
         </FileNode>
         <FileNode Name="이관_고정_수당_공제.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>

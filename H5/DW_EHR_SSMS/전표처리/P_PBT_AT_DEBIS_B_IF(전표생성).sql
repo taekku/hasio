@@ -2,7 +2,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE OR ALTER PROCEDURE dbo.P_PBT_AT_DEBIS_B_IF(
+ALTER   PROCEDURE [dbo].[P_PBT_AT_DEBIS_B_IF](
 		@av_company_cd			NVARCHAR(10),
 		@av_hrtype_gbn			NVARCHAR(10),	-- 인력유형
 		@av_bill_gbn			NVARCHAR(10),	-- 전표구분
@@ -20,7 +20,7 @@ CREATE OR ALTER PROCEDURE dbo.P_PBT_AT_DEBIS_B_IF(
 		)
 AS
     --<DOCLINE> ***************************************************************************
-    --<DOCLINE>   TITLE       : 동부그룹 신인사 시스템 - 전표생성
+    --<DOCLINE>   TITLE       : 동부그룹 신인사 시스템 - 전표생성(BIDC)
     --<DOCLINE>   PROJECT     : DONGWON
     --<DOCLINE>   AUTHOR      : 임택구
     --<DOCLINE>   PROGRAM_ID  : P_PBT_AT_DEBIS_B_IF
@@ -141,8 +141,8 @@ DECLARE
 	@V_CNT_MAIN                 INT,
 	@OPENQUERY					nvarchar(4000), 
 	@TSQL						nvarchar(4000), 
-	--@LinkedServer				nvarchar(20) = 'DEBIS';
-	@LinkedServer				nvarchar(20) = 'DEBIS_DEV';
+	@LinkedServer				nvarchar(20) = 'DEBIS';
+	--@LinkedServer				nvarchar(20) = 'DEBIS_DEV';
         /* 기본적으로 사용되는 변수 */
 DECLARE @v_program_id		NVARCHAR(30)
       , @v_program_nm		NVARCHAR(100)
@@ -299,7 +299,7 @@ BEGIN TRY
 				 --사원구분일 경우
 				 IF @V_ITEM_CD = 'B'
 					BEGIN
-						SET @V_INCITEM_STR = @V_INCITEM_STR + ' AND EMP.EMP_KIND_CD = ''' + @V_INCITEM + '''';
+						SET @V_INCITEM_STR = @V_INCITEM_STR + ' AND ROLL.EMP_KIND_CD = ''' + @V_INCITEM + '''';
 					END
 				 --원가부서일 경우
 				 IF @V_ITEM_CD = 'C'
@@ -583,7 +583,7 @@ BEGIN TRY
 											'        AND YMD.COMPANY_CD = EMP.COMPANY_CD AND EMP.LOCALE_CD=''KO''' +
 											' INNER JOIN PHM_PRIVATE PRI' +
 											'         ON ROLL.EMP_ID = PRI.EMP_ID' +
-											'        AND YMD.PAY_YMD BETWEEN PRI.STA_YMD AND PRI.END_YMD' +
+											'        AND CASE WHEN EMP.IN_OFFI_YN != ''Y'' THEN RETIRE_YMD WHEN YMD.PAY_YMD < EMP.HIRE_YMD THEN EMP.HIRE_YMD ELSE YMD.PAY_YMD END BETWEEN PRI.STA_YMD AND PRI.END_YMD' +
 											--' WHERE YMD.PAY_YMD_ID = ' + CONVERT(nvarchar(100), @an_pay_ymd_id) +
 											' WHERE YMD.COMPANY_CD = ''' + @av_company_cd + '''' +
 											'   AND YMD.CLOSE_YN = ''Y''' +
@@ -640,7 +640,7 @@ BEGIN TRY
 											'        AND YMD.COMPANY_CD = EMP.COMPANY_CD AND EMP.LOCALE_CD=''KO''' +
 											' INNER JOIN PHM_PRIVATE PRI' +
 											'         ON ROLL.EMP_ID = PRI.EMP_ID' +
-											'        AND YMD.PAY_YMD BETWEEN PRI.STA_YMD AND PRI.END_YMD' +
+											'        AND CASE WHEN EMP.IN_OFFI_YN != ''Y'' THEN RETIRE_YMD WHEN YMD.PAY_YMD < EMP.HIRE_YMD THEN EMP.HIRE_YMD ELSE YMD.PAY_YMD END BETWEEN PRI.STA_YMD AND PRI.END_YMD' +
 											--' WHERE YMD.PAY_YMD_ID = ' + CONVERT(nvarchar(100), @an_pay_ymd_id) +
 											' WHERE YMD.COMPANY_CD = ''' + @av_company_cd + '''' +
 											'   AND YMD.CLOSE_YN = ''Y''' +
@@ -685,7 +685,7 @@ BEGIN TRY
 											'        AND YMD.COMPANY_CD = EMP.COMPANY_CD AND EMP.LOCALE_CD=''KO''' +
 											' INNER JOIN PHM_PRIVATE PRI' +
 											'         ON ROLL.EMP_ID = PRI.EMP_ID' +
-											'        AND YMD.PAY_YMD BETWEEN PRI.STA_YMD AND PRI.END_YMD' +
+											'        AND CASE WHEN EMP.IN_OFFI_YN != ''Y'' THEN RETIRE_YMD WHEN YMD.PAY_YMD < EMP.HIRE_YMD THEN EMP.HIRE_YMD ELSE YMD.PAY_YMD END BETWEEN PRI.STA_YMD AND PRI.END_YMD' +
 											--' WHERE YMD.PAY_YMD_ID = ' + CONVERT(nvarchar(100), @an_pay_ymd_id) +
 											' WHERE YMD.COMPANY_CD = ''' + @av_company_cd + '''' +
 											'   AND YMD.CLOSE_YN = ''Y''' +
@@ -741,7 +741,7 @@ BEGIN TRY
 											'        AND YMD.COMPANY_CD = EMP.COMPANY_CD AND EMP.LOCALE_CD=''KO''' +
 											' INNER JOIN PHM_PRIVATE PRI' +
 											'         ON ROLL.EMP_ID = PRI.EMP_ID' +
-											'        AND YMD.PAY_YMD BETWEEN PRI.STA_YMD AND PRI.END_YMD' +
+											'        AND CASE WHEN EMP.IN_OFFI_YN != ''Y'' THEN RETIRE_YMD WHEN YMD.PAY_YMD < EMP.HIRE_YMD THEN EMP.HIRE_YMD ELSE YMD.PAY_YMD END BETWEEN PRI.STA_YMD AND PRI.END_YMD' +
 											--' WHERE YMD.PAY_YMD_ID = ' + CONVERT(nvarchar(100), @an_pay_ymd_id) +
 											' WHERE YMD.COMPANY_CD = ''' + @av_company_cd + '''' +
 											'   AND YMD.CLOSE_YN = ''Y''' +
@@ -791,7 +791,7 @@ IF @V_ITEM_CD = 'H'
 											'        AND YMD.COMPANY_CD = EMP.COMPANY_CD AND EMP.LOCALE_CD=''KO''' +
 											' INNER JOIN PHM_PRIVATE PRI' +
 											'         ON ROLL.EMP_ID = PRI.EMP_ID' +
-											'        AND YMD.PAY_YMD BETWEEN PRI.STA_YMD AND PRI.END_YMD' +
+											'        AND CASE WHEN EMP.IN_OFFI_YN != ''Y'' THEN RETIRE_YMD WHEN YMD.PAY_YMD < EMP.HIRE_YMD THEN EMP.HIRE_YMD ELSE YMD.PAY_YMD END BETWEEN PRI.STA_YMD AND PRI.END_YMD' +
 											--' WHERE YMD.PAY_YMD_ID = ' + CONVERT(nvarchar(100), @an_pay_ymd_id) +
 											' WHERE YMD.COMPANY_CD = ''' + @av_company_cd + '''' +
 											'   AND YMD.CLOSE_YN = ''Y''' +
@@ -836,7 +836,7 @@ IF @V_ITEM_CD = 'H'
 											'        AND YMD.COMPANY_CD = EMP.COMPANY_CD AND EMP.LOCALE_CD=''KO''' +
 											' INNER JOIN PHM_PRIVATE PRI' +
 											'         ON ROLL.EMP_ID = PRI.EMP_ID' +
-											'        AND YMD.PAY_YMD BETWEEN PRI.STA_YMD AND PRI.END_YMD' +
+											'        AND CASE WHEN EMP.IN_OFFI_YN != ''Y'' THEN RETIRE_YMD WHEN YMD.PAY_YMD < EMP.HIRE_YMD THEN EMP.HIRE_YMD ELSE YMD.PAY_YMD END BETWEEN PRI.STA_YMD AND PRI.END_YMD' +
 											--' WHERE YMD.PAY_YMD_ID = ' + CONVERT(nvarchar(100), @an_pay_ymd_id) +
 											' WHERE YMD.COMPANY_CD = ''' + @av_company_cd + '''' +
 											'   AND YMD.CLOSE_YN = ''Y''' +
@@ -881,7 +881,7 @@ IF @V_ITEM_CD = 'H'
 											'        AND YMD.COMPANY_CD = EMP.COMPANY_CD AND EMP.LOCALE_CD=''KO''' +
 											' INNER JOIN PHM_PRIVATE PRI' +
 											'         ON ROLL.EMP_ID = PRI.EMP_ID' +
-											'        AND YMD.PAY_YMD BETWEEN PRI.STA_YMD AND PRI.END_YMD' +
+											'        AND CASE WHEN EMP.IN_OFFI_YN != ''Y'' THEN RETIRE_YMD WHEN YMD.PAY_YMD < EMP.HIRE_YMD THEN EMP.HIRE_YMD ELSE YMD.PAY_YMD END BETWEEN PRI.STA_YMD AND PRI.END_YMD' +
 											--' WHERE YMD.PAY_YMD_ID = ' + CONVERT(nvarchar(100), @an_pay_ymd_id) +
 											' WHERE YMD.COMPANY_CD = ''' + @av_company_cd + '''' +
 											'   AND YMD.CLOSE_YN = ''Y''' +
@@ -925,7 +925,7 @@ IF @V_ITEM_CD = 'H'
 											'        AND YMD.COMPANY_CD = EMP.COMPANY_CD AND EMP.LOCALE_CD=''KO''' +
 											' INNER JOIN PHM_PRIVATE PRI' +
 											'         ON ROLL.EMP_ID = PRI.EMP_ID' +
-											'        AND YMD.PAY_YMD BETWEEN PRI.STA_YMD AND PRI.END_YMD' +
+											'        AND CASE WHEN EMP.IN_OFFI_YN != ''Y'' THEN RETIRE_YMD WHEN YMD.PAY_YMD < EMP.HIRE_YMD THEN EMP.HIRE_YMD ELSE YMD.PAY_YMD END BETWEEN PRI.STA_YMD AND PRI.END_YMD' +
 											--' WHERE YMD.PAY_YMD_ID = ' + CONVERT(nvarchar(100), @an_pay_ymd_id) +
 											' WHERE YMD.COMPANY_CD = ''' + @av_company_cd + '''' +
 											'   AND YMD.CLOSE_YN = ''Y''' +

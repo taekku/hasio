@@ -2,7 +2,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE OR ALTER PROCEDURE [dbo].[P_PBT_DEBIS_INSERT] (
+ALTER   PROCEDURE [dbo].[P_PBT_DEBIS_INSERT] (
 					  @P_COMPANY         VARCHAR(20)   -- 회사구분 (E: 익스프레스, 단독)
 					 ,@P_HRTYPE_GBN      VARCHAR(20)   -- 인력유형 (자회사냐? 익스프레스냐? H8301 익스프레스, H8306 DIMT 확인필요 2가지만 사용중) 
 					 ,@P_PROC_DATE       DATE   -- 처리일자 (급여일자인데 기능직의 경우 해당 급여월로.... 6/10일 지급일일 경우 5/10)
@@ -100,8 +100,8 @@ DECLARE
     
     @OPENQUERY			     nvarchar(4000), 
 	@TSQL					 nvarchar(4000), 
-	--@LinkedServer			 nvarchar(20) = 'DEBIS'; 
-	@LinkedServer			 nvarchar(20) = 'DEBIS_DEV'; 
+	@LinkedServer			 nvarchar(20) = 'DEBIS'; 
+	--@LinkedServer			 nvarchar(20) = 'DEBIS_DEV'; 
         /* 기본적으로 사용되는 변수 */
 DECLARE @v_program_id		NVARCHAR(30)
       , @v_program_nm		NVARCHAR(100)
@@ -160,6 +160,7 @@ BEGIN TRY
 		SET @OPENQUERY = @OPENQUERY + ' AND SAL_PAY_CLS_CD = ''''' + @V_SAL_PAY_CLS_CD + ''''' AND PERS_CLS_CD = ''''' + @V_PERS_CLS_CD + ''''' '
 		SET @OPENQUERY = @OPENQUERY + ' AND (REPLY_CLS_CD = ''''' + 'D' + ''''' OR REPLY_CLS_CD IS NULL )'
 		SET @OPENQUERY = @OPENQUERY + ' AND ACCT_DEPT_CD IN (SELECT ACCT_DEPT_CD FROM TB_CO011 WHERE ACCT_YEAR = ''''' + dbo.XF_TO_CHAR_D(@P_PROC_DATE,'YYYY') + ''''' AND CO_CD = ''''' + @V_CO_CD + ''''')'')'
+		PRINT @OPENQUERY
 		EXEC (@OPENQUERY)
      END
 	 
@@ -216,7 +217,7 @@ BEGIN TRY
          
          
          -- 급여지급일자 
-         SET @V_SAL_PAY_DT = dbo.XF_TO_CHAR_D(@P_PROC_DATE,'YYYYMMDD');
+         SET @V_SAL_PAY_DT = dbo.XF_TO_CHAR_D(@P_PROC_DATE,'yyyyMMdd');
          
          -- 급여지급구분코드
    --      BEGIN
@@ -278,7 +279,7 @@ BEGIN TRY
    --           FROM B_COST_CENTER
    --          WHERE CD_COMPANY = @P_COMPANY
    --            AND CD_CC = @V_WRTDPT_CD;
-			SELECT @V_WDPTMAP_USER1 = PAY_TYPE_CD
+			SELECT @V_WDPTMAP_USER1 = COST_TYPE -- 사업부문
 			  FROM ORM_COST
 			 WHERE COMPANY_CD = @P_COMPANY
 			   AND COST_CD = @V_WRTDPT_CD
@@ -317,7 +318,7 @@ BEGIN TRY
 				--  FROM B_COST_CENTER
 				-- WHERE CD_COMPANY = @P_COMPANY
 				--   AND CD_CC = @V_COSTDPT_CD;
-				SELECT @V_COSTMAP_USER1 = PAY_TYPE_CD
+				SELECT @V_COSTMAP_USER1 = COST_TYPE
 				  FROM ORM_COST
 				 WHERE COMPANY_CD = @P_COMPANY
 				   AND COST_CD = @V_COSTDPT_CD
@@ -411,6 +412,7 @@ BEGIN TRY
 	        
 	        -- 요청지급방법코드
 	        SET @V_REQ_PAY_MTHD_CD = SUBSTRING(@V_PAYMTWAY, 1, 2);
+			print '@V_REQ_PAY_MTHD_CD = ' + @V_REQ_PAY_MTHD_CD
 	        
 	        -- 지급일자 (요청지급방법코드가 경비이체(20), 급여이체(70)인 경우 지급일자 SETTING
 	        SET @V_PAY_DT = '';
@@ -525,73 +527,113 @@ BEGIN TRY
 					END
 			END;
 
-         BEGIN
+         BEGIN TRY
          
-		PRINT('@V_DRAW_ACCT_DEPT_CD 테스트 : ' + @V_DRAW_ACCT_DEPT_CD)
-         --INSERT INTO TB_FI403               --개발
-		 insert openquery(DEBIS_DEV,'select SAL_PAY_DT
-									     ,SAL_PAY_CLS_CD   
-									     ,PERS_CLS_CD      
-									     ,DRAW_ACCT_DEPT_CD
-									     ,DRCR_CLS_CD      
-									     ,ACCT_DEPT_CD     
-									     ,ACCT_CD          
-									     ,SEQ              
-									     ,PAY_BANK_CD      
-									     ,PCOST_DIV        
-									     ,ACCT_NM          
-									     ,AMT              
-									     ,CLNT_NO          
-									     ,SUMMARY          
-									     ,REQ_PAY_MTHD_CD  
-									     ,PAY_DT           
-									     ,OUTBR_SLIP_NO    
-									     ,PAY_SLIP_NO      
-									     ,SND_CLS_CD       
-									     ,REPLY_CLS_CD     
-									     ,SND_DT           
-									     ,SND_HH
-									 from TB_FI403')
-		 select    @V_SAL_PAY_DT 
-                  ,@V_SAL_PAY_CLS_CD             
-                  ,@V_PERS_CLS_CD      
-                  ,@V_DRAW_ACCT_DEPT_CD
-                  ,@V_DRCR_CLS_CD      
-                  ,@V_ACCT_DEPT_CD     
-                  ,@V_ACCT_CD          
-                  ,@V_SEQ              
-                  ,@V_PAY_BANK_CD      
-                  ,@V_PCOST_DIV        
-                  ,CASE WHEN ISNULL(@V_ACCT_NM, '') = '' THEN '' ELSE SUBSTRING(@V_ACCT_NM,1,50) END     
-                  ,@V_AMT              
-                  ,CASE WHEN ISNULL(@V_CLNT_NO, '') = '' THEN '' ELSE SUBSTRING(@V_CLNT_NO,1,6) END          
-                  ,@V_SUMMARY          
-                  ,@V_REQ_PAY_MTHD_CD  
-                  ,@V_PAY_DT           
-                  ,@V_OUTBR_SLIP_NO    
-                  ,@V_PAY_SLIP_NO      
-                  ,@V_SND_CLS_CD       
-                  ,@V_REPLY_CLS_CD     
-                  ,@V_SND_DT           
-                  ,@V_SND_HH      
-                  
-                  
-                  
-        
-     END;   
+				PRINT('@V_DRAW_ACCT_DEPT_CD 테스트 : ' + @V_DRAW_ACCT_DEPT_CD)
+				 --INSERT INTO TB_FI403               --개발
+				 insert openquery(DEBIS,'select SAL_PAY_DT
+												 ,SAL_PAY_CLS_CD   
+												 ,PERS_CLS_CD      
+												 ,DRAW_ACCT_DEPT_CD
+												 ,DRCR_CLS_CD      
+												 ,ACCT_DEPT_CD     
+												 ,ACCT_CD          
+												 ,SEQ              
+												 ,PAY_BANK_CD      
+												 ,PCOST_DIV        
+												 ,ACCT_NM          
+												 ,AMT              
+												 ,CLNT_NO          
+												 ,SUMMARY          
+												 ,REQ_PAY_MTHD_CD  
+												 ,PAY_DT           
+												 ,OUTBR_SLIP_NO    
+												 ,PAY_SLIP_NO      
+												 ,SND_CLS_CD       
+												 ,REPLY_CLS_CD     
+												 ,SND_DT           
+												 ,SND_HH
+											 from TB_FI403')
+				 select    @V_SAL_PAY_DT 
+						  ,@V_SAL_PAY_CLS_CD             
+						  ,@V_PERS_CLS_CD      
+						  ,@V_DRAW_ACCT_DEPT_CD
+						  ,@V_DRCR_CLS_CD      
+						  ,@V_ACCT_DEPT_CD     
+						  ,@V_ACCT_CD          
+						  ,@V_SEQ              
+						  ,@V_PAY_BANK_CD      
+						  ,@V_PCOST_DIV        
+						  ,CASE WHEN ISNULL(@V_ACCT_NM, '') = '' THEN '' ELSE SUBSTRING(@V_ACCT_NM,1,50) END     
+						  ,@V_AMT              
+						  ,CASE WHEN ISNULL(@V_CLNT_NO, '') = '' THEN '' ELSE SUBSTRING(@V_CLNT_NO,1,6) END          
+						  ,@V_SUMMARY          
+						  ,@V_REQ_PAY_MTHD_CD  
+						  ,@V_PAY_DT           
+						  ,@V_OUTBR_SLIP_NO    
+						  ,@V_PAY_SLIP_NO      
+						  ,@V_SND_CLS_CD       
+						  ,@V_REPLY_CLS_CD     
+						  ,@V_SND_DT           
+						  ,@V_SND_HH   
+			END TRY
+			BEGIN CATCH
+	--SET @v_error_number = ERROR_NUMBER();
+	--SET @v_error_severity = ERROR_SEVERITY();
+	--SET @v_error_state = ERROR_STATE();
+	SET @v_error_line =  ERROR_LINE();
+	--SET @v_error_message = ERROR_MESSAGE()+ ' ' + @v_error_note;
+PRINT '@v_error_number:'
+print @v_error_numer
+PRINT '@v_error_line:'
+print @v_error_line
+    SET @av_ret_code    = 'FAILURE!'
+	SET @av_ret_message = dbo.F_FRM_ERRMSG('알수없는에러' + '[ERR]',
+                                    @v_program_id,  0000,  NULL, NULL)
+				PRINT 'ERRRRRRRRR'
+				
+PRINT '@V_SAL_PAY_DT         = ' + CONVERT(VARCHAR(100), @V_SAL_PAY_DT       )
+PRINT '@V_SAL_PAY_CLS_CD     = ' + CONVERT(VARCHAR(100), @V_SAL_PAY_CLS_CD   )        
+PRINT '@V_PERS_CLS_CD        = ' + CONVERT(VARCHAR(100), @V_PERS_CLS_CD      )
+PRINT '@V_DRAW_ACCT_DEPT_CD  = ' + CONVERT(VARCHAR(100), @V_DRAW_ACCT_DEPT_CD)
+PRINT '@V_DRCR_CLS_CD        = ' + CONVERT(VARCHAR(100), @V_DRCR_CLS_CD      )
+PRINT '@V_ACCT_DEPT_CD       = ' + CONVERT(VARCHAR(100), @V_ACCT_DEPT_CD     )
+PRINT '@V_ACCT_CD            = ' + CONVERT(VARCHAR(100), @V_ACCT_CD          )
+PRINT '@V_SEQ                = ' + CONVERT(VARCHAR(100), @V_SEQ              )
+PRINT '@V_PAY_BANK_CD        = ' + CONVERT(VARCHAR(100), @V_PAY_BANK_CD      )
+PRINT '@V_PCOST_DIV          = ' + CONVERT(VARCHAR(100), @V_PCOST_DIV        )
+PRINT '@V_ACCT_NM            = ' + CONVERT(VARCHAR(100), @V_ACCT_NM          )
+PRINT '@V_AMT                = ' + CONVERT(VARCHAR(100), @V_AMT              )
+PRINT '@V_CLNT_NO            = ' + CONVERT(VARCHAR(100), @V_CLNT_NO          )
+PRINT '@V_SUMMARY            = ' + CONVERT(VARCHAR(100), @V_SUMMARY          )
+PRINT '@V_REQ_PAY_MTHD_CD    = ' + CONVERT(VARCHAR(100), @V_REQ_PAY_MTHD_CD  )
+PRINT '@V_PAY_DT             = ' + CONVERT(VARCHAR(100), @V_PAY_DT           )
+PRINT '@V_OUTBR_SLIP_NO      = ' + CONVERT(VARCHAR(100), @V_OUTBR_SLIP_NO    )
+PRINT '@V_PAY_SLIP_NO        = ' + CONVERT(VARCHAR(100), @V_PAY_SLIP_NO      )
+PRINT '@V_SND_CLS_CD         = ' + CONVERT(VARCHAR(100), @V_SND_CLS_CD       )
+PRINT '@V_REPLY_CLS_CD       = ' + CONVERT(VARCHAR(100), @V_REPLY_CLS_CD     )
+PRINT '@V_SND_DT             = ' + CONVERT(VARCHAR(100), @V_SND_DT           )
+PRINT '@V_SND_HH             = ' + CONVERT(VARCHAR(100), @V_SND_HH           ) 
+
+				PRINT 'END=================='
+				
+					 CLOSE C_PBT_BILL_CREATE  --1번째 커서 종료         
+					 DEALLOCATE C_PBT_BILL_CREATE
+				RETURN
+			END CATCH
      
-     FETCH NEXT FROM C_PBT_BILL_CREATE INTO  @V_WRTDPT_CD,
-											 @V_BILL_GBN,
-											 @V_ACCNT_CD,
-											 @V_SEQ_BILL,
-											 @V_AMT_BILL,
-											 @V_DEBSER_GBN,
-											 @V_CUST_CD,
-											 @V_COSTDPT_CD,
-											 @V_SUMMARY_BILL,
-											 @V_PROC_DT,
-											 @V_BANK_CD,
-											 @V_PAYMTWAY
+			FETCH NEXT FROM C_PBT_BILL_CREATE INTO  @V_WRTDPT_CD,
+													@V_BILL_GBN,
+													@V_ACCNT_CD,
+													@V_SEQ_BILL,
+													@V_AMT_BILL,
+													@V_DEBSER_GBN,
+													@V_CUST_CD,
+													@V_COSTDPT_CD,
+													@V_SUMMARY_BILL,
+													@V_PROC_DT,
+													@V_BANK_CD,
+													@V_PAYMTWAY
 	 END 
        
      CLOSE C_PBT_BILL_CREATE  --1번째 커서 종료         
@@ -609,6 +651,7 @@ BEGIN TRY
   ERR_HANDLER:
 		begin try
 			PRINT('에러발생')
+			CLOSE C_PBT_BILL_CREATE;
 			DEALLOCATE	C_PBT_BILL_CREATE;
 		end try
 		begin catch
@@ -655,12 +698,11 @@ BEGIN CATCH
 	--EXECUTE p_ba_errlib_getusererrormsg @P_COMPANY, 'SP_DEBIS_INSERT',  @v_error_number , @v_error_severity, @v_error_state, @v_error_line, @v_error_message
 
 		begin try
-		PRINT('비긴트라이')
+		--PRINT('비긴트라이')
 			DEALLOCATE	C_PBT_BILL_CREATE;
 		end try
 		begin catch
-		print 'Error CATCH Process Block';
+		--print 'Error CATCH Process Block';
 		end catch;
 	RETURN;
 END CATCH 
-GO

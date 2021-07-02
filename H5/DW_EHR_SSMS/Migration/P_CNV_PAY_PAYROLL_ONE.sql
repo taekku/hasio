@@ -102,7 +102,7 @@ BEGIN
 			 WHERE CD_COMPANY LIKE ISNULL(@av_company_cd,'') + '%'
 			   AND YM_PAY BETWEEN @av_fr_month AND @av_to_month
 			   --AND (YM_PAY >= '201501' OR A.LVL_PAY1 = '600')
-			   AND (YM_PAY >= '201501' OR A.CD_PAYGP LIKE 'IB%')
+			   AND (YM_PAY >= '201501' OR A.CD_PAYGP LIKE 'IB%') -- 선원급여만 2015이전자료생성
 			   AND FG_SUPP LIKE ISNULL(@av_fg_supp, '') + '%'
 			   AND DT_PROV LIKE ISNULL(@av_dt_prov, '') + '%'
 			ORDER BY CD_COMPANY, YM_PAY, FG_SUPP, DT_PROV, CD_PAYGP

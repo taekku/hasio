@@ -2,7 +2,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE dbo.P_TBS_DEBIS_WITHHOLD(
+ALTER PROCEDURE [dbo].[P_TBS_DEBIS_WITHHOLD](
 		@av_company_cd			NVARCHAR(10),   -- 회사코드
 		@av_hrtype_cd			NVARCHAR(10),	-- 인력유형
 		@av_tax_kind_cd			NVARCHAR(10),	-- 원천세구분 (급여 : A1, 상여 : B1, 연말정산 : E1, 퇴직정산 : C1 ,중도정산 : D1)
@@ -72,8 +72,8 @@ DECLARE
 	@V_CNT_DUP                  NUMERIC(10),
 	@OPENQUERY					nvarchar(4000), 
 	@TSQL						nvarchar(4000), 
-	--@LinkedServer				nvarchar(20) = 'DEBIS',
-	@LinkedServer				nvarchar(20) = 'DEBIS_DEV',
+	@LinkedServer				nvarchar(20) = 'DEBIS',
+	--@LinkedServer				nvarchar(20) = 'DEBIS_DEV',
 	
 	/* BEGIN CATCH 사용할 변수 정의  */
 	@v_error_number				INT,
@@ -405,7 +405,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 							PRINT('@V_MAN_TAX : ' + CAST(@V_MAN_TAX AS VARCHAR))
 							PRINT('@P_SABUN : ' + CAST(@v_emp_no AS VARCHAR))
 							--INSERT INTO TB_FI312
-							INSERT OPENQUERY(DEBIS_DEV, 'SELECT CLOSE_YM      
+							INSERT OPENQUERY(DEBIS, 'SELECT CLOSE_YM      
 															 ,ACCT_DEPT_CD   
 															 ,WITHHOLD_CLS_CD
 															 ,WORK_SITE_CD
@@ -491,9 +491,11 @@ DECLARE @v_program_id		NVARCHAR(30)
 					  FROM PAY_PAY_YMD YMD
 					  JOIN PAY_PAYROLL PAY
 						ON YMD.PAY_YMD_ID = PAY.PAY_YMD_ID
+					  JOIN PHM_EMP EMP
+					    ON PAY.EMP_ID = EMP.EMP_ID
 					  JOIN PHM_PRIVATE PRI
 						ON PAY.EMP_ID = PRI.EMP_ID
-					   AND YMD.PAY_YMD BETWEEN PRI.STA_YMD AND PRI.END_YMD
+					   AND CASE WHEN EMP.IN_OFFI_YN != 'Y' THEN EMP.RETIRE_YMD WHEN YMD.PAY_YMD < EMP.HIRE_YMD THEN EMP.HIRE_YMD ELSE YMD.PAY_YMD END BETWEEN PRI.STA_YMD AND PRI.END_YMD
 					  JOIN ORM_COST COST
 						ON PAY.ACC_CD = COST.COST_CD
 					   AND YMD.COMPANY_CD = COST.COMPANY_CD
@@ -601,7 +603,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 					ELSE
 						BEGIN
 						 --INSERT INTO TB_FI312
-							INSERT OPENQUERY(DEBIS_DEV, 'SELECT CLOSE_YM   
+							INSERT OPENQUERY(DEBIS, 'SELECT CLOSE_YM   
 															 ,ACCT_DEPT_CD   
 															 ,WITHHOLD_CLS_CD
 															 ,WORK_SITE_CD
@@ -774,7 +776,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 					ELSE
 						BEGIN
 							--INSERT INTO TB_FI312
-							INSERT OPENQUERY(DEBIS_DEV, 'SELECT CLOSE_YM  
+							INSERT OPENQUERY(DEBIS, 'SELECT CLOSE_YM  
 															 ,ACCT_DEPT_CD   
 															 ,WITHHOLD_CLS_CD
 															 ,WORK_SITE_CD
@@ -944,7 +946,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 						BEGIN
 							print('인서트구문 실행')
 							--INSERT INTO TB_FI312
-							INSERT OPENQUERY(DEBIS_DEV, 'SELECT CLOSE_YM   
+							INSERT OPENQUERY(DEBIS, 'SELECT CLOSE_YM   
 															 ,ACCT_DEPT_CD   
 															 ,WITHHOLD_CLS_CD
 															 ,WORK_SITE_CD
@@ -1119,7 +1121,7 @@ DECLARE @v_program_id		NVARCHAR(30)
 						BEGIN
 							PRINT('인서트구문 수행')
 							--INSERT INTO TB_FI312
-							INSERT OPENQUERY(DEBIS_DEV, 'SELECT CLOSE_YM  
+							INSERT OPENQUERY(DEBIS, 'SELECT CLOSE_YM  
 															 ,ACCT_DEPT_CD   
 															 ,WITHHOLD_CLS_CD
 															 ,WORK_SITE_CD
@@ -1200,4 +1202,3 @@ DECLARE @v_program_id		NVARCHAR(30)
                                         @v_program_id,  0000,  NULL, NULL)
 		PRINT('av_ret_message:' + @av_ret_message)
 	RETURN
-GO

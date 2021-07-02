@@ -21,7 +21,7 @@ set @av_company_cd = ''
 	 WHERE B.COMPANY_CD like ISNULL(@av_company_cd,'') + '%'
 	-- ·Î¿¢½º(Á¦¿Ü)
 	DELETE FROM A
-	  FROM PBT_INCITEM A
+	  FROM PBT_EXCITEM A
 	  JOIN PBT_ACCNT_STD B
 	    ON A.PBT_ACCNT_STD_ID = B.PBT_ACCNT_STD_ID
 	 WHERE B.COMPANY_CD like ISNULL(@av_company_cd,'') + '%'

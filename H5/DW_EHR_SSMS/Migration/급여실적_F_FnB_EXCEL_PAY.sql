@@ -45,7 +45,9 @@ set @av_company_cd = 'F'
 
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202102')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202103','202104')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202105','202105')
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('202105','202105')
+
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202104')
 
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
@@ -75,6 +77,7 @@ WHILE 1=1
 										 AND B.CD_KIND = 'PAY_TYPE_CD'
 										 AND YMD.PAY_TYPE_CD = B.CD
 										 --AND (YMD.PAY_YM = '202105' OR ISNULL(B.SYS_CD, '') = '001')
+										 AND B.SYS_CD = '007'
 										 AND YMD.COMPANY_CD = @av_company_cd
 										 AND B.COMPANY_CD = @av_company_cd
 										where YMD.COMPANY_CD like ISNULL(@av_company_cd,'') + '%'
@@ -89,6 +92,7 @@ WHILE 1=1
 										 AND B.CD_KIND = 'PAY_TYPE_CD'
 										 AND YMD.PAY_TYPE_CD = B.CD
 										 --AND (YMD.PAY_YM = '202105' OR ISNULL(B.SYS_CD, '') = '001')
+										 AND B.SYS_CD = '007'
 										 AND YMD.COMPANY_CD = @av_company_cd
 										 AND B.COMPANY_CD = @av_company_cd
 										where YMD.COMPANY_CD like ISNULL(@av_company_cd,'') + '%'
@@ -102,6 +106,7 @@ WHILE 1=1
 										 AND B.CD_KIND = 'PAY_TYPE_CD'
 										 AND YMD.PAY_TYPE_CD = B.CD
 										 --AND (YMD.PAY_YM = '202105' OR ISNULL(B.SYS_CD, '') = '001')
+										 AND B.SYS_CD = '007'
 										 AND YMD.COMPANY_CD = @av_company_cd
 										 AND B.COMPANY_CD = @av_company_cd
 										where YMD.COMPANY_CD like ISNULL(@av_company_cd,'') + '%'
@@ -115,7 +120,7 @@ WHILE 1=1
 								, @av_fr_month = @av_fr_month
 								, @av_to_month = @av_to_month
 								, @av_cd_paygp = NULL
-								, @av_sap_kind1 = NULL
+								, @av_sap_kind1 = 'B' -- ÅðÁ÷¿ù±Þ¿©
 								, @av_sap_kind2 = NULL
 								, @av_dt_prov = NULL
 

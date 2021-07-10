@@ -34,7 +34,7 @@ set @av_company_cd = 'H'
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202103') -- 
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202104','202105') -- 
 insert into @bundle(FR_MONTH, TO_MONTH) values ('202105','202105') -- 
-SELECT @av_fg_supp = '002', @av_dt_prov='20210501'
+SELECT @av_fg_supp = '002', @av_dt_prov='20210529'
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
 SELECT FR_MONTH, TO_MONTH

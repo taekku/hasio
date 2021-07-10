@@ -22,7 +22,7 @@ set @an_try_no = 3 -- 시도회차( 같은 [번호 + 파라미터]의 로그를 삭제 )
 set @av_company_cd = 'X'
 
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201601','201612') -- 급여그룹이상 19,664건
-insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712') -- 급여그룹이상 18,054건
+--insert into @bundle(FR_MONTH, TO_MONTH) values ('201701','201712') -- 급여그룹이상 18,054건
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812') -- 총12,741 급여그룹이상 561건 조회그룹 398건
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912') -- 조회그룹 19건
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012') -- 조회그룹 7건

@@ -25,7 +25,9 @@ set @av_company_cd = 'C'
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201801','201812')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('201901','201912')
 --insert into @bundle(FR_MONTH, TO_MONTH) values ('202001','202012')
-insert into @bundle(FR_MONTH, TO_MONTH) values ('202101','202105')
+insert into @bundle(FR_MONTH, TO_MONTH) values ('202105','202105')
+SET @av_dt_prov = '20210531'
+SET @av_fg_supp = '002'
 
 
 DECLARE CNV_PAY_CUR CURSOR READ_ONLY FOR
@@ -47,22 +49,22 @@ WHILE 1=1
 		-- 급여실적이관(급여내역(대상자))
 		-- ==============================================
 			-- 자료삭제
-			DELETE FROM PAY_PAYROLL_DETAIL
-			 WHERE BEL_PAY_YMD_ID in (select PAY_YMD_ID from PAY_PAY_YMD t
-								   where company_cd like ISNULL(@av_company_cd,'') + '%'
-									 and t.PAY_YM between @av_fr_month and @av_to_month
-								 )
-			-- 자료삭제
-			DELETE FROM PAY_PAYROLL
-			 WHERE PAY_YMD_ID in (select PAY_YMD_ID from PAY_PAY_YMD
-								   where company_cd like ISNULL(@av_company_cd,'') + '%'
-									 and PAY_YM between @av_fr_month and @av_to_month
-								 )
-			-- 급여일자삭제
-			DELETE
-			from PAY_PAY_YMD
-			where company_cd like ISNULL(@av_company_cd,'') + '%'
-				and PAY_YM between @av_fr_month and @av_to_month
+			--DELETE FROM PAY_PAYROLL_DETAIL
+			-- WHERE BEL_PAY_YMD_ID in (select PAY_YMD_ID from PAY_PAY_YMD t
+			--					   where company_cd like ISNULL(@av_company_cd,'') + '%'
+			--						 and t.PAY_YM between @av_fr_month and @av_to_month
+			--					 )
+			---- 자료삭제
+			--DELETE FROM PAY_PAYROLL
+			-- WHERE PAY_YMD_ID in (select PAY_YMD_ID from PAY_PAY_YMD
+			--					   where company_cd like ISNULL(@av_company_cd,'') + '%'
+			--						 and PAY_YM between @av_fr_month and @av_to_month
+			--					 )
+			---- 급여일자삭제
+			--DELETE
+			--from PAY_PAY_YMD
+			--where company_cd like ISNULL(@av_company_cd,'') + '%'
+			--	and PAY_YM between @av_fr_month and @av_to_month
 			-- 자료전환
 			IF ISNULL(@v_work_kind, '') <> 'D'
 				BEGIN

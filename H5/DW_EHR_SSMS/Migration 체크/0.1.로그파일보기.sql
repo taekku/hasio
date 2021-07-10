@@ -5,14 +5,14 @@ SELECT A.*, getdate() AS [현재시간]
    --AND PARAMS LIKE '2,@company_cd=A%'
    --AND PARAMS LIKE '2,@company_cd=T%'
    --AND PARAMS LIKE '2,@company_cd=W%'
-   --AND PARAMS LIKE '3,@company_cd=F%'
+   AND PARAMS LIKE '4,@company_cd=F%'
    --AND PARAMS LIKE '4,@company_cd=F%'
    --AND PARAMS LIKE '3,@company_cd=C%'
    --AND PARAMS LIKE '3,@company_cd=E%'
    --AND PARAMS LIKE '3,@company_cd=H%'
    --AND PARAMS LIKE '3,@company_cd=M%'
-   AND PARAMS LIKE '3,@company_cd=X%'
-   AND FORMAT(STA_TIME, 'yyyyMMdd')  = '20210630'
+   --AND PARAMS LIKE '3,@company_cd=X%'
+   AND FORMAT(STA_TIME, 'yyyyMMdd')  = '20210710'
    --AND CNV_PAY_WORK_ID <= 1684
    --AND CNT_FAIL > 0
    --AND CNV_PAY_WORK_ID IN (1896,1897)
@@ -30,11 +30,11 @@ SELECT A.CNV_PAY_WORK_ID, KEYS, ERR_MSG--, LOG_DATE
    --AND B.PARAMS LIKE '2,@company_cd=W%'
    --AND PARAMS LIKE '3,@company_cd=H%'
    --AND PARAMS LIKE '3,@company_cd=E%'
-   --AND PARAMS LIKE '4,@company_cd=F%'
+   AND PARAMS LIKE '4,@company_cd=F%'
    --AND PARAMS LIKE '3,@company_cd=C%'
-   AND PARAMS LIKE '3,@company_cd=X%'
+   --AND PARAMS LIKE '3,@company_cd=X%'
    and CNT_TRY > 0
-   AND FORMAT(STA_TIME, 'yyyyMMdd') = '20210630'
+   AND FORMAT(STA_TIME, 'yyyyMMdd') = '20210710'
 
 
 --SELECT *

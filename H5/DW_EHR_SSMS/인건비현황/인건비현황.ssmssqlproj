@@ -31,6 +31,12 @@
     </LogicalFolder>
     <LogicalFolder Name="쿼리" Type="0" Sorted="true">
       <Items>
+        <FileNode Name="F_PEB_0202.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>F_PEB_0202.sql</FullPath>
+        </FileNode>
         <FileNode Name="F_PEB_0210.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>

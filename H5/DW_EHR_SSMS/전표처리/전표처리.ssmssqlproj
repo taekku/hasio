@@ -62,8 +62,8 @@
           <FullPath>ECC_JNP_경조금전표.sql</FullPath>
         </FileNode>
         <FileNode Name="P_CNV_PBT_ACCNT_STD.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_CNV_PBT_ACCNT_STD.sql</FullPath>
         </FileNode>
@@ -74,8 +74,8 @@
           <FullPath>P_PBT_AT_DEBIS_B_IF(전표생성).sql</FullPath>
         </FileNode>
         <FileNode Name="P_PBT_AT_DEBIS_IF(전표생성).sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_PBT_AT_DEBIS_IF(전표생성).sql</FullPath>
         </FileNode>
@@ -110,8 +110,8 @@
           <FullPath>P_TBS_DEBIS_WITHHOLD(테스트4).sql</FullPath>
         </FileNode>
         <FileNode Name="P_TBS_DEBIS_WITHHOLD.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
           <FullPath>P_TBS_DEBIS_WITHHOLD.sql</FullPath>
         </FileNode>
@@ -170,10 +170,28 @@
           <FullPath>로그인정보관리.sql</FullPath>
         </FileNode>
         <FileNode Name="로엑스_이관.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbreal:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbreal</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>로엑스_이관.sql</FullPath>
+        </FileNode>
+        <FileNode Name="사원정보_VI_PAY_ACCOUNT_INF_C.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
           <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
-          <FullPath>로엑스_이관.sql</FullPath>
+          <FullPath>사원정보_VI_PAY_ACCOUNT_INF_C.sql</FullPath>
+        </FileNode>
+        <FileNode Name="사원정보_VI_PAY_ACCOUNT_INF_F.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>사원정보_VI_PAY_ACCOUNT_INF_F.sql</FullPath>
+        </FileNode>
+        <FileNode Name="사원정보_VI_PAY_ACCOUNT_INF_H.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dbdev</AssociatedConnSrvName>
+          <AssociatedConnUserName>ehr_devel11</AssociatedConnUserName>
+          <FullPath>사원정보_VI_PAY_ACCOUNT_INF_H.sql</FullPath>
         </FileNode>
         <FileNode Name="업무기준복사.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dbdev:False:ehr_devel11</AssociatedConnectionMoniker>
